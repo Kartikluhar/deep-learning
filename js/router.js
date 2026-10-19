@@ -269,9 +269,9 @@ MLForge.router = (function () {
           <div style="display: flex; flex-direction: column; gap: 0.75rem;">
             ${(MLForge.data.topics || []).slice(0, 4).map(t => `
               <a href="#topics/${t.id}" class="card card-interactive" style="padding: 1rem;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem;">
-                  <span style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">${t.title}</span>
-                  <span class="badge badge-blue" style="font-size: 0.65rem;">${t.section}</span>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+                  <span style="font-weight: 600; font-size: 0.95rem; color: var(--text-main); word-break: break-word;">${t.title}</span>
+                  <span class="badge badge-blue" style="font-size: 0.65rem; flex-shrink: 0;">${t.section}</span>
                 </div>
                 <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">${t.summary}</p>
               </a>
@@ -290,9 +290,9 @@ MLForge.router = (function () {
           <div style="display: flex; flex-direction: column; gap: 0.75rem;">
             ${(MLForge.data.formulas || []).slice(0, 4).map(f => `
               <div class="card" style="padding: 1rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-                  <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-main);">${f.name}</span>
-                  <a href="#calculators/${f.calculatorId}" class="btn btn-sm btn-ghost" style="padding: 2px 6px; font-size: 0.7rem; color: var(--color-accent-cyan);">Calc ↗</a>
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.35rem;">
+                  <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); word-break: break-word;">${f.name}</span>
+                  <a href="#calculators/${f.calculatorId}" class="btn btn-sm btn-ghost" style="padding: 2px 6px; font-size: 0.7rem; color: var(--color-accent-cyan); flex-shrink: 0;">Calc ↗</a>
                 </div>
                 <div class="math-block" style="padding: 0.45rem 0.75rem; font-size: 0.9rem; margin: 0.35rem 0;">${f.expression}</div>
                 <div style="font-size: 0.75rem; color: var(--text-muted);">${f.whenToUse.slice(0, 80)}...</div>
@@ -1071,7 +1071,7 @@ MLForge.router = (function () {
         <!-- Topic Reader Article -->
         <article class="topic-article">
           <div class="topic-article-header">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
               <span class="badge badge-cyan">${currentTopic.section} • ${currentTopic.category}</span>
               <button class="btn btn-sm btn-secondary" onclick="MLForge.router.toggleBookmark(this)" data-id="${currentTopic.id}" data-type="topic" data-title="${currentTopic.title}">
                 ${MLForge.storage.isBookmarked(currentTopic.id) ? '★ Bookmarked' : '☆ Bookmark Topic'}
@@ -1131,11 +1131,11 @@ MLForge.router = (function () {
 
           ${currentTopic.codeSnippet ? `
             <section>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem;">
-                <h2 class="topic-section-title" style="margin: 0;">Python Implementation Example</h2>
-                <button class="btn btn-sm btn-ghost" onclick="MLForge.ui.copyToClipboard(document.getElementById('topic-code-block').innerText, 'Code copied!')">
+              <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center; justify-content: space-between; margin-top: 1.5rem; width: 100%; min-width: 0;">
+                <h2 class="topic-section-title" style="margin: 0; min-width: 0; flex: 1 1 180px;">Python Implementation Example</h2>
+                <button class="btn btn-sm btn-ghost" style="flex-shrink: 0;" onclick="MLForge.ui.copyToClipboard(document.getElementById('topic-code-block').innerText, 'Code copied!')">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                  Copy Python Snippet
+                  Copy Snippet
                 </button>
               </div>
               <div class="code-container">
@@ -1243,19 +1243,19 @@ MLForge.router = (function () {
       <div style="display: flex; flex-direction: column; gap: 2rem;">
         ${codes.map(c => `
           <div class="card" id="code-${c.id}">
-            <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem;">
-              <div>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div style="min-width: 0; flex: 1;">
                 <span class="badge ${c.category === 'PyTorch' ? 'badge-rose' : c.category === 'Deployment' ? 'badge-emerald' : 'badge-cyan'}" style="margin-bottom: 0.35rem;">${c.category}</span>
-                <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">${c.title}</h3>
+                <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); word-break: break-word;">${c.title}</h3>
               </div>
-              <button class="btn btn-sm btn-secondary" onclick="MLForge.ui.copyToClipboard(document.getElementById('code-pre-${c.id}').innerText, 'Code copied!')">
+              <button class="btn btn-sm btn-secondary" style="flex-shrink: 0;" onclick="MLForge.ui.copyToClipboard(document.getElementById('code-pre-${c.id}').innerText, 'Code copied!')">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 Copy Code
               </button>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5;">${c.description}</p>
-            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-              Requirements: <code style="color: var(--color-accent-cyan);">${c.requirements}</code>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; word-break: break-word;">${c.description}</p>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; word-break: break-word;">
+              Requirements: <code style="color: var(--color-accent-cyan); word-break: break-word;">${c.requirements}</code>
             </div>
 
             <div class="code-container">

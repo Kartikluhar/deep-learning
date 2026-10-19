@@ -222,8 +222,8 @@ MLForge.viz.cnn = {
     // Render Input Matrix
     const paddedDim = W + 2 * P;
     const inGrid = document.getElementById('cnn-input-grid');
-    inGrid.style.gridTemplateColumns = `repeat(${paddedDim}, 32px)`;
-    inGrid.style.gridTemplateRows = `repeat(${paddedDim}, 32px)`;
+    inGrid.style.gridTemplateColumns = `repeat(${paddedDim}, var(--matrix-cell-size, 32px))`;
+    inGrid.style.gridTemplateRows = `repeat(${paddedDim}, var(--matrix-cell-size, 32px))`;
 
     let inHtml = "";
     for (let r = 0; r < paddedDim; r++) {
@@ -242,8 +242,8 @@ MLForge.viz.cnn = {
 
     // Render Output Matrix
     const outGrid = document.getElementById('cnn-output-grid');
-    outGrid.style.gridTemplateColumns = `repeat(${outDim}, 36px)`;
-    outGrid.style.gridTemplateRows = `repeat(${outDim}, 36px)`;
+    outGrid.style.gridTemplateColumns = `repeat(${outDim}, var(--matrix-cell-size, 32px))`;
+    outGrid.style.gridTemplateRows = `repeat(${outDim}, var(--matrix-cell-size, 32px))`;
 
     let outHtml = "";
     for (let r = 0; r < outDim; r++) {
@@ -251,7 +251,7 @@ MLForge.viz.cnn = {
         const isActive = (r === outRow && c === outCol);
         let cellClass = "matrix-cell";
         if (isActive) cellClass += " output-active";
-        outHtml += `<div class="${cellClass}" style="width: 36px; height: 36px;">${isActive ? '★' : '·'}</div>`;
+        outHtml += `<div class="${cellClass}">${isActive ? '★' : '·'}</div>`;
       }
     }
     outGrid.innerHTML = outHtml;

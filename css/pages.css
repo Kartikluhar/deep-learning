@@ -104,7 +104,7 @@
 
 .dashboard-tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.25rem;
   margin-bottom: 2.5rem;
 }
@@ -235,7 +235,7 @@
    ========================================================================== */
 .playground-container {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 360px minmax(0, 1fr);
   gap: 1.5rem;
   background: var(--bg-card);
   border: 1px solid var(--border-card);
@@ -298,8 +298,8 @@
 }
 
 .matrix-cell {
-  width: 32px;
-  height: 32px;
+  width: var(--matrix-cell-size, 32px);
+  height: var(--matrix-cell-size, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -329,7 +329,7 @@
    ========================================================================== */
 .formula-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
 }
 
@@ -351,7 +351,7 @@
    ========================================================================== */
 .topic-browser {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 1.75rem;
 }
 
