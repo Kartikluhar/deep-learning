@@ -111,6 +111,15 @@ MLForge.search = (function () {
         });
       });
     }
+
+    // 6. Math Verification Test Suite
+    searchIndex.push({
+      id: 'math-verification',
+      title: 'Math Formula Verification & KaTeX Test Suite',
+      desc: 'Interactive test suite verifying fractions, summations, Greek letters, gradients, matrices, and piecewise equations.',
+      category: 'Reference',
+      link: '#math-verification'
+    });
   }
 
   function init() {
@@ -260,6 +269,10 @@ MLForge.search = (function () {
     });
 
     resultsList.innerHTML = html;
+
+    if (window.MLForge && MLForge.math) {
+      MLForge.math.render(resultsList);
+    }
 
     // Click handler on items
     resultsList.querySelectorAll('.search-result-item').forEach(el => {

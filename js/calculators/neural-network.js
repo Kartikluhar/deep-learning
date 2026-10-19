@@ -44,12 +44,12 @@ MLForge.calculators.nn = {
     const linearCombination = weightedSum + b; // z
 
     steps.push({
-      label: "1. Dot Product (Σ wᵢ · xᵢ)",
-      calc: products.join(" + ") + ` = ${weightedSum.toFixed(4)}`
+      label: "1. Dot Product: \\(\\sum_{i=1}^n w_i x_i\\)",
+      calc: products.join(" + ") + ` = <strong>${weightedSum.toFixed(4)}</strong>`
     });
     steps.push({
-      label: "2. Add Bias Offset (z = Σ + b)",
-      calc: `${weightedSum.toFixed(4)} + ${b} = ${linearCombination.toFixed(4)}`
+      label: "2. Add Bias Offset: \\(z = \\sum w_i x_i + b\\)",
+      calc: `${weightedSum.toFixed(4)} + ${b} = <strong>${linearCombination.toFixed(4)}</strong>`
     });
 
     // Activation
@@ -59,24 +59,24 @@ MLForge.calculators.nn = {
     switch (activation.toLowerCase()) {
       case 'sigmoid':
         activated = 1 / (1 + Math.exp(-linearCombination));
-        actFormula = `σ(z) = 1 / (1 + e^(-${linearCombination.toFixed(4)})) = ${activated.toFixed(4)}`;
+        actFormula = `\\(\\sigma(z) = \\frac{1}{1 + e^{-z}} = \\frac{1}{1 + e^{-(${linearCombination.toFixed(4)})}} =\\) <strong>${activated.toFixed(4)}</strong>`;
         break;
       case 'tanh':
         activated = Math.tanh(linearCombination);
-        actFormula = `tanh(z) = tanh(${linearCombination.toFixed(4)}) = ${activated.toFixed(4)}`;
+        actFormula = `\\(\\tanh(z) = \\tanh(${linearCombination.toFixed(4)}) =\\) <strong>${activated.toFixed(4)}</strong>`;
         break;
       case 'relu':
         activated = Math.max(0, linearCombination);
-        actFormula = `ReLU(z) = max(0, ${linearCombination.toFixed(4)}) = ${activated.toFixed(4)}`;
+        actFormula = `\\(\\text{ReLU}(z) = \\max(0, ${linearCombination.toFixed(4)}) =\\) <strong>${activated.toFixed(4)}</strong>`;
         break;
       case 'leaky_relu':
         activated = linearCombination > 0 ? linearCombination : 0.01 * linearCombination;
-        actFormula = `LeakyReLU(z) = max(0.01z, z) = ${activated.toFixed(4)}`;
+        actFormula = `\\(\\text{LeakyReLU}(z) = \\max(0.01z, z) =\\) <strong>${activated.toFixed(4)}</strong>`;
         break;
       case 'linear':
       default:
         activated = linearCombination;
-        actFormula = `Linear(z) = ${linearCombination.toFixed(4)}`;
+        actFormula = `\\(\\text{Linear}(z) =\\) <strong>${linearCombination.toFixed(4)}</strong>`;
         break;
     }
 
@@ -187,7 +187,7 @@ MLForge.calculators.nn = {
           const yp = Number(yPredArr[i]);
           const diff = yt - yp;
           const sq = diff * diff;
-          individualErrors.push(`(y${i+1} - ŷ${i+1})² = (${yt} - ${yp})² = ${sq.toFixed(4)}`);
+          individualErrors.push(`\\((y_{${i+1}} - \\hat{y}_{${i+1}})^2 = (${yt} - ${yp})^2 = ${sq.toFixed(4)}\\)`);
           totalLoss += sq;
         }
         const mse = totalLoss / n;
@@ -196,8 +196,8 @@ MLForge.calculators.nn = {
           calc: individualErrors.join("<br>")
         });
         steps.push({
-          label: "2. Mean Squared Error (1/n Σ)",
-          calc: `Total sum = ${totalLoss.toFixed(4)} ÷ ${n} = ${mse.toFixed(4)}`
+          label: "2. Mean Squared Error: \\(\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^n (y_i - \\hat{y}_i)^2\\)",
+          calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\text{MSE} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${mse.toFixed(4)}</strong>`
         });
         return { loss: mse, rmse: Math.sqrt(mse), steps };
       }
@@ -206,12 +206,12 @@ MLForge.calculators.nn = {
           const yt = Number(yTrueArr[i]);
           const yp = Number(yPredArr[i]);
           const absDiff = Math.abs(yt - yp);
-          individualErrors.push(`|y${i+1} - ŷ${i+1}| = |${yt} - ${yp}| = ${absDiff.toFixed(4)}`);
+          individualErrors.push(`\\(|y_{${i+1}} - \\hat{y}_{${i+1}}| = |${yt} - ${yp}| = ${absDiff.toFixed(4)}\\)`);
           totalLoss += absDiff;
         }
         const mae = totalLoss / n;
         steps.push({ label: "1. Absolute Residuals", calc: individualErrors.join("<br>") });
-        steps.push({ label: "2. Mean Absolute Error", calc: `${totalLoss.toFixed(4)} ÷ ${n} = ${mae.toFixed(4)}` });
+        steps.push({ label: "2. Mean Absolute Error: \\(\\text{MAE} = \\frac{1}{n} \\sum_{i=1}^n |y_i - \\hat{y}_i|\\)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\text{MAE} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${mae.toFixed(4)}</strong>` });
         return { loss: mae, steps };
       }
       case 'huber': {
@@ -226,12 +226,12 @@ MLForge.calculators.nn = {
           } else {
             err = delta * (absDiff - 0.5 * delta);
           }
-          individualErrors.push(`|error|=${absDiff.toFixed(2)} → Huber=${err.toFixed(4)}`);
+          individualErrors.push(`\\(|\\text{error}| = ${absDiff.toFixed(2)} \\implies L_\\delta = ${err.toFixed(4)}\\)`);
           totalLoss += err;
         }
         const huberLoss = totalLoss / n;
-        steps.push({ label: `1. Huber Errors (δ = ${delta})`, calc: individualErrors.join("<br>") });
-        steps.push({ label: "2. Mean Huber Loss", calc: `${totalLoss.toFixed(4)} ÷ ${n} = ${huberLoss.toFixed(4)}` });
+        steps.push({ label: `1. Huber Errors (\\(\\delta = ${delta}\\))`, calc: individualErrors.join("<br>") });
+        steps.push({ label: "2. Mean Huber Loss: \\(\\frac{1}{n} \\sum L_\\delta\\)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies L_\\delta = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${huberLoss.toFixed(4)}</strong>` });
         return { loss: huberLoss, steps };
       }
       case 'bce': {
@@ -244,12 +244,12 @@ MLForge.calculators.nn = {
           }
           yp = Math.max(eps, Math.min(1 - eps, yp)); // Numerical clip
           const term = -(yt * Math.log(yp) + (1 - yt) * Math.log(1 - yp));
-          individualErrors.push(`Sample ${i+1}: -[${yt}·ln(${yp.toFixed(4)}) + ${1-yt}·ln(${(1-yp).toFixed(4)})] = ${term.toFixed(4)}`);
+          individualErrors.push(`\\(\\text{Sample } ${i+1}: -[${yt}\\ln(${yp.toFixed(4)}) + ${1-yt}\\ln(${(1-yp).toFixed(4)})] = ${term.toFixed(4)}\\)`);
           totalLoss += term;
         }
         const bce = totalLoss / n;
-        steps.push({ label: "1. Per-Sample Log Loss (with 1e-15 safety clipping)", calc: individualErrors.join("<br>") });
-        steps.push({ label: "2. Binary Cross-Entropy Average", calc: `${totalLoss.toFixed(4)} ÷ ${n} = ${bce.toFixed(4)}` });
+        steps.push({ label: "1. Per-Sample Log Loss (with \\(10^{-15}\\) safety clipping)", calc: individualErrors.join("<br>") });
+        steps.push({ label: "2. Binary Cross-Entropy: \\(\\mathcal{L}_{\\text{BCE}} = -\\frac{1}{n} \\sum [y_i \\ln p_i + (1-y_i)\\ln(1-p_i)]\\)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\mathcal{L}_{\\text{BCE}} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${bce.toFixed(4)}</strong>` });
         return { loss: bce, steps };
       }
       default:
@@ -282,23 +282,23 @@ MLForge.calculators.nn = {
       newVelocity = gamma * vOld + lr * grad;
       newParam = theta - newVelocity;
       steps.push({
-        label: "1. Update Momentum Velocity (v_t = γ·v_{t-1} + η·∇)",
-        calc: `(${gamma} × ${vOld.toFixed(4)}) + (${lr} × ${grad.toFixed(4)}) = ${newVelocity.toFixed(4)}`
+        label: "1. Update Momentum Velocity: \\(v_t = \\gamma v_{t-1} + \\eta \\nabla J(\\theta)\\)",
+        calc: `(${gamma} \\times ${vOld.toFixed(4)}) + (${lr} \\times ${grad.toFixed(4)}) = <strong>${newVelocity.toFixed(4)}</strong>`
       });
       steps.push({
-        label: "2. Update Parameter (θ_new = θ - v_t)",
-        calc: `${theta.toFixed(4)} - ${newVelocity.toFixed(4)} = ${newParam.toFixed(4)}`
+        label: "2. Update Parameter: \\(\\theta_{\\text{new}} = \\theta_{\\text{old}} - v_t\\)",
+        calc: `${theta.toFixed(4)} - ${newVelocity.toFixed(4)} = <strong>${newParam.toFixed(4)}</strong>`
       });
     } else {
       const delta = lr * grad;
       newParam = theta - delta;
       steps.push({
-        label: "1. Calculate Step Delta (Δθ = η · ∇J)",
-        calc: `${lr} × ${grad.toFixed(4)} = ${delta.toFixed(4)}`
+        label: "1. Calculate Step Delta: \\(\\Delta\\theta = \\eta \\nabla J(\\theta)\\)",
+        calc: `${lr} \\times ${grad.toFixed(4)} = <strong>${delta.toFixed(4)}</strong>`
       });
       steps.push({
-        label: "2. Update Parameter (θ_new = θ - Δθ)",
-        calc: `${theta.toFixed(4)} - ${delta.toFixed(4)} = ${newParam.toFixed(4)}`
+        label: "2. Update Parameter: \\(\\theta_{\\text{new}} = \\theta_{\\text{old}} - \\eta \\nabla J(\\theta)\\)",
+        calc: `${theta.toFixed(4)} - ${delta.toFixed(4)} = <strong>${newParam.toFixed(4)}</strong>`
       });
     }
 
@@ -457,16 +457,16 @@ MLForge.calculators.nn = {
 
     const steps = [
       {
-        label: "Formula",
-        calc: "O = ⌊(Input_dim - EffectiveKernel + 2×Padding) / Stride⌋ + 1"
+        label: "Output Spatial Dimension Formula",
+        calc: "\\[W_{\\text{out}} = \\left\\lfloor \\frac{W_{\\text{in}} - K_{\\text{eff}} + 2P}{S} \\right\\rfloor + 1\\]"
       },
       {
-        label: "Height Calculation",
-        calc: `⌊(${inH} - ${effectiveKernel} + 2×${padding}) / ${stride}⌋ + 1 = ⌊${inH - effectiveKernel + 2 * padding} / ${stride}⌋ + 1 = ${outH}`
+        label: "Height Calculation: \\(H_{\\text{out}}\\)",
+        calc: `\\(\\left\\lfloor \\frac{${inH} - ${effectiveKernel} + 2(${padding})}{${stride}} \\right\\rfloor + 1 =\\) <strong>${outH}</strong>`
       },
       {
-        label: "Width Calculation",
-        calc: `⌊(${inW} - ${effectiveKernel} + 2×${padding}) / ${stride}⌋ + 1 = ⌊${inW - effectiveKernel + 2 * padding} / ${stride}⌋ + 1 = ${outW}`
+        label: "Width Calculation: \\(W_{\\text{out}}\\)",
+        calc: `\\(\\left\\lfloor \\frac{${inW} - ${effectiveKernel} + 2(${padding})}{${stride}} \\right\\rfloor + 1 =\\) <strong>${outW}</strong>`
       }
     ];
 

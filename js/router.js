@@ -53,6 +53,9 @@ MLForge.router = (function () {
       case 'bookmarks':
         renderBookmarks();
         break;
+      case 'math-verification':
+        renderMathVerification();
+        break;
       default:
         renderDashboard();
         break;
@@ -62,6 +65,10 @@ MLForge.router = (function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     MLForge.ui.updateContextPanel();
+
+    if (window.MLForge && window.MLForge.math) {
+      window.MLForge.math.render(contentArea);
+    }
   }
 
   function updateSidebarActiveState(route, param) {
@@ -321,7 +328,7 @@ MLForge.router = (function () {
                   <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); word-break: break-word;">${f.name}</span>
                   <a href="#calculators/${f.calculatorId}" class="btn btn-sm btn-ghost" style="padding: 2px 6px; font-size: 0.7rem; color: var(--color-accent-cyan); flex-shrink: 0;">Calc ↗</a>
                 </div>
-                <div class="math-block" style="padding: 0.45rem 0.75rem; font-size: 0.9rem; margin: 0.35rem 0;">${f.expression}</div>
+                <div class="math-block" style="padding: 0.45rem 0.75rem; font-size: 0.9rem; margin: 0.35rem 0;">\\[${f.latex || f.expression}\\]</div>
                 <div style="font-size: 0.75rem; color: var(--text-muted);">${f.whenToUse.slice(0, 80)}...</div>
               </div>
             `).join('')}
@@ -400,7 +407,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Formula: <code>z = Σ(wᵢ · xᵢ) + b</code> &nbsp;|&nbsp; Output: <code>a = f(z)</code>
+            \\[z = \\sum_{i=1}^n w_i x_i + b \\quad\\implies\\quad a = f(z)\\]
           </div>
           <div class="form-grid-3">
             <div class="form-group">
@@ -446,7 +453,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Precision = TP / (TP + FP) &nbsp;|&nbsp; Recall = TP / (TP + FN) &nbsp;|&nbsp; F1 = 2PR / (P + R)
+            \\[\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}, \\quad \\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}, \\quad F_1 = 2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}}\\]
           </div>
           <div class="form-grid-4">
             <div class="form-group">
@@ -482,7 +489,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Formula: <code>O = ⌊(Input - Kernel + 2×Padding) / Stride⌋ + 1</code>
+            \\[O = \\left\\lfloor \\frac{\\text{Input} - \\text{Kernel} + 2 \\cdot \\text{Padding}}{\\text{Stride}} \\right\\rfloor + 1\\]
           </div>
           <div class="form-grid-4">
             <div class="form-group">
@@ -526,7 +533,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            MSE = (1/n)Σ(y - ŷ)² &nbsp;|&nbsp; BCE = -(1/n)Σ[y·ln(p) + (1-y)·ln(1-p)]
+            \\[\\text{MSE} = \\frac{1}{n}\\sum_{i=1}^n (y_i - \\hat{y}_i)^2, \\quad \\text{BCE} = -\\frac{1}{n}\\sum_{i=1}^n \\left[y_i \\ln(p_i) + (1-y_i)\\ln(1-p_i)\\right]\\]
           </div>
           <div class="form-grid-3">
             <div class="form-group">
@@ -563,7 +570,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Parameters × Precision Bytes + Gradients + Optimizer Moments (Adam = 8B) + Context Buffer
+            \\[\\text{VRAM} \\approx (\\text{Params} \\times \\text{Bytes}) + \\text{Gradients} + \\text{Moments (Adam = 8B)} + \\text{Context Buffer}\\]
           </div>
           <div class="form-grid-4">
             <div class="form-group">
@@ -607,7 +614,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Formula: <code>θ_new = θ_old - η · ∇J(θ)</code> &nbsp;|&nbsp; Momentum: <code>v_t = γ·v_{t-1} + η·∇J</code>
+            \\[\\theta_{\\text{new}} = \\theta_{\\text{old}} - \\eta \\nabla J(\\theta), \\quad v_t = \\gamma v_{t-1} + \\eta \\nabla J(\\theta)\\]
           </div>
           <div class="form-grid-4">
             <div class="form-group">
@@ -643,7 +650,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Formula: <code>P(A|B) = [P(B|A) · P(A)] / P(B)</code>
+            \\[P(A|B) = \\frac{P(B|A) \\cdot P(A)}{P(B)} = \\frac{P(B|A) \\cdot P(A)}{P(B|A)P(A) + P(B|\\neg A)P(\\neg A)}\\]
           </div>
           <div class="form-grid-3">
             <div class="form-group">
@@ -678,7 +685,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Ensures percentages sum to 100% and calculates exact sample integer partitions without rounding drift.
+            \\[N_{\\text{total}} = N_{\\text{train}} + N_{\\text{val}} + N_{\\text{test}}, \\quad \\text{Ratio}_{\\text{train}} + \\text{Ratio}_{\\text{val}} + \\text{Ratio}_{\\text{test}} = 100\\%\\]
           </div>
           <div class="form-grid-4">
             <div class="form-group">
@@ -714,7 +721,7 @@ MLForge.router = (function () {
             </button>
           </div>
           <div class="calc-formula-ref">
-            Formula: <code>cos(θ) = (A · B) / (||A|| · ||B||)</code>
+            \\[\\cos(\\theta) = \\frac{\\mathbf{u} \\cdot \\mathbf{v}}{\\|\\mathbf{u}\\| \\, \\|\\mathbf{v}\\|} = \\frac{\\sum_{i=1}^n u_i v_i}{\\sqrt{\\sum_{i=1}^n u_i^2} \\cdot \\sqrt{\\sum_{i=1}^n v_i^2}}\\]
           </div>
           <div class="form-grid-2">
             <div class="form-group">
@@ -987,6 +994,9 @@ MLForge.router = (function () {
         ` : ''}
       </div>
     `;
+    if (window.MLForge && window.MLForge.math) {
+      window.MLForge.math.render(el);
+    }
   }
 
   function renderCalcError(targetId, errMsg) {
@@ -1102,19 +1112,19 @@ MLForge.router = (function () {
       <div class="topic-section-tabs">
         <button class="topic-section-btn ${activeCurriculumSection === 'all' ? 'active' : ''}" data-section="all">
           <span>All Topics</span>
-          <span class="badge badge-subtle">10</span>
+          <span class="badge badge-subtle">${topics.length}</span>
         </button>
         <button class="topic-section-btn ${activeCurriculumSection === 'Machine Learning' ? 'active' : ''}" data-section="Machine Learning">
           <span>Machine Learning</span>
-          <span class="badge badge-blue">6</span>
+          <span class="badge badge-blue">${topics.filter(t => t.section === 'Machine Learning').length}</span>
         </button>
         <button class="topic-section-btn ${activeCurriculumSection === 'Deep Learning' ? 'active' : ''}" data-section="Deep Learning">
           <span>Deep Learning</span>
-          <span class="badge badge-violet">3</span>
+          <span class="badge badge-violet">${topics.filter(t => t.section === 'Deep Learning').length}</span>
         </button>
         <button class="topic-section-btn ${activeCurriculumSection === 'Mathematics' ? 'active' : ''}" data-section="Mathematics">
           <span>Mathematics for AI</span>
-          <span class="badge badge-amber">1</span>
+          <span class="badge badge-amber">${topics.filter(t => t.section === 'Mathematics').length}</span>
         </button>
       </div>
 
@@ -1122,7 +1132,7 @@ MLForge.router = (function () {
         <!-- Sidebar Navigation / Mobile Swipe Ribbon -->
         <div class="topic-list-nav" id="topic-list-nav">
           <div style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); padding: 0.25rem 0.5rem 0.5rem;">
-            ${activeCurriculumSection === 'all' ? 'All Modules (10)' : activeCurriculumSection + ' (' + filteredTopics.length + ')'}
+            ${activeCurriculumSection === 'all' ? `All Modules (${topics.length})` : `${activeCurriculumSection} (${filteredTopics.length})`}
           </div>
           ${filteredTopics.map(t => `
             <a href="#topics/${t.id}" class="topic-nav-link ${t.id === currentTopic.id ? 'active' : ''}">
@@ -1172,7 +1182,7 @@ MLForge.router = (function () {
               ${currentTopic.formulas.map(f => `
                 <div style="margin-bottom: 0.75rem;">
                   <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">${f.name}</span>
-                  <div class="math-block">${f.exp}</div>
+                  <div class="math-block">\\[${f.exp}\\]</div>
                 </div>
               `).join('')}
             </section>
@@ -1273,7 +1283,7 @@ MLForge.router = (function () {
             <div class="formula-card-top">
               <span class="badge ${f.category === 'Deep Learning' ? 'badge-violet' : f.category === 'Machine Learning' ? 'badge-cyan' : 'badge-amber'}">${f.category}</span>
               <div style="display: flex; gap: 0.35rem;">
-                <button class="btn-icon-only" onclick="MLForge.ui.copyToClipboard('${f.expression}', 'Formula copied!')" title="Copy Formula">
+                <button class="btn-icon-only" onclick="MLForge.ui.copyToClipboard('${(f.latex || f.expression).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}', 'Formula LaTeX copied!')" title="Copy LaTeX Formula">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                 </button>
                 <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="${f.id}" data-type="formula" data-title="${f.name}" title="Bookmark Formula">
@@ -1283,14 +1293,14 @@ MLForge.router = (function () {
             </div>
 
             <h3 class="formula-name">${f.name}</h3>
-            <div class="math-block">${f.expression}</div>
+            <div class="math-block">\\[${f.latex || f.expression}\\]</div>
 
             <div style="margin-bottom: 0.75rem;">
               <span style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Symbols:</span>
               <div class="symbol-def-list">
                 ${f.symbols.map(s => `
                   <div class="symbol-item">
-                    <span class="symbol-key">${s.key}</span>
+                    <span class="symbol-key">\\(${s.key}\\)</span>
                     <span class="symbol-desc">${s.desc}</span>
                   </div>
                 `).join('')}
@@ -1422,6 +1432,225 @@ MLForge.router = (function () {
         </div>
       `}
     `;
+  }
+
+  // =========================================================================
+  // View 8: Math Verification Suite
+  // =========================================================================
+  function renderMathVerification() {
+    const isKatexLoaded = typeof window.katex !== 'undefined';
+
+    contentArea.innerHTML = `
+      <div style="margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+          <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">Math Rendering Verification Suite</h1>
+          <span class="badge ${isKatexLoaded ? 'badge-emerald' : 'badge-rose'}">
+            ${isKatexLoaded ? 'KaTeX Active' : 'KaTeX Offline'}
+          </span>
+          <span class="badge badge-blue">Auto-Render Engine</span>
+        </div>
+        <p style="color: var(--text-secondary); max-width: 820px; line-height: 1.6;">
+          This verification suite validates mathematical typesetting across all mathematical notations required by MLForge: vectors, summations, products, matrices, piecewise functions, multi-line systems, limits, partial derivatives, and interactive inputs.
+        </p>
+      </div>
+
+      <!-- Engine Status & Diagnostics Card -->
+      <section class="card" style="margin-bottom: 2rem; padding: 1.25rem;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-emerald);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Typesetting Engine Diagnostics
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; font-size: 0.85rem;">
+          <div style="padding: 0.75rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-muted); font-size: 0.75rem;">Rendering Engine</div>
+            <div style="font-weight: 700; color: var(--text-main); font-size: 0.95rem;">KaTeX v0.16.8 + Auto-Render</div>
+          </div>
+          <div style="padding: 0.75rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-muted); font-size: 0.75rem;">Display Delimiters</div>
+            <div style="font-weight: 700; color: var(--color-accent-cyan); font-family: monospace;">\\[...\\] &nbsp; $$...$$</div>
+          </div>
+          <div style="padding: 0.75rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-muted); font-size: 0.75rem;">Inline Delimiters</div>
+            <div style="font-weight: 700; color: var(--color-accent-violet); font-family: monospace;">\\(...\\) &nbsp; $...$</div>
+          </div>
+          <div style="padding: 0.75rem; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <div style="color: var(--text-muted); font-size: 0.75rem;">Error Handling</div>
+            <div style="font-weight: 700; color: var(--color-accent-emerald);">throwOnError: false (Safe)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Live Formula Scratchpad -->
+      <section class="card" style="margin-bottom: 2.5rem; border-color: var(--border-accent);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+          <div>
+            <h2 style="font-size: 1.2rem; font-weight: 700;">Live Interactive LaTeX Scratchpad</h2>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Type or paste any LaTeX equation below to inspect real-time typesetting.</p>
+          </div>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button class="btn btn-sm btn-ghost" data-math-preset="dot" style="font-size: 0.75rem; border: 1px solid var(--border-subtle);">Dot Product</button>
+            <button class="btn btn-sm btn-ghost" data-math-preset="attention" style="font-size: 0.75rem; border: 1px solid var(--border-subtle);">Transformer Attention</button>
+            <button class="btn btn-sm btn-ghost" data-math-preset="adam" style="font-size: 0.75rem; border: 1px solid var(--border-subtle);">Adam Multi-line</button>
+            <button class="btn btn-sm btn-ghost" data-math-preset="matrix" style="font-size: 0.75rem; border: 1px solid var(--border-subtle);">Affine Matrix</button>
+            <button class="btn btn-sm btn-ghost" data-math-preset="huber" style="font-size: 0.75rem; border: 1px solid var(--border-subtle);">Huber Piecewise</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <textarea id="live-math-input" class="form-input font-mono" rows="3" style="width: 100%; font-size: 0.9rem; padding: 0.75rem;" placeholder="Enter LaTeX here...">\\mathbf{u}\\cdot\\mathbf{v} = \\sum_{i=1}^{n} u_i v_i = \\|\\mathbf{u}\\| \\, \\|\\mathbf{v}\\| \\cos(\\theta)</textarea>
+        </div>
+
+        <div>
+          <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem; letter-spacing: 0.05em;">Live Typeset Output:</div>
+          <div id="live-math-preview" class="math-block" style="padding: 1.5rem; min-height: 70px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem;"></div>
+        </div>
+      </section>
+
+      <!-- Comprehensive Notations Verification Grid -->
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.25rem;">Standard AI/ML Mathematical Notation Matrix</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+        <!-- Test Card 1: Vector Dot Product (Explicitly Requested) -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-cyan">Vectors & Dot Products</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Display Mode</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Vector Dot Product</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Algebraic sum of products and geometric cosine formulation with norms.</p>
+          <div class="math-block">\\[\\mathbf{u}\\cdot\\mathbf{v} = \\sum_{i=1}^{n}u_i v_i = \\|\\mathbf{u}\\|\\,\\|\\mathbf{v}\\|\\cos(\\theta)\\]</div>
+          <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); font-family: monospace; background: var(--bg-app); padding: 0.5rem; border-radius: var(--radius-sm); overflow-x: auto;">
+            \\mathbf{u}\\cdot\\mathbf{v} = \\sum_{i=1}^{n}u_i v_i = \\|\\mathbf{u}\\|\\,\\|\\mathbf{v}\\|\\cos(\\theta)
+          </div>
+        </div>
+
+        <!-- Test Card 2: Fractions, Roots, Greek Letters & Limits -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-amber">Algebra & Greek</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Greek & Roots</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Greek Letters, Fractions & Roots</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Inline: \\(\\alpha, \\beta, \\theta, \\mu, \\sigma, \\lambda, \\eta, \\epsilon\\) and limit \\(\\lim_{x \\to \\infty} \\frac{1}{x} = 0\\).
+          </p>
+          <div class="math-block">\\[f(x; \\mu, \\sigma) = \\frac{1}{\\sigma\\sqrt{2\\pi}} \\exp\\left( -\\frac{(x - \\mu)^2}{2\\sigma^2} \\right)\\]</div>
+          <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); font-family: monospace; background: var(--bg-app); padding: 0.5rem; border-radius: var(--radius-sm); overflow-x: auto;">
+            \\frac{1}{\\sigma\\sqrt{2\\pi}} \\exp\\left( -\\frac{(x - \\mu)^2}{2\\sigma^2} \\right)
+          </div>
+        </div>
+
+        <!-- Test Card 3: Gradients, Jacobians & Partial Derivatives -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-emerald">Calculus & Gradients</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Derivatives</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Gradient & Partial Derivatives</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Backpropagation chain rule through hidden layer activations.</p>
+          <div class="math-block">\\[\\frac{\\partial L}{\\partial w_{ij}} = \\frac{\\partial L}{\\partial a_j} \\cdot \\frac{\\partial a_j}{\\partial z_j} \\cdot \\frac{\\partial z_j}{\\partial w_{ij}} = \\delta_j \\, x_i\\]</div>
+          <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); font-family: monospace; background: var(--bg-app); padding: 0.5rem; border-radius: var(--radius-sm); overflow-x: auto;">
+            \\frac{\\partial L}{\\partial w_{ij}} = \\delta_j \\, x_i, \\quad \\nabla J(\\theta)
+          </div>
+        </div>
+
+        <!-- Test Card 4: Multi-line Aligned System (Adam Optimizer) -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-violet">Multi-line Aligned</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Adam Optimizer</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Multi-line Aligned Equations</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Adaptive moment estimation equations using aligned block environment.</p>
+          <div class="math-block">\\[\\begin{aligned} m_t &= \\beta_1 m_{t-1} + (1 - \\beta_1) g_t \\\\ v_t &= \\beta_2 v_{t-1} + (1 - \\beta_2) g_t^2 \\\\ \\hat{m}_t &= \\frac{m_t}{1 - \\beta_1^t}, \\quad \\hat{v}_t = \\frac{v_t}{1 - \\beta_2^t} \\\\ \\theta_{t+1} &= \\theta_t - \\frac{\\eta}{\\sqrt{\\hat{v}_t} + \\epsilon} \\hat{m}_t \\end{aligned}\\]</div>
+        </div>
+
+        <!-- Test Card 5: Matrices and Affine Transformations -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-blue">Linear Algebra</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Matrices</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Matrix & Vector Formulations</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Linear transformation with weight matrix, input vector, and bias.</p>
+          <div class="math-block">\\[\\mathbf{y} = \\mathbf{W}\\mathbf{x} + \\mathbf{b} = \\begin{bmatrix} w_{11} & w_{12} \\\\ w_{21} & w_{22} \\end{bmatrix} \\begin{bmatrix} x_1 \\\\ x_2 \\end{bmatrix} + \\begin{bmatrix} b_1 \\\\ b_2 \\end{bmatrix}\\]</div>
+        </div>
+
+        <!-- Test Card 6: Piecewise Functions & Activation / Loss -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-rose">Piecewise Functions</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Huber Loss</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Piecewise Cases Notation</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Robust Huber loss switching between quadratic and linear penalties.</p>
+          <div class="math-block">\\[L_\\delta(y, f(x)) = \\begin{cases} \\frac{1}{2}(y - f(x))^2 & \\text{for } |y - f(x)| \\le \\delta \\\\[6pt] \\delta\\left(|y - f(x)| - \\frac{1}{2}\\delta\\right) & \\text{otherwise} \\end{cases}\\]</div>
+        </div>
+
+        <!-- Test Card 7: Transformer Scaled Dot-Product Attention -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-violet">Transformers & NLP</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Attention Mechanism</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Scaled Dot-Product Attention</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Core mechanism of the Transformer architecture with Query, Key, and Value.</p>
+          <div class="math-block">\\[\\text{Attention}(\\mathbf{Q}, \\mathbf{K}, \\mathbf{V}) = \\text{softmax}\\left( \\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}} \\right) \\mathbf{V}\\]</div>
+        </div>
+
+        <!-- Test Card 8: Continuous Integrals & KL Divergence -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="badge badge-cyan">Integrals & Probability</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Continuous KL</span>
+          </div>
+          <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Integrals & Relative Entropy</h3>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">Kullback-Leibler divergence for continuous probability distributions.</p>
+          <div class="math-block">\\[D_{\\text{KL}}(P \\parallel Q) = \\int_{-\\infty}^{\\infty} p(x) \\ln\\left( \\frac{p(x)}{q(x)} \\right) dx \\ge 0\\]</div>
+        </div>
+      </div>
+    `;
+
+    initMathVerificationScratchpad();
+  }
+
+  function initMathVerificationScratchpad() {
+    const input = document.getElementById('live-math-input');
+    const preview = document.getElementById('live-math-preview');
+    if (!input || !preview) return;
+
+    const presets = {
+      dot: '\\mathbf{u}\\cdot\\mathbf{v} = \\sum_{i=1}^{n} u_i v_i = \\|\\mathbf{u}\\| \\, \\|\\mathbf{v}\\| \\cos(\\theta)',
+      attention: '\\text{Attention}(\\mathbf{Q}, \\mathbf{K}, \\mathbf{V}) = \\text{softmax}\\left( \\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}} \\right) \\mathbf{V}',
+      adam: '\\begin{aligned} m_t &= \\beta_1 m_{t-1} + (1 - \\beta_1) g_t \\\\ v_t &= \\beta_2 v_{t-1} + (1 - \\beta_2) g_t^2 \\\\ \\hat{m}_t &= \\frac{m_t}{1 - \\beta_1^t}, \\quad \\hat{v}_t = \\frac{v_t}{1 - \\beta_2^t} \\\\ \\theta_{t+1} &= \\theta_t - \\frac{\\eta}{\\sqrt{\\hat{v}_t} + \\epsilon} \\hat{m}_t \\end{aligned}',
+      matrix: '\\mathbf{y} = \\mathbf{W}\\mathbf{x} + \\mathbf{b} = \\begin{bmatrix} w_{11} & w_{12} \\\\ w_{21} & w_{22} \\end{bmatrix} \\begin{bmatrix} x_1 \\\\ x_2 \\end{bmatrix} + \\begin{bmatrix} b_1 \\\\ b_2 \\end{bmatrix}',
+      huber: 'L_\\delta(y, f(x)) = \\begin{cases} \\frac{1}{2}(y - f(x))^2 & \\text{for } |y - f(x)| \\le \\delta \\\\[6pt] \\delta\\left(|y - f(x)| - \\frac{1}{2}\\delta\\right) & \\text{otherwise} \\end{cases}'
+    };
+
+    function updatePreview() {
+      const val = input.value.trim();
+      if (!val) {
+        preview.innerHTML = '<span style="color: var(--text-muted); font-size: 0.9rem;">Type an equation above...</span>';
+        return;
+      }
+      preview.innerHTML = `\\[${val}\\]`;
+      if (window.MLForge && window.MLForge.math) {
+        window.MLForge.math.render(preview);
+      }
+    }
+
+    input.addEventListener('input', updatePreview);
+    document.querySelectorAll('[data-math-preset]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-math-preset');
+        if (presets[key]) {
+          input.value = presets[key];
+          updatePreview();
+        }
+      });
+    });
+
+    updatePreview();
   }
 
   return {

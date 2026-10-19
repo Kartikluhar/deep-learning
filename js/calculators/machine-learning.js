@@ -52,14 +52,14 @@ MLForge.calculators.ml = {
     }
 
     const steps = [
-      { label: "Mean Absolute Error (MAE)", calc: `Σ|y - ŷ| / n = ${sumAbs.toFixed(4)} / ${n} = <strong>${mae.toFixed(4)}</strong>` },
-      { label: "Mean Squared Error (MSE)", calc: `Σ(y - ŷ)² / n = ${sumSq.toFixed(4)} / ${n} = <strong>${mse.toFixed(4)}</strong>` },
-      { label: "Root Mean Squared Error (RMSE)", calc: `√MSE = √${mse.toFixed(4)} = <strong>${rmse.toFixed(4)}</strong>` },
+      { label: "Mean Absolute Error: \\(\\text{MAE} = \\frac{1}{n} \\sum |y_i - \\hat{y}_i|\\)", calc: `\\(\\frac{${sumAbs.toFixed(4)}}{${n}} =\\) <strong>${mae.toFixed(4)}</strong>` },
+      { label: "Mean Squared Error: \\(\\text{MSE} = \\frac{1}{n} \\sum (y_i - \\hat{y}_i)^2\\)", calc: `\\(\\frac{${sumSq.toFixed(4)}}{${n}} =\\) <strong>${mse.toFixed(4)}</strong>` },
+      { label: "Root Mean Squared Error: \\(\\text{RMSE} = \\sqrt{\\text{MSE}}\\)", calc: `\\(\\sqrt{${mse.toFixed(4)}} =\\) <strong>${rmse.toFixed(4)}</strong>` },
       {
-        label: "R² Coefficient of Determination",
+        label: "R² Coefficient of Determination: \\(R^2 = 1 - \\frac{\\text{SS}_{\\text{res}}}{\\text{SS}_{\\text{tot}}}\\)",
         calc: ssTotal === 0
           ? "Target variance is zero (constant target)."
-          : `1 - (SS_res / SS_tot) = 1 - (${sumSq.toFixed(4)} / ${ssTotal.toFixed(4)}) = <strong>${r2.toFixed(4)}</strong> ${r2 < 0 ? '<span style="color:var(--color-accent-rose);">(Negative R² indicates model performs worse than horizontal line ȳ)</span>' : ''}`
+          : `\\(1 - \\frac{${sumSq.toFixed(4)}}{${ssTotal.toFixed(4)}} =\\) <strong>${r2.toFixed(4)}</strong> ${r2 < 0 ? '<span style="color:var(--color-accent-rose);">(Negative R² indicates model performs worse than horizontal mean line ȳ)</span>' : ''}`
       }
     ];
 
@@ -150,15 +150,15 @@ MLForge.calculators.ml = {
       if (pBgNotA > 1) pBgNotA /= 100;
       const pNotA = 1 - pA;
       pB = (pBgA * pA) + (pBgNotA * pNotA);
-      pB_calc_formula = `P(B) = P(B|A)P(A) + P(B|¬A)P(¬A) = (${pBgA.toFixed(4)}×${pA.toFixed(4)}) + (${pBgNotA.toFixed(4)}×${pNotA.toFixed(4)}) = ${pB.toFixed(4)}`;
+      pB_calc_formula = `P(B) = P(B|A)P(A) + P(B|\\neg A)P(\\neg A) = (${pBgA.toFixed(4)} \\times ${pA.toFixed(4)}) + (${pBgNotA.toFixed(4)} \\times ${pNotA.toFixed(4)}) = <strong>${pB.toFixed(4)}</strong>`;
     } else {
       throw new Error("Must provide either Total Evidence P(B) or False Positive Rate P(B|¬A).");
     }
 
     const posterior = (pBgA * pA) / pB;
     const steps = [
-      { label: "1. Marginal Evidence P(B)", calc: pB_calc_formula },
-      { label: "2. Posterior Probability P(A|B)", calc: `[P(B|A) × P(A)] / P(B) = (${pBgA.toFixed(4)} × ${pA.toFixed(4)}) / ${pB.toFixed(4)} = <strong>${posterior.toFixed(4)}</strong> (<strong>${(posterior * 100).toFixed(2)}%</strong>)` }
+      { label: "1. Marginal Evidence: \\(P(B)\\)", calc: pB_calc_formula },
+      { label: "2. Posterior Probability: \\(P(A|B) = \\frac{P(B|A)P(A)}{P(B)}\\)", calc: `\\(\\frac{${pBgA.toFixed(4)} \\times ${pA.toFixed(4)}}{${pB.toFixed(4)}} =\\) <strong>${posterior.toFixed(4)}</strong> (<strong>${(posterior * 100).toFixed(2)}%</strong>)` }
     ];
 
     return { posterior, pB, steps };
@@ -347,10 +347,10 @@ MLForge.calculators.ml = {
     const distance = 1 - similarity;
 
     const steps = [
-      { label: "Dot Product (A · B)", calc: `Σ(Aᵢ · Bᵢ) = ${dot.toFixed(4)}` },
-      { label: "Magnitudes (||A||, ||B||)", calc: `||A|| = ${normA.toFixed(4)}, ||B|| = ${normB.toFixed(4)}` },
-      { label: "Cosine Similarity", calc: `(A · B) / (||A|| × ||B||) = ${dot.toFixed(4)} / (${normA.toFixed(4)} × ${normB.toFixed(4)}) = <strong>${similarity.toFixed(4)}</strong>` },
-      { label: "Cosine Distance (1 - similarity)", calc: `1 - ${similarity.toFixed(4)} = <strong>${distance.toFixed(4)}</strong>` }
+      { label: "Vector Dot Product: \\(\\mathbf{A} \\cdot \\mathbf{B} = \\sum_{i=1}^n A_i B_i\\)", calc: `<strong>${dot.toFixed(4)}</strong>` },
+      { label: "Euclidean Norms: \\(\\|\\mathbf{A}\\|, \\|\\mathbf{B}\\|\\)", calc: `\\(\\|\\mathbf{A}\\| = ${normA.toFixed(4)}, \\quad \\|\\mathbf{B}\\| = ${normB.toFixed(4)}\\)` },
+      { label: "Cosine Similarity: \\(\\cos(\\theta) = \\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\| \\|\\mathbf{B}\\|}\\)", calc: `\\(\\frac{${dot.toFixed(4)}}{${normA.toFixed(4)} \\times ${normB.toFixed(4)}} =\\) <strong>${similarity.toFixed(4)}</strong>` },
+      { label: "Cosine Distance: \\(1 - \\cos(\\theta)\\)", calc: `\\(1 - ${similarity.toFixed(4)} =\\) <strong>${distance.toFixed(4)}</strong>` }
     ];
 
     return { similarity, distance, steps };

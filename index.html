@@ -13,6 +13,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- KaTeX Mathematical Typography Stylesheet (CDN with Local Fallback) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/reset.css">
@@ -90,6 +94,11 @@
           <a href="#formulas" class="nav-item" id="nav-formulas">
             <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
             <span class="nav-item-text">Formula Library</span>
+          </a>
+          <a href="#math-verification" class="nav-item" id="nav-math-verification">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span class="nav-item-text">Math Verification</span>
+            <span class="nav-item-badge" style="background: var(--color-primary-light); color: var(--color-primary);">Test</span>
           </a>
           <a href="#code" class="nav-item" id="nav-code">
             <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -182,24 +191,35 @@
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
 
+  <!-- KaTeX Core Library & Official Auto-Render Extension (Local with CDN fallback) -->
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/auto-render.min.js"></script>
+  <script>
+    if (typeof window.katex === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"><\\/script>');
+      document.write('<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"><\\/script>');
+    }
+  </script>
+
   <!-- Scripts in dependency order -->
-  <script src="js/storage.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/data/topics.js"></script>
-  <script src="js/data/formulas.js"></script>
-  <script src="js/data/code-examples.js"></script>
-  <script src="js/calculators/neural-network.js"></script>
-  <script src="js/calculators/machine-learning.js"></script>
-  <script src="js/calculators/mathematics.js"></script>
-  <script src="js/calculators/project-planning.js"></script>
-  <script src="js/visualizations/neuron-playground.js"></script>
-  <script src="js/visualizations/activation-functions.js"></script>
-  <script src="js/visualizations/gradient-descent.js"></script>
-  <script src="js/visualizations/cnn-visualizer.js"></script>
-  <script src="js/visualizations/architecture-builder.js"></script>
-  <script src="js/visualizations/fit-explorer.js"></script>
-  <script src="js/search.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/math-renderer.js?v=3"></script>
+  <script src="js/storage.js?v=3"></script>
+  <script src="js/ui.js?v=3"></script>
+  <script src="js/data/topics.js?v=3"></script>
+  <script src="js/data/formulas.js?v=3"></script>
+  <script src="js/data/code-examples.js?v=3"></script>
+  <script src="js/calculators/neural-network.js?v=3"></script>
+  <script src="js/calculators/machine-learning.js?v=3"></script>
+  <script src="js/calculators/mathematics.js?v=3"></script>
+  <script src="js/calculators/project-planning.js?v=3"></script>
+  <script src="js/visualizations/neuron-playground.js?v=3"></script>
+  <script src="js/visualizations/activation-functions.js?v=3"></script>
+  <script src="js/visualizations/gradient-descent.js?v=3"></script>
+  <script src="js/visualizations/cnn-visualizer.js?v=3"></script>
+  <script src="js/visualizations/architecture-builder.js?v=3"></script>
+  <script src="js/visualizations/fit-explorer.js?v=3"></script>
+  <script src="js/search.js?v=3"></script>
+  <script src="js/router.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>

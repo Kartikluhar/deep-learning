@@ -43,10 +43,10 @@ MLForge.calculators.math = {
     }
 
     const steps = [
-      { label: "Vector Addition (A + B)", calc: `[${add.map(v => v.toFixed(3)).join(", ")}]` },
-      { label: "Vector Subtraction (A - B)", calc: `[${sub.map(v => v.toFixed(3)).join(", ")}]` },
-      { label: "Dot Product (A · B)", calc: `Σ(Aᵢ · Bᵢ) = <strong>${dot.toFixed(4)}</strong>` },
-      { label: "Angle Between Vectors", calc: normA > 0 && normB > 0 ? `<strong>${angleDeg.toFixed(2)}°</strong> (${angleRad.toFixed(4)} rad)` : "Undefined for zero vector" }
+      { label: "Vector Addition: \\(\\mathbf{a} + \\mathbf{b}\\)", calc: `[${add.map(v => v.toFixed(3)).join(", ")}]` },
+      { label: "Vector Subtraction: \\(\\mathbf{a} - \\mathbf{b}\\)", calc: `[${sub.map(v => v.toFixed(3)).join(", ")}]` },
+      { label: "Vector Dot Product: \\(\\mathbf{a} \\cdot \\mathbf{b} = \\sum_{i=1}^n a_i b_i\\)", calc: `<strong>${dot.toFixed(4)}</strong>` },
+      { label: "Angle: \\(\\theta = \\arccos\\left(\\frac{\\mathbf{a}\\cdot\\mathbf{b}}{\\|\\mathbf{a}\\| \\|\\mathbf{b}\\|}\\right)\\)", calc: normA > 0 && normB > 0 ? `<strong>${angleDeg.toFixed(2)}^\\circ</strong> (${angleRad.toFixed(4)} rad)` : "Undefined for zero vector" }
     ];
 
     return { add, sub, dot, normA, normB, angleDeg, steps };
@@ -143,9 +143,9 @@ MLForge.calculators.math = {
 
     const l2 = Math.sqrt(sumSq);
     const steps = [
-      { label: "L1 Norm (Manhattan / Taxicab)", calc: `Σ|xᵢ| = <strong>${l1.toFixed(4)}</strong> (promotes parameter sparsity in Lasso)` },
-      { label: "L2 Norm (Euclidean)", calc: `√(Σ xᵢ²) = <strong>${l2.toFixed(4)}</strong> (penalizes extreme values in Ridge)` },
-      { label: "L∞ Norm (Chebyshev / Maximum)", calc: `max(|xᵢ|) = <strong>${lInf.toFixed(4)}</strong>` }
+      { label: "L1 Norm (Manhattan): \\(\\|\\mathbf{x}\\|_1 = \\sum_{i=1}^n |x_i|\\)", calc: `<strong>${l1.toFixed(4)}</strong> (promotes parameter sparsity in Lasso)` },
+      { label: "L2 Norm (Euclidean): \\(\\|\\mathbf{x}\\|_2 = \\sqrt{\\sum_{i=1}^n x_i^2}\\)", calc: `<strong>${l2.toFixed(4)}</strong> (penalizes extreme values in Ridge)` },
+      { label: "L∞ Norm (Chebyshev / Maximum): \\(\\|\\mathbf{x}\\|_\\infty = \\max(|x_i|)\\)", calc: `<strong>${lInf.toFixed(4)}</strong>` }
     ];
 
     return { l1, l2, lInf, steps };
@@ -187,10 +187,10 @@ MLForge.calculators.math = {
     const modes = Object.keys(freq).filter(k => freq[k] === maxFreq && maxFreq > 1).map(Number);
 
     const steps = [
-      { label: "Sample Mean (μ)", calc: `Sum = ${sum.toFixed(3)} ÷ ${n} = <strong>${mean.toFixed(4)}</strong>` },
+      { label: "Sample Mean: \\(\\mu = \\frac{1}{n}\\sum x_i\\)", calc: `\\(\\frac{${sum.toFixed(3)}}{${n}} =\\) <strong>${mean.toFixed(4)}</strong>` },
       { label: "Median (Q2)", calc: `<strong>${median.toFixed(4)}</strong> (sorted middle value)` },
-      { label: "Sample Variance (s²)", calc: `Σ(x - μ)² / (n - 1) = <strong>${sampleVariance.toFixed(4)}</strong>` },
-      { label: "Sample Standard Deviation (s)", calc: `√s² = <strong>${sampleStd.toFixed(4)}</strong>` },
+      { label: "Sample Variance: \\(s^2 = \\frac{1}{n-1}\\sum (x_i - \\mu)^2\\)", calc: `<strong>${sampleVariance.toFixed(4)}</strong>` },
+      { label: "Sample Standard Deviation: \\(s = \\sqrt{s^2}\\)", calc: `<strong>${sampleStd.toFixed(4)}</strong>` },
       { label: "Mode", calc: modes.length > 0 ? `<strong>${modes.join(", ")}</strong> (appears ${maxFreq} times)` : "No unique repeated mode" }
     ];
 
@@ -213,53 +213,53 @@ MLForge.calculators.math = {
       case 'x^2':
         fx = x * x;
         dfx = 2 * x;
-        formulaStr = "f(x) = x²";
+        formulaStr = "f(x) = x^2";
         derivFormulaStr = "f'(x) = 2x";
         break;
       case 'x^3':
         fx = Math.pow(x, 3);
         dfx = 3 * x * x;
-        formulaStr = "f(x) = x³";
-        derivFormulaStr = "f'(x) = 3x²";
+        formulaStr = "f(x) = x^3";
+        derivFormulaStr = "f'(x) = 3x^2";
         break;
       case 'exp':
         fx = Math.exp(x);
         dfx = Math.exp(x);
-        formulaStr = "f(x) = eˣ";
-        derivFormulaStr = "f'(x) = eˣ";
+        formulaStr = "f(x) = e^x";
+        derivFormulaStr = "f'(x) = e^x";
         break;
       case 'ln':
         if (x <= 0) throw new Error("Natural logarithm is only defined for x > 0.");
         fx = Math.log(x);
         dfx = 1 / x;
-        formulaStr = "f(x) = ln(x)";
-        derivFormulaStr = "f'(x) = 1/x";
+        formulaStr = "f(x) = \\ln(x)";
+        derivFormulaStr = "f'(x) = \\frac{1}{x}";
         break;
       case 'sigmoid':
         fx = 1 / (1 + Math.exp(-x));
         dfx = fx * (1 - fx);
-        formulaStr = "f(x) = 1 / (1 + e⁻ˣ)";
-        derivFormulaStr = "f'(x) = σ(x)(1 - σ(x))";
+        formulaStr = "f(x) = \\sigma(x) = \\frac{1}{1 + e^{-x}}";
+        derivFormulaStr = "f'(x) = \\sigma(x)(1 - \\sigma(x))";
         break;
       case 'tanh':
         fx = Math.tanh(x);
         dfx = 1 - fx * fx;
-        formulaStr = "f(x) = tanh(x)";
-        derivFormulaStr = "f'(x) = 1 - tanh²(x)";
+        formulaStr = "f(x) = \\tanh(x)";
+        derivFormulaStr = "f'(x) = 1 - \\tanh^2(x)";
         break;
       case 'relu':
         fx = Math.max(0, x);
         dfx = x > 0 ? 1 : 0;
-        formulaStr = "f(x) = max(0, x)";
-        derivFormulaStr = "f'(x) = 1 if x > 0 else 0";
+        formulaStr = "f(x) = \\max(0, x)";
+        derivFormulaStr = "f'(x) = \\begin{cases} 1 & x > 0 \\\\ 0 & x \\le 0 \\end{cases}";
         break;
       default:
         throw new Error("Unsupported function type.");
     }
 
     const steps = [
-      { label: "Function Expression", calc: `${formulaStr} → f(${x}) = <strong>${fx.toFixed(5)}</strong>` },
-      { label: "Analytical Derivative", calc: `${derivFormulaStr} → f'(${x}) = <strong>${dfx.toFixed(5)}</strong>` }
+      { label: "Function Expression: \\(f(x)\\)", calc: `\\(${formulaStr}\\) \\(\\implies f(${x}) = \\) <strong>${fx.toFixed(5)}</strong>` },
+      { label: "Analytical Derivative: \\(f'(x)\\)", calc: `\\(${derivFormulaStr}\\) \\(\\implies f'(${x}) = \\) <strong>${dfx.toFixed(5)}</strong>` }
     ];
 
     return { fx, dfx, steps };

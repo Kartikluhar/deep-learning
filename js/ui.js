@@ -159,7 +159,7 @@ MLForge.ui = (function () {
           <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
             <li>• <strong>Feature Scaling:</strong> Always fit scaler on train set only to prevent data leakage.</li>
             <li>• <strong>Loss Functions:</strong> Use Cross-Entropy for logits/probabilities and MSE/MAE for continuous regression.</li>
-            <li>• <strong>SGD Momentum:</strong> Typically set $\beta = 0.9$ to damp oscillations.</li>
+            <li>• <strong>SGD Momentum:</strong> Typically set $\\beta = 0.9$ to damp oscillations.</li>
           </ul>
         </div>
         <div class="card" style="padding: 1rem;">
@@ -172,6 +172,10 @@ MLForge.ui = (function () {
       renderPanelRecentList();
     } else {
       panel.innerHTML = content;
+    }
+
+    if (window.MLForge && MLForge.math) {
+      MLForge.math.render(panel);
     }
   }
 

@@ -374,43 +374,123 @@
 /* Formula Mathematical Expression Styling */
 .math-block {
   padding: 1rem 1.25rem;
-  background: var(--bg-code);
+  background: var(--bg-math, var(--bg-code));
   border-radius: var(--radius-md);
   border-left: 3px solid var(--color-primary);
-  font-family: var(--font-mono);
-  font-size: 1.05rem;
-  color: var(--color-accent-cyan);
+  color: var(--text-main);
   overflow-x: auto;
+  overflow-y: hidden;
   margin: 0.75rem 0;
-  line-height: 1.5;
+  line-height: 1.6;
+  text-align: center;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.math-block:hover {
+  border-left-color: var(--color-accent-cyan);
+}
+
+.math-block .katex-display {
+  margin: 0.35rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* KaTeX Typography & Rendering Consistency */
+.katex {
+  font-size: 1.08em;
+  text-rendering: auto;
+  line-height: 1.2;
+}
+
+/* Inline math alignment */
+p .katex, span .katex, li .katex, td .katex, div .katex {
+  padding: 0 0.15em;
+  vertical-align: baseline;
+}
+
+/* Display equations scrolling on small screens */
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0;
+}
+
+.katex-display > .katex {
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .symbol-def-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.6rem;
   margin-top: 0.75rem;
 }
 
 .symbol-item {
   display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.6rem;
   font-size: 0.825rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.6rem;
 }
 
 .symbol-key {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-weight: 600;
   color: var(--color-accent-cyan);
   background: var(--bg-badge);
-  padding: 0.1rem 0.4rem;
+  padding: 0.15rem 0.45rem;
   border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.symbol-key .katex {
+  font-size: 0.95em;
 }
 
 .symbol-desc {
   color: var(--text-secondary);
+  line-height: 1.35;
 }
+
+/* Calculator Formula Reference Banner */
+.calc-formula-ref {
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-left: 3px solid var(--color-accent-cyan);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.calc-formula-ref .katex-display {
+  margin: 0.2rem 0;
+}
+
+.step-calc .katex {
+  font-size: 1.05em;
+}
+
 
 /* ==========================================================================
    Code Blocks

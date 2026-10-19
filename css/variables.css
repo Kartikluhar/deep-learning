@@ -31,6 +31,7 @@
   --bg-input: #0b1120;
   --bg-input-focus: #0f172a;
   --bg-code: #070b12;
+  --bg-math: #070b12;
   --bg-table-header: #141c2e;
   --bg-badge: rgba(255, 255, 255, 0.05);
 
@@ -100,6 +101,7 @@
   --bg-input: #ffffff;
   --bg-input-focus: #f8fafc;
   --bg-code: #0f172a;
+  --bg-math: #f1f5f9;
   --bg-table-header: #f1f5f9;
   --bg-badge: #e2e8f0;
 
