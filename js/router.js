@@ -7,6 +7,7 @@ window.MLForge = window.MLForge || {};
 
 MLForge.router = (function () {
   let contentArea = null;
+  let activeCurriculumSection = 'all';
 
   function init() {
     contentArea = document.getElementById('content-area');
@@ -34,6 +35,13 @@ MLForge.router = (function () {
         renderPlaygrounds(param);
         break;
       case 'topics':
+        if (param) {
+          const allTopics = (MLForge.data && MLForge.data.topics) ? MLForge.data.topics : [];
+          const found = allTopics.find(t => t.id === param);
+          if (found) {
+            activeCurriculumSection = found.section;
+          }
+        }
         renderTopics(param);
         break;
       case 'formulas':
@@ -58,13 +66,32 @@ MLForge.router = (function () {
 
   function updateSidebarActiveState(route, param) {
     document.querySelectorAll('.nav-item').forEach(item => {
-      const href = item.getAttribute('href') || '';
-      if (href.startsWith(`#${route}`)) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
+      item.classList.remove('active');
     });
+
+    if (route === 'topics') {
+      const allTopics = (MLForge.data && MLForge.data.topics) ? MLForge.data.topics : [];
+      const current = allTopics.find(t => t.id === param) || allTopics[0];
+      const section = current ? current.section : 'Machine Learning';
+
+      if (section === 'Deep Learning') {
+        const dlNav = document.getElementById('nav-topic-dl');
+        if (dlNav) dlNav.classList.add('active');
+      } else if (section === 'Mathematics') {
+        const mathNav = document.getElementById('nav-topic-math');
+        if (mathNav) mathNav.classList.add('active');
+      } else {
+        const mlNav = document.getElementById('nav-topic-ml');
+        if (mlNav) mlNav.classList.add('active');
+      }
+    } else {
+      document.querySelectorAll('.nav-item').forEach(item => {
+        const href = item.getAttribute('href') || '';
+        if (href.startsWith(`#${route}`)) {
+          item.classList.add('active');
+        }
+      });
+    }
 
     // Sync mobile bottom navigation bar active state
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
@@ -729,6 +756,7 @@ MLForge.router = (function () {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         const filter = btn.getAttribute('data-filter');
 
         calcWrappers.forEach(cw => {
@@ -1045,22 +1073,58 @@ MLForge.router = (function () {
   // View 4: Topics
   // =========================================================================
   function renderTopics(activeId) {
-    const topics = MLForge.data.topics || [];
-    let currentTopic = topics.find(t => t.id === activeId) || topics[0];
+    const topics = (MLForge.data && MLForge.data.topics) ? MLForge.data.topics : [];
+    let currentTopic = topics.find(t => t.id === activeId);
+
+    if (currentTopic) {
+      activeCurriculumSection = currentTopic.section;
+    } else {
+      if (activeCurriculumSection !== 'all') {
+        currentTopic = topics.find(t => t.section === activeCurriculumSection) || topics[0];
+      } else {
+        currentTopic = topics[0];
+      }
+    }
+
+    const filteredTopics = activeCurriculumSection === 'all'
+      ? topics
+      : topics.filter(t => t.section === activeCurriculumSection);
 
     contentArea.innerHTML = `
-      <div style="margin-bottom: 2rem;">
+      <div style="margin-bottom: 1.5rem;">
         <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">Knowledge & Theory Reference</h1>
         <p style="color: var(--text-secondary); max-width: 780px;">
           Engineered explanations of Machine Learning, Deep Learning, and Mathematical foundations with explicit definitions, step-by-step algorithms, pros/cons, and implementations.
         </p>
       </div>
 
+      <!-- Curriculum Section Switcher Tabs -->
+      <div class="topic-section-tabs">
+        <button class="topic-section-btn ${activeCurriculumSection === 'all' ? 'active' : ''}" data-section="all">
+          <span>All Topics</span>
+          <span class="badge badge-subtle">10</span>
+        </button>
+        <button class="topic-section-btn ${activeCurriculumSection === 'Machine Learning' ? 'active' : ''}" data-section="Machine Learning">
+          <span>Machine Learning</span>
+          <span class="badge badge-blue">6</span>
+        </button>
+        <button class="topic-section-btn ${activeCurriculumSection === 'Deep Learning' ? 'active' : ''}" data-section="Deep Learning">
+          <span>Deep Learning</span>
+          <span class="badge badge-violet">3</span>
+        </button>
+        <button class="topic-section-btn ${activeCurriculumSection === 'Mathematics' ? 'active' : ''}" data-section="Mathematics">
+          <span>Mathematics for AI</span>
+          <span class="badge badge-amber">1</span>
+        </button>
+      </div>
+
       <div class="topic-browser">
-        <!-- Sidebar Navigation -->
-        <div class="topic-list-nav">
-          <div style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); padding: 0.25rem 0.5rem 0.5rem;">Catalog Topics</div>
-          ${topics.map(t => `
+        <!-- Sidebar Navigation / Mobile Swipe Ribbon -->
+        <div class="topic-list-nav" id="topic-list-nav">
+          <div style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); padding: 0.25rem 0.5rem 0.5rem;">
+            ${activeCurriculumSection === 'all' ? 'All Modules (10)' : activeCurriculumSection + ' (' + filteredTopics.length + ')'}
+          </div>
+          ${filteredTopics.map(t => `
             <a href="#topics/${t.id}" class="topic-nav-link ${t.id === currentTopic.id ? 'active' : ''}">
               <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${t.title}</span>
               <span class="badge ${t.section === 'Deep Learning' ? 'badge-violet' : t.section === 'Mathematics' ? 'badge-amber' : 'badge-blue'}" style="font-size: 0.6rem;">${t.category}</span>
@@ -1072,7 +1136,7 @@ MLForge.router = (function () {
         <article class="topic-article">
           <div class="topic-article-header">
             <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <span class="badge badge-cyan">${currentTopic.section} • ${currentTopic.category}</span>
+              <span class="badge ${currentTopic.section === 'Deep Learning' ? 'badge-violet' : currentTopic.section === 'Mathematics' ? 'badge-amber' : 'badge-blue'}">${currentTopic.section} • ${currentTopic.category}</span>
               <button class="btn btn-sm btn-secondary" onclick="MLForge.router.toggleBookmark(this)" data-id="${currentTopic.id}" data-type="topic" data-title="${currentTopic.title}">
                 ${MLForge.storage.isBookmarked(currentTopic.id) ? '★ Bookmarked' : '☆ Bookmark Topic'}
               </button>
@@ -1095,7 +1159,7 @@ MLForge.router = (function () {
             <h2 class="topic-section-title">How It Works Step-by-Step</h2>
             <div style="display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0;">
               ${(currentTopic.howItWorks || []).map(step => `
-                <div style="padding: 0.75rem 1rem; border-radius: var(--radius-md); background: var(--bg-app); border: 1px solid var(--border-subtle); font-size: 0.9rem; line-height: 1.5;">
+                <div class="topic-step-item">
                   ${step}
                 </div>
               `).join('')}
@@ -1151,7 +1215,42 @@ MLForge.router = (function () {
       </div>
     `;
 
+    bindTopicSectionTabs();
+
+    setTimeout(() => {
+      const activeLink = document.querySelector('.topic-nav-link.active');
+      if (activeLink) {
+        activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+      const activeSecBtn = document.querySelector('.topic-section-btn.active');
+      if (activeSecBtn) {
+        activeSecBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }, 60);
+
     MLForge.storage.addRecent({ id: currentTopic.id, title: currentTopic.title, type: 'topic', link: `#topics/${currentTopic.id}` });
+  }
+
+  function bindTopicSectionTabs() {
+    const sectionBtns = document.querySelectorAll('.topic-section-btn');
+    sectionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = btn.getAttribute('data-section');
+        activeCurriculumSection = sec;
+        const allTopics = (MLForge.data && MLForge.data.topics) ? MLForge.data.topics : [];
+
+        let targetTopic = null;
+        if (sec === 'all') {
+          targetTopic = allTopics[0];
+        } else {
+          targetTopic = allTopics.find(t => t.section === sec) || allTopics[0];
+        }
+
+        if (targetTopic) {
+          window.location.hash = `#topics/${targetTopic.id}`;
+        }
+      });
+    });
   }
 
   // =========================================================================

@@ -678,6 +678,37 @@ button, a, input, select, textarea {
     box-sizing: border-box !important;
   }
 
+  .topic-section-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
+    padding: 0.25rem 0.25rem 0.5rem 0.25rem !important;
+    margin-bottom: 0.85rem !important;
+    gap: 0.45rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .topic-section-tabs::-webkit-scrollbar {
+    height: 4px !important;
+    display: block !important;
+  }
+
+  .topic-section-tabs::-webkit-scrollbar-thumb {
+    background: var(--border-card) !important;
+    border-radius: 4px !important;
+  }
+
+  .topic-section-btn {
+    flex-shrink: 0 !important;
+    font-size: 0.8rem !important;
+    padding: 0.45rem 0.75rem !important;
+  }
+
   .topic-list-nav {
     display: flex !important;
     flex-direction: row !important;
