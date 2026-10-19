@@ -1,0 +1,148 @@
+/* ==========================================================================
+   MLForge Responsive Breakpoints
+   ========================================================================== */
+
+/* Large Desktops / Context Panel collapse threshold */
+@media (max-width: 1300px) {
+  .context-panel {
+    display: none !important;
+  }
+  .main-content.with-panel {
+    max-width: 1400px;
+  }
+}
+
+/* Standard Desktops & Laptops */
+@media (max-width: 1080px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .playground-container {
+    grid-template-columns: 1fr;
+  }
+  .playground-controls {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-right: 0;
+    padding-bottom: 1.5rem;
+  }
+  .topic-browser {
+    grid-template-columns: 1fr;
+  }
+  .topic-list-nav {
+    position: static;
+    max-height: 220px;
+  }
+}
+
+/* Tablets and Small Laptops */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 58px;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px !important;
+  }
+
+  .sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: var(--shadow-modal);
+  }
+
+  .main-wrapper {
+    margin-left: 0 !important;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .sidebar-collapse-btn {
+    display: none;
+  }
+
+  .search-trigger-btn {
+    min-width: 0;
+    padding: 0.45rem;
+  }
+
+  .search-trigger-btn span {
+    display: none;
+  }
+
+  .search-shortcut-badge {
+    display: none;
+  }
+
+  .main-content {
+    padding: 1.25rem 1rem 3rem;
+  }
+
+  .dashboard-hero {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .form-grid-2, .form-grid-3, .form-grid-4, .pro-con-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-result-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .calc-primary-val {
+    font-size: 1.75rem;
+  }
+
+  .search-modal {
+    width: 95%;
+    margin-top: 1rem;
+  }
+
+  .toast-container {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .toast {
+    max-width: none;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.45rem;
+  }
+
+  .card {
+    padding: 1.15rem;
+  }
+
+  .dashboard-tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.825rem;
+  }
+}
