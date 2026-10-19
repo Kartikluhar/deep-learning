@@ -36,6 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+  if (sidebarCloseBtn) {
+    sidebarCloseBtn.addEventListener('click', () => {
+      MLForge.ui.closeMobileMenu();
+    });
+  }
+
+  const mobileBottomSearchBtn = document.getElementById('mobile-bottom-search-btn');
+  if (mobileBottomSearchBtn) {
+    mobileBottomSearchBtn.addEventListener('click', () => {
+      if (MLForge.search) MLForge.search.open();
+    });
+  }
+
+  // Close mobile sidebar whenever any navigation item is tapped
+  document.querySelectorAll('.sidebar .nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      MLForge.ui.closeMobileMenu();
+    });
+  });
+
   const sidebarOverlay = document.getElementById('sidebar-overlay');
   if (sidebarOverlay) {
     sidebarOverlay.addEventListener('click', () => {

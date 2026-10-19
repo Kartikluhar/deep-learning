@@ -65,6 +65,16 @@ MLForge.router = (function () {
         item.classList.remove('active');
       }
     });
+
+    // Sync mobile bottom navigation bar active state
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      const r = link.getAttribute('data-route');
+      if (r === route) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
   }
 
   // =========================================================================
@@ -152,7 +162,7 @@ MLForge.router = (function () {
           </div>
           <a href="#playground/neuron" class="btn btn-sm btn-secondary">Open Full Playground ↗</a>
         </div>
-        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; align-items: center;">
+        <div class="mini-concept-body">
           <div>
             <div class="form-group">
               <div class="form-label"><span>Input Signal (x)</span> <span id="dash-mini-x-val" class="range-val">1.5</span></div>
@@ -163,7 +173,7 @@ MLForge.router = (function () {
               Sigmoid: <code id="dash-mini-output" style="color: #10b981; font-weight: 700;">σ(z) = 0.8022</code>
             </div>
           </div>
-          <svg id="dash-mini-svg" style="width: 100%; height: 120px; background: var(--bg-app); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);"></svg>
+          <svg id="dash-mini-svg" viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 120px; background: var(--bg-app); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);"></svg>
         </div>
       </section>
 
@@ -247,7 +257,7 @@ MLForge.router = (function () {
       </section>
 
       <!-- Featured Topics & Formulas Section -->
-      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+      <section class="dashboard-dual-columns">
         <div>
           <div class="section-header">
             <h2 class="section-title">
@@ -1275,7 +1285,7 @@ MLForge.router = (function () {
     const bookmarks = MLForge.storage.getBookmarks();
 
     contentArea.innerHTML = `
-      <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem;">
+      <div class="bookmarks-header">
         <div>
           <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">Saved Bookmarks & Favorites</h1>
           <p style="color: var(--text-secondary); max-width: 650px;">
@@ -1299,7 +1309,7 @@ MLForge.router = (function () {
           <a href="#calculators" class="btn btn-primary">Browse Calculators</a>
         </div>
       ` : `
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;">
+        <div class="bookmarks-grid">
           ${bookmarks.map(b => `
             <div class="card">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
