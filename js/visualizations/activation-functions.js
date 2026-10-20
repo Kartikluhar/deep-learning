@@ -21,7 +21,7 @@ MLForge.viz.activation = {
         <div class="playground-controls">
           <div>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Activation Functions Explorer</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Compare mathematical non-linearities and inspect their derivatives for gradient flow.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Compare how activation functions shape outputs and how their slope (derivative) controls learning speed.</p>
           </div>
 
           <div class="form-group">
@@ -43,7 +43,7 @@ MLForge.viz.activation = {
 
           <div style="display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0;">
             <input type="checkbox" id="af-show-deriv" checked style="accent-color: var(--color-primary); width: 16px; height: 16px;">
-            <label for="af-show-deriv" style="font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">Show Derivative f'(x) Curve</label>
+            <label for="af-show-deriv" style="font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">Show Slope / Derivative f'(x) Curve</label>
           </div>
 
           <div class="card" style="padding: 1rem; margin-top: 0.5rem; background: var(--bg-app);">
@@ -160,12 +160,12 @@ MLForge.viz.activation = {
 
     const descBox = document.getElementById('af-desc-box');
     const descriptions = {
-      sigmoid: "<strong>Range: (0, 1)</strong>. Used in binary classification output. Derivative peaks at 0.25; causes vanishing gradients when stacked deeply.",
-      relu: "<strong>Range: [0, ∞)</strong>. Default for hidden layers. Gradient is 1 for x>0, solving vanishing gradients. Vulnerable to 'Dying ReLU' for negative inputs.",
-      tanh: "<strong>Range: (-1, 1)</strong>. Zero-centered, which aids optimization dynamics. Vanishes gradients for |x| > 3.",
-      leaky_relu: "<strong>Range: (-∞, ∞)</strong>. Introduces a small positive slope (α = 0.01) for negative inputs to prevent dead neurons.",
-      gelu: "<strong>Range: (~ -0.17, ∞)</strong>. Smooth probabilistic gating activation used across modern Transformers (BERT, GPT-3, ViT).",
-      swish: "<strong>Range: (~ -0.28, ∞)</strong>. Discovered via automated neural architecture search by Google. Smooth, non-monotonic curve."
+      sigmoid: "<strong>Output Range: 0 to 1</strong>. Great for final yes/no probability answers. Weakness: In deep networks, the slope becomes very tiny (max 0.25), which can make early layers stop learning.",
+      relu: "<strong>Output Range: 0 to infinity</strong>. The most popular choice for hidden layers. If input is positive, the slope is 1, so learning stays fast. Weakness: If input is negative, output is 0, which can freeze inactive neurons.",
+      tanh: "<strong>Output Range: -1 to +1</strong>. Like a stretched Sigmoid centered at 0. Positive and negative values stay balanced, but slopes still get tiny for very large or very small inputs.",
+      leaky_relu: "<strong>Output Range: -infinity to +infinity</strong>. A smarter version of ReLU that keeps a tiny leak (slope 0.01) for negative inputs so neurons never get permanently stuck at zero.",
+      gelu: "<strong>Output Range: -0.17 to infinity</strong>. A smooth curve used by modern models like BERT and GPT. It smoothly lets positive values pass while soft-filtering small negative numbers.",
+      swish: "<strong>Output Range: -0.28 to infinity</strong>. Discovered by Google researchers. A smooth curve created by multiplying the input by Sigmoid (x · σ(x)). Often outperforms ReLU in deep networks."
     };
     if (descBox) descBox.innerHTML = descriptions[fn] || "";
 

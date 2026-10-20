@@ -155,11 +155,11 @@ MLForge.ui = (function () {
           </div>
         </div>
         <div class="card" style="padding: 1rem;">
-          <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-violet); margin-bottom: 0.5rem;">Essential Rules</div>
+          <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-violet); margin-bottom: 0.5rem;">Quick Rules of Thumb</div>
           <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
-            <li>• <strong>Feature Scaling:</strong> Always fit scaler on train set only to prevent data leakage.</li>
-            <li>• <strong>Loss Functions:</strong> Use Cross-Entropy for logits/probabilities and MSE/MAE for continuous regression.</li>
-            <li>• <strong>SGD Momentum:</strong> Typically set $\\beta = 0.9$ to damp oscillations.</li>
+            <li>• <strong>Feature Scaling:</strong> Always calculate min/max or mean on training data only so the model does not cheat on unseen test data.</li>
+            <li>• <strong>Loss Functions:</strong> Use Cross-Entropy for categories (yes/no, classes) and MSE/MAE for predicting continuous numbers (prices, temperatures).</li>
+            <li>• <strong>SGD Momentum:</strong> Setting momentum to 0.9 helps gradient descent roll smoothly over bumps and avoid getting stuck.</li>
           </ul>
         </div>
         <div class="card" style="padding: 1rem;">

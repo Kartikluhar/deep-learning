@@ -23,7 +23,7 @@ MLForge.viz.cnn = {
         <div class="playground-controls">
           <div>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">CNN Convolution Visualizer</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">See how a convolutional kernel slides across an input feature map to produce an output tensor.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Watch how a small filter (kernel) slides step by step across an image grid to calculate the new output map.</p>
           </div>
 
           <div class="form-grid-2">
@@ -36,7 +36,7 @@ MLForge.viz.cnn = {
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Kernel (K×K)</label>
+              <label class="form-label">Filter Kernel (K×K)</label>
               <select id="cnn-kernel-dim" class="form-select">
                 <option value="2">2 × 2</option>
                 <option value="3" selected>3 × 3</option>
@@ -46,17 +46,17 @@ MLForge.viz.cnn = {
 
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label">Stride (S)</label>
+              <label class="form-label">Stride (Step Size S)</label>
               <select id="cnn-stride" class="form-select">
-                <option value="1" selected>Stride = 1</option>
-                <option value="2">Stride = 2</option>
+                <option value="1" selected>Stride = 1 (move 1 pixel)</option>
+                <option value="2">Stride = 2 (move 2 pixels)</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Padding (P)</label>
+              <label class="form-label">Padding (Border P)</label>
               <select id="cnn-padding" class="form-select">
-                <option value="0" selected>P = 0 (Valid)</option>
-                <option value="1">P = 1 (Same-style)</option>
+                <option value="0" selected>P = 0 (No border - shrinks size)</option>
+                <option value="1">P = 1 (Zero border - keeps size)</option>
               </select>
             </div>
           </div>
@@ -72,9 +72,9 @@ MLForge.viz.cnn = {
           </div>
 
           <div class="card" style="padding: 1rem; margin-top: 0.5rem; background: var(--bg-app);">
-            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-cyan); margin-bottom: 0.5rem;">Output Dimension Equation</div>
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-cyan); margin-bottom: 0.5rem;">Output Grid Size Formula</div>
             <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main);">
-              O = ⌊(W - K + 2P) / S⌋ + 1
+              Output Size = ⌊(Width - Kernel + 2×Padding) / Stride⌋ + 1
             </div>
             <div id="cnn-equation-eval" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.35rem;">
               <!-- Equation evaluated dynamically -->
@@ -88,21 +88,21 @@ MLForge.viz.cnn = {
             <!-- Input Feature Map -->
             <div style="text-align: center;">
               <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">
-                Input Tensor (<span id="cnn-in-label">5×5</span>)
+                Input Image / Grid (<span id="cnn-in-label">5×5</span>)
               </div>
               <div id="cnn-input-grid" class="matrix-grid-view"></div>
             </div>
 
             <!-- Operator Arrow -->
             <div style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem;">
-              <span class="badge badge-violet" style="font-family: var(--font-mono);">* (Conv2D)</span>
+              <span class="badge badge-violet" style="font-family: var(--font-mono);">* (Conv2D Filter)</span>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
             </div>
 
             <!-- Output Feature Map -->
             <div style="text-align: center;">
               <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-cyan); margin-bottom: 0.5rem;">
-                Output Tensor (<span id="cnn-out-label">3×3</span>)
+                Output Map (<span id="cnn-out-label">3×3</span>)
               </div>
               <div id="cnn-output-grid" class="matrix-grid-view"></div>
             </div>
@@ -110,15 +110,15 @@ MLForge.viz.cnn = {
 
           <div class="playground-stats-bar" style="width: 100%;">
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Kernel Position</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Filter Position</span>
               <div id="cnn-pos-readout" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Row 0, Col 0</div>
             </div>
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Active Receptive Field</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Looking At Window</span>
               <div id="cnn-rf-readout" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 800; color: #38bdf8;">[0..2, 0..2]</div>
             </div>
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Output Cell</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Writing To Cell</span>
               <div id="cnn-cell-readout" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 800; color: #10b981;">(0, 0)</div>
             </div>
           </div>

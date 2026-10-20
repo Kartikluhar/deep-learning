@@ -38,38 +38,38 @@ MLForge.search = (function () {
 
     // 1. Calculators
     const calcList = [
-      { id: 'neuron-calc', title: 'Neuron Output Calculator', desc: 'Compute weighted sum z = Σwᵢxᵢ + b and activation', category: 'Calculators', link: '#calculators/neuron-calc' },
-      { id: 'activation-calc', title: 'Activation Function Calculator', desc: 'Evaluate Sigmoid, ReLU, Tanh, Softmax, GELU, and Swish', category: 'Calculators', link: '#calculators/activation-calc' },
-      { id: 'loss-calc', title: 'Loss Function Calculator', desc: 'Compute MSE, MAE, Huber, and Binary Cross-Entropy losses', category: 'Calculators', link: '#calculators/loss-calc' },
-      { id: 'gradient-descent-calc', title: 'Gradient Descent Step Calculator', desc: 'Calculate parameter update θ = θ - η∇J with momentum', category: 'Calculators', link: '#calculators/gradient-descent-calc' },
-      { id: 'backprop-calc', title: 'Backpropagation Step Calculator', desc: 'Step through 2-layer perceptron forward and backward chain rule', category: 'Calculators', link: '#calculators/backprop-calc' },
-      { id: 'param-count-calc', title: 'Parameter Count Calculator', desc: 'Calculate trainable weights and biases in Dense and Conv2D layers', category: 'Calculators', link: '#calculators/param-count-calc' },
-      { id: 'tensor-shape-calc', title: 'Tensor Shape Calculator', desc: 'Compute Conv2D and MaxPool output spatial dimensions', category: 'Calculators', link: '#calculators/tensor-shape-calc' },
-      { id: 'batch-steps-calc', title: 'Batch & Training Steps Calculator', desc: 'Compute batches per epoch, total optimizer iterations, and drop_last', category: 'Calculators', link: '#calculators/batch-steps-calc' },
-      { id: 'dataset-split-calc', title: 'Train / Val / Test Split Calculator', desc: 'Partition dataset into exact sample counts totaling 100%', category: 'Calculators', link: '#calculators/dataset-split-calc' },
-      { id: 'regression-metrics-calc', title: 'Regression Metrics Calculator', desc: 'Calculate MAE, MSE, RMSE, and R² score', category: 'Calculators', link: '#calculators/regression-metrics-calc' },
-      { id: 'classification-metrics-calc', title: 'Classification & Confusion Matrix', desc: 'Accuracy, Precision, Recall, Specificity, F1, FPR, FNR from TP/TN/FP/FN', category: 'Calculators', link: '#calculators/classification-metrics-calc' },
-      { id: 'bayes-calc', title: "Bayes' Theorem Calculator", desc: 'Calculate posterior probability P(A|B) from prior and likelihood', category: 'Calculators', link: '#calculators/bayes-calc' },
-      { id: 'standardization-calc', title: 'Standardization (Z-Score) Calculator', desc: 'Compute mean, variance, std dev, and transformed z-scores', category: 'Calculators', link: '#calculators/standardization-calc' },
-      { id: 'minmax-calc', title: 'Min-Max Normalization Calculator', desc: 'Scale features into target range [a, b]', category: 'Calculators', link: '#calculators/minmax-calc' },
-      { id: 'linear-regression-calc', title: 'Linear Regression OLS Calculator', desc: 'Ordinary Least Squares slope, intercept, R², and Pearson r', category: 'Calculators', link: '#calculators/linear-regression-calc' },
-      { id: 'knn-distance-calc', title: 'KNN Distance Calculator', desc: 'Euclidean, Manhattan, and Minkowski vector distance', category: 'Calculators', link: '#calculators/knn-distance-calc' },
-      { id: 'cosine-calc', title: 'Cosine Similarity Calculator', desc: 'Compute cosine angle and similarity between high-dimensional vectors', category: 'Calculators', link: '#calculators/cosine-calc' },
-      { id: 'entropy-calc', title: 'Entropy & Information Gain Calculator', desc: 'Shannon Entropy H(S) and decision tree split information gain', category: 'Calculators', link: '#calculators/entropy-calc' },
-      { id: 'class-imbalance-calc', title: 'Class Imbalance Ratio Calculator', desc: 'Calculate imbalance ratio, percentages, and resampling guidance', category: 'Calculators', link: '#calculators/class-imbalance-calc' },
-      { id: 'vram-estimator-calc', title: 'GPU VRAM & Memory Estimator', desc: 'Estimate model footprint, optimizer states, and training memory', category: 'Calculators', link: '#calculators/vram-estimator-calc' },
-      { id: 'training-time-calc', title: 'Training Duration Estimator', desc: 'Estimate training wall-clock time from measured step duration', category: 'Calculators', link: '#calculators/training-time-calc' }
+      { id: 'neuron-calc', title: 'Neuron Output Calculator', desc: 'Calculate how a single neuron multiplies inputs by weights and adds bias', category: 'Calculators', link: '#calculators/neuron-calc' },
+      { id: 'activation-calc', title: 'Activation Function Calculator', desc: 'Test activation formulas (ReLU, Sigmoid, Tanh, GELU) and see their slopes', category: 'Calculators', link: '#calculators/activation-calc' },
+      { id: 'loss-calc', title: 'Loss Function Calculator', desc: 'Calculate prediction error using MSE, MAE, Huber, or Binary Cross-Entropy', category: 'Calculators', link: '#calculators/loss-calc' },
+      { id: 'gradient-descent-calc', title: 'Gradient Descent Step Calculator', desc: 'Calculate how weights step downhill to minimize model error', category: 'Calculators', link: '#calculators/gradient-descent-calc' },
+      { id: 'backprop-calc', title: 'Backpropagation Step Calculator', desc: 'Step-by-step math for sending errors backward through neural network layers', category: 'Calculators', link: '#calculators/backprop-calc' },
+      { id: 'param-count-calc', title: 'Parameter Count Calculator', desc: 'Count total learnable weights and biases in Dense and Convolutional layers', category: 'Calculators', link: '#calculators/param-count-calc' },
+      { id: 'tensor-shape-calc', title: 'Tensor Shape Calculator', desc: 'Calculate output height and width after Conv2D or pooling', category: 'Calculators', link: '#calculators/tensor-shape-calc' },
+      { id: 'batch-steps-calc', title: 'Batch & Training Steps Calculator', desc: 'Find out how many batches make up an epoch and total optimization steps', category: 'Calculators', link: '#calculators/batch-steps-calc' },
+      { id: 'dataset-split-calc', title: 'Train / Val / Test Split Calculator', desc: 'Divide dataset into exact sample sizes for training, validation, and testing', category: 'Calculators', link: '#calculators/dataset-split-calc' },
+      { id: 'regression-metrics-calc', title: 'Regression Metrics Calculator', desc: 'Measure regression error using MAE, MSE, RMSE, and R² score', category: 'Calculators', link: '#calculators/regression-metrics-calc' },
+      { id: 'classification-metrics-calc', title: 'Classification & Confusion Matrix', desc: 'Calculate Accuracy, Precision, Recall, Specificity, and F1-Score from confusion matrix', category: 'Calculators', link: '#calculators/classification-metrics-calc' },
+      { id: 'bayes-calc', title: "Bayes' Theorem Calculator", desc: 'Update the probability of a hypothesis after observing new evidence', category: 'Calculators', link: '#calculators/bayes-calc' },
+      { id: 'standardization-calc', title: 'Standardization (Z-Score) Calculator', desc: 'Convert data to Z-Scores with mean 0 and standard deviation 1', category: 'Calculators', link: '#calculators/standardization-calc' },
+      { id: 'minmax-calc', title: 'Min-Max Normalization Calculator', desc: 'Compress data into a neat range like 0 to 1', category: 'Calculators', link: '#calculators/minmax-calc' },
+      { id: 'linear-regression-calc', title: 'Linear Regression OLS Calculator', desc: 'Find the slope and intercept of the best-fit line through data points', category: 'Calculators', link: '#calculators/linear-regression-calc' },
+      { id: 'knn-distance-calc', title: 'KNN Distance Calculator', desc: 'Calculate straight-line (Euclidean) and street-grid (Manhattan) distance between vectors', category: 'Calculators', link: '#calculators/knn-distance-calc' },
+      { id: 'cosine-calc', title: 'Cosine Similarity Calculator', desc: 'Measure the angle and directional similarity between two embedding vectors', category: 'Calculators', link: '#calculators/cosine-calc' },
+      { id: 'entropy-calc', title: 'Entropy & Information Gain Calculator', desc: 'Calculate disorder (Entropy) and Information Gain for decision trees', category: 'Calculators', link: '#calculators/entropy-calc' },
+      { id: 'class-imbalance-calc', title: 'Class Imbalance Ratio Calculator', desc: 'Check class imbalance ratio and get practical advice on how to handle it', category: 'Calculators', link: '#calculators/class-imbalance-calc' },
+      { id: 'vram-estimator-calc', title: 'GPU VRAM & Memory Estimator', desc: 'Estimate GPU video memory needed for model weights, optimizer, and training', category: 'Calculators', link: '#calculators/vram-estimator-calc' },
+      { id: 'training-time-calc', title: 'Training Duration Estimator', desc: 'Estimate how many hours or days training will take from step duration', category: 'Calculators', link: '#calculators/training-time-calc' }
     ];
     searchIndex.push(...calcList);
 
     // 2. Playgrounds
     const playList = [
-      { id: 'pg-neuron', title: 'Neuron Playground', desc: 'Interactive single neuron with live weights, inputs, and SVG excitation', category: 'Playgrounds', link: '#playground/neuron' },
-      { id: 'pg-activation', title: 'Activation Function Explorer', desc: 'Interactive curve grapher with derivative overlay and coordinate scrubber', category: 'Playgrounds', link: '#playground/activation' },
-      { id: 'pg-gd', title: 'Gradient Descent Playground', desc: 'Animate parameter stepping down loss landscape with variable learning rate', category: 'Playgrounds', link: '#playground/gradient-descent' },
-      { id: 'pg-cnn', title: 'CNN Convolution Visualizer', desc: 'Interactive 2D matrix receptive field sliding animation and shape mapping', category: 'Playgrounds', link: '#playground/cnn' },
-      { id: 'pg-arch', title: 'Architecture Builder', desc: 'Build feedforward neural network stacks and compute live parameter counts', category: 'Playgrounds', link: '#playground/architecture' },
-      { id: 'pg-fit', title: 'Overfitting vs Underfitting Explorer', desc: 'Inspect bias-variance trade-off with polynomial curve fitting simulation', category: 'Playgrounds', link: '#playground/fit' }
+      { id: 'pg-neuron', title: 'Neuron Playground', desc: 'Interactive neuron showing inputs, weights, bias, and output firing in real time', category: 'Playgrounds', link: '#playground/neuron' },
+      { id: 'pg-activation', title: 'Activation Function Explorer', desc: 'Interactive graphs showing activation curves and their slopes (derivatives)', category: 'Playgrounds', link: '#playground/activation' },
+      { id: 'pg-gd', title: 'Gradient Descent Playground', desc: 'Watch an optimizer ball roll downhill and see what happens if step size is too big', category: 'Playgrounds', link: '#playground/gradient-descent' },
+      { id: 'pg-cnn', title: 'CNN Convolution Visualizer', desc: 'Watch a 2D filter slide across an image grid step by step', category: 'Playgrounds', link: '#playground/cnn' },
+      { id: 'pg-arch', title: 'Architecture Builder', desc: 'Stack neural network layers and watch connection lines and parameter counts update', category: 'Playgrounds', link: '#playground/architecture' },
+      { id: 'pg-fit', title: 'Overfitting vs Underfitting Explorer', desc: 'See the difference between underfitting (too simple) and overfitting (memorizing noise)', category: 'Playgrounds', link: '#playground/fit' }
     ];
     searchIndex.push(...playList);
 

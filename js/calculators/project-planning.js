@@ -35,7 +35,7 @@ MLForge.calculators.planning = {
 
     const steps = [
       {
-        label: "Model Weights Footprint",
+        label: "Step 1: Raw Model Weights Footprint",
         calc: `${(params / 1e9).toFixed(1)}B parameters × ${bytesPerParam} bytes/param = <strong>${modelWeightGB.toFixed(2)} GB</strong>`
       }
     ];
@@ -56,16 +56,16 @@ MLForge.calculators.planning = {
       totalVRAM_GB = subtotal * 1.20;
 
       steps.push({
-        label: "Gradients Memory",
+        label: "Step 2: Gradients Memory (slope numbers stored for backpropagation)",
         calc: `Gradients stored at ${gradBytesPerParam} bytes/param = <strong>${gradientsGB.toFixed(2)} GB</strong>`
       });
       steps.push({
-        label: "Optimizer States (Adam / AdamW)",
+        label: "Step 3: Optimizer States (Adam memory: tracks rolling momentum and variance)",
         calc: `Adam tracks 1st and 2nd moments in fp32 (8 bytes/param) = <strong>${optimizerGB.toFixed(2)} GB</strong>`
       });
       steps.push({
-        label: "Estimated Activations & Framework Overhead (+20%)",
-        calc: `Activations (~${activationsGB.toFixed(2)} GB) + PyTorch CUDA runtime buffer (~${(totalVRAM_GB - subtotal).toFixed(2)} GB)`
+        label: "Step 4: Layer Activations & Safety Buffer (+20% overhead)",
+        calc: `Intermediate layer activations (~${activationsGB.toFixed(2)} GB) + GPU driver and runtime buffer (~${(totalVRAM_GB - subtotal).toFixed(2)} GB)`
       });
     } else {
       // Inference mode
@@ -74,16 +74,16 @@ MLForge.calculators.planning = {
       totalVRAM_GB = modelWeightGB + overhead;
 
       steps.push({
-        label: "Inference KV Cache & Activation Buffer (~25%)",
-        calc: `Temporary activations and KV cache = <strong>${overhead.toFixed(2)} GB</strong>`
+        label: "Step 2: Working Memory Buffer & Cache (~25% extra space)",
+        calc: `Temporary activations and response cache = <strong>${overhead.toFixed(2)} GB</strong>`
       });
     }
 
     const stepsOutput = [
       ...steps,
       {
-        label: "Recommended Minimum GPU VRAM",
-        calc: `<strong>${Math.ceil(totalVRAM_GB)} GB</strong> (Estimated actual usage: ${totalVRAM_GB.toFixed(2)} GB)`
+        label: "Recommended Minimum GPU VRAM Size",
+        calc: `<strong>${Math.ceil(totalVRAM_GB)} GB VRAM</strong> (Estimated exact usage: ${totalVRAM_GB.toFixed(2)} GB)`
       }
     ];
 
@@ -124,10 +124,10 @@ MLForge.calculators.planning = {
     const samplesPerSec = (datasetSize * epochs) / totalSeconds;
 
     const steps = [
-      { label: "Total Steps", calc: `${stepsPerEpoch.toLocaleString()} steps/epoch × ${epochs} epochs = <strong>${totalSteps.toLocaleString()} steps</strong>` },
-      { label: "Effective Step Duration", calc: `${(stepTimeMs / 1000).toFixed(3)}s / (${numGPUs} GPUs × ${(efficiency*100).toFixed(0)}% scaling) = <strong>${effectiveStepTimeSeconds.toFixed(4)}s / step</strong>` },
-      { label: "Throughput", calc: `<strong>${samplesPerSec.toFixed(1)} samples / second</strong>` },
-      { label: "Estimated Wall-Clock Time", calc: days >= 1 ? `<strong>${days.toFixed(2)} days</strong> (${hours.toFixed(1)} hours)` : `<strong>${hours.toFixed(2)} hours</strong> (${(totalSeconds / 60).toFixed(1)} minutes)` }
+      { label: "Step 1: Total Training Steps", calc: `${stepsPerEpoch.toLocaleString()} steps/epoch × ${epochs} epochs = <strong>${totalSteps.toLocaleString()} steps</strong>` },
+      { label: "Step 2: Effective Time per Step (with GPU scaling)", calc: `${(stepTimeMs / 1000).toFixed(3)}s / (${numGPUs} GPUs × ${(efficiency*100).toFixed(0)}% efficiency) = <strong>${effectiveStepTimeSeconds.toFixed(4)}s per step</strong>` },
+      { label: "Step 3: Training Speed (Throughput)", calc: `<strong>${samplesPerSec.toFixed(1)} samples / second</strong>` },
+      { label: "Step 4: Estimated Total Clock Time", calc: days >= 1 ? `<strong>${days.toFixed(2)} days</strong> (${hours.toFixed(1)} hours)` : `<strong>${hours.toFixed(2)} hours</strong> (${(totalSeconds / 60).toFixed(1)} minutes)` }
     ];
 
     return { totalSteps, totalSeconds, hours, days, samplesPerSec, steps };
@@ -146,7 +146,7 @@ MLForge.calculators.planning = {
     const gb = rawBytes / (1024 ** 3);
 
     const steps = [
-      { label: "Raw Dataset Size", calc: `${numSamples.toLocaleString()} samples × ${featuresOrPixels.toLocaleString()} features × ${bytesPerValue} bytes = <strong>${gb >= 1 ? gb.toFixed(2) + ' GB' : mb.toFixed(2) + ' MB'}</strong>` }
+      { label: "Estimated Disk Space Needed", calc: `${numSamples.toLocaleString()} samples × ${featuresOrPixels.toLocaleString()} numbers × ${bytesPerValue} bytes = <strong>${gb >= 1 ? gb.toFixed(2) + ' GB' : mb.toFixed(2) + ' MB'}</strong>` }
     ];
 
     return { rawBytes, mb, gb, steps };

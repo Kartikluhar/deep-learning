@@ -117,16 +117,17 @@ MLForge.router = (function () {
   function renderDashboard() {
     contentArea.innerHTML = `
       <!-- Hero Banner -->
+      <!-- Hero Banner -->
       <section class="dashboard-hero">
         <div class="hero-glow-blob"></div>
         <div class="hero-content">
           <div class="hero-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
-            MLForge Workspace • Client-Side Native
+            MLForge • Clear AI/ML Learning Platform
           </div>
-          <h1 class="hero-title">The High-Performance Workspace for <span>AI & ML Engineers</span></h1>
+          <h1 class="hero-title">Learn AI & Machine Learning in <span>Simple English</span></h1>
           <p class="hero-subtitle">
-            Rigorous mathematical calculators, interactive visual learning playgrounds, production code references, and complete theoretical guides—designed for machine learning practitioners, deep learning learners, and data scientists.
+            Understand how artificial intelligence, neural networks, algorithms, and math actually work. Everything is explained step by step with daily life examples, interactive visual tools, and clear formulas anyone can follow.
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary" onclick="MLForge.search.open()">
@@ -135,10 +136,10 @@ MLForge.router = (function () {
             </button>
             <a href="#playground/neuron" class="btn btn-secondary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Explore Visual Playgrounds
+              Try Visual Playgrounds
             </a>
             <a href="#calculators" class="btn btn-ghost" style="border: 1px solid var(--border-subtle);">
-              Browse 20+ Calculators
+              Explore Calculators
             </a>
           </div>
         </div>
@@ -152,7 +153,7 @@ MLForge.router = (function () {
           </div>
           <div>
             <div class="stat-value">21+</div>
-            <div class="stat-label">AI / ML Calculators</div>
+            <div class="stat-label">Step-by-Step Calculators</div>
           </div>
         </div>
 
@@ -171,8 +172,8 @@ MLForge.router = (function () {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
           <div>
-            <div class="stat-value">15+</div>
-            <div class="stat-label">Formula Catalog</div>
+            <div class="stat-value">22</div>
+            <div class="stat-label">Formulas Explained Simply</div>
           </div>
         </div>
 
@@ -182,7 +183,7 @@ MLForge.router = (function () {
           </div>
           <div>
             <div class="stat-value">100%</div>
-            <div class="stat-label">Client-Side Zero-API</div>
+            <div class="stat-label">Fast, Private & In Browser</div>
           </div>
         </div>
       </section>
@@ -191,8 +192,8 @@ MLForge.router = (function () {
       <section class="mini-concept-box">
         <div class="mini-concept-header">
           <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700;">Live Interactive Concept: Single Neuron Firing</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Adjust the signal input slider and observe real-time mathematical excitation.</p>
+            <h3 style="font-size: 1.05rem; font-weight: 700;">Live Example: How an Artificial Neuron Calculates an Output</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Move the slider to change the input signal (x) and see the neuron calculate its output in real time.</p>
           </div>
           <a href="#playground/neuron" class="btn btn-sm btn-secondary">Open Full Playground ↗</a>
         </div>
@@ -203,8 +204,8 @@ MLForge.router = (function () {
               <input type="range" id="dash-mini-x" class="range-input" min="-4" max="4" step="0.2" value="1.5">
             </div>
             <div style="font-size: 0.825rem; color: var(--text-secondary); line-height: 1.5;">
-              Formula: <code style="color: var(--color-accent-cyan);">z = 1.2x - 0.4</code><br>
-              Sigmoid: <code id="dash-mini-output" style="color: #10b981; font-weight: 700;">σ(z) = 0.8022</code>
+              Weighted Sum: <code style="color: var(--color-accent-cyan);">z = 1.2x - 0.4</code><br>
+              Sigmoid Output: <code id="dash-mini-output" style="color: #10b981; font-weight: 700;">σ(z) = 0.8022</code>
             </div>
           </div>
           <svg id="dash-mini-svg" viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 120px; background: var(--bg-app); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);"></svg>
@@ -216,7 +217,7 @@ MLForge.router = (function () {
         <div class="section-header">
           <h2 class="section-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-primary);"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/></svg>
-            Popular AI/ML Calculators
+            Popular AI & ML Calculators
           </h2>
           <a href="#calculators" class="btn btn-sm btn-ghost">View All Calculators →</a>
         </div>
@@ -230,7 +231,7 @@ MLForge.router = (function () {
               </button>
             </div>
             <h3 class="card-title">Neuron Output Calculator</h3>
-            <p class="card-subtitle">Compute weighted sum z = Σ(wᵢxᵢ) + b and evaluate Sigmoid, ReLU, Tanh, or Leaky ReLU with step breakdown.</p>
+            <p class="card-subtitle">Calculate the weighted sum and see how activation functions like Sigmoid, ReLU, and Tanh determine the output.</p>
           </a>
 
           <a href="#calculators/classification-metrics-calc" class="card card-interactive">
@@ -241,7 +242,7 @@ MLForge.router = (function () {
               </button>
             </div>
             <h3 class="card-title">Confusion Matrix & Metrics</h3>
-            <p class="card-subtitle">Enter TP, TN, FP, FN to calculate Precision, Recall, Specificity, F1-Score, Balanced Accuracy, and FPR.</p>
+            <p class="card-subtitle">Enter True and False counts to calculate Accuracy, Precision, Recall, and F1-Score step by step.</p>
           </a>
 
           <a href="#calculators/tensor-shape-calc" class="card card-interactive">
@@ -252,18 +253,18 @@ MLForge.router = (function () {
               </button>
             </div>
             <h3 class="card-title">CNN Output Shape Calculator</h3>
-            <p class="card-subtitle">Calculate Conv2D and MaxPool output dimensions from input size, kernel, stride, and padding.</p>
+            <p class="card-subtitle">Calculate the new image height and width after applying a convolution filter with stride and padding.</p>
           </a>
 
           <a href="#calculators/vram-estimator-calc" class="card card-interactive">
             <div class="card-header">
-              <span class="badge badge-amber">Hardware & VRAM</span>
+              <span class="badge badge-amber">Hardware & Memory</span>
               <button class="btn-icon-only bookmark-toggle-btn" data-id="vram-estimator-calc" data-type="calculator" data-title="GPU VRAM & Memory Estimator" onclick="event.preventDefault(); MLForge.router.toggleBookmark(this);">
                 ${MLForge.storage.isBookmarked('vram-estimator-calc') ? '★' : '☆'}
               </button>
             </div>
-            <h3 class="card-title">GPU VRAM & Memory Estimator</h3>
-            <p class="card-subtitle">Estimate exact GPU VRAM needed for training and inference across FP32, FP16, INT8, and INT4 quantizations.</p>
+            <h3 class="card-title">GPU VRAM Memory Estimator</h3>
+            <p class="card-subtitle">Estimate how many gigabytes of GPU memory your model needs for training or serving with different precisions.</p>
           </a>
 
           <a href="#calculators/loss-calc" class="card card-interactive">
@@ -274,7 +275,7 @@ MLForge.router = (function () {
               </button>
             </div>
             <h3 class="card-title">Loss Function Calculator</h3>
-            <p class="card-subtitle">Calculate MSE, MAE, Huber, and Binary Cross-Entropy losses with sample-level residuals and penalties.</p>
+            <p class="card-subtitle">Calculate prediction mistakes using Mean Squared Error (MSE), Huber loss, or Binary Cross-Entropy.</p>
           </a>
 
           <a href="#calculators/gradient-descent-calc" class="card card-interactive">
@@ -285,7 +286,7 @@ MLForge.router = (function () {
               </button>
             </div>
             <h3 class="card-title">Gradient Descent Step Calculator</h3>
-            <p class="card-subtitle">Compute updated weights θ_new = θ_old - η∇J with optional momentum velocity tracking.</p>
+            <p class="card-subtitle">Calculate how weights update to reduce errors: New Weight = Old Weight − (Learning Rate × Gradient).</p>
           </a>
         </div>
       </section>
@@ -296,7 +297,7 @@ MLForge.router = (function () {
           <div class="section-header">
             <h2 class="section-title">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-violet);"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg>
-              Core Knowledge Modules
+              Core Topics Explained
             </h2>
             <a href="#topics" class="btn btn-sm btn-ghost">All Topics →</a>
           </div>
@@ -379,9 +380,9 @@ MLForge.router = (function () {
   function renderCalculators(activeId) {
     contentArea.innerHTML = `
       <div style="margin-bottom: 2rem;">
-        <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">AI/ML Calculators Directory</h1>
+        <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">AI & Machine Learning Calculators</h1>
         <p style="color: var(--text-secondary); max-width: 780px;">
-          Interactive mathematical calculation engines for machine learning and deep learning. Every calculator performs true mathematical calculations with live validation, formula reference, and step-by-step breakdown.
+          Interactive step-by-step mathematical calculators. Enter your own numbers to see the exact calculations, step-by-step arithmetic, and results explained in plain English.
         </p>
       </div>
 
@@ -390,7 +391,7 @@ MLForge.router = (function () {
         <button class="calc-nav-btn active" data-filter="all">All Calculators</button>
         <button class="calc-nav-btn" data-filter="nn">Neural Networks</button>
         <button class="calc-nav-btn" data-filter="ml">Machine Learning</button>
-        <button class="calc-nav-btn" data-filter="math">Mathematics</button>
+        <button class="calc-nav-btn" data-filter="math">Mathematics & Probability</button>
         <button class="calc-nav-btn" data-filter="planning">Project Planning & GPU</button>
       </div>
 
@@ -401,6 +402,7 @@ MLForge.router = (function () {
             <div>
               <span class="badge badge-cyan" style="margin-bottom: 0.4rem;">Neural Network</span>
               <h2 style="font-size: 1.35rem; font-weight: 700;">Neuron Output & Activation Calculator</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Calculate a single neuron's weighted sum and its final output after applying an activation function.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="neuron-calc" data-type="calculator" data-title="Neuron Output Calculator">
               ${MLForge.storage.isBookmarked('neuron-calc') ? '★' : '☆'}
@@ -411,31 +413,34 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-3">
             <div class="form-group">
-              <label class="form-label">Inputs Vector (comma separated)</label>
+              <label class="form-label">Inputs (x) (comma-separated)</label>
               <input type="text" id="c-neuron-inputs" class="form-input font-mono" value="2.0, -1.0, 3.5">
+              <span class="input-hint">The incoming numbers entering the neuron</span>
             </div>
             <div class="form-group">
-              <label class="form-label">Weights Vector (comma separated)</label>
+              <label class="form-label">Weights (w) (comma-separated)</label>
               <input type="text" id="c-neuron-weights" class="form-input font-mono" value="0.5, 2.0, -0.4">
+              <span class="input-hint">Importance factor for each input</span>
             </div>
             <div class="form-group">
               <label class="form-label">Bias Offset (b)</label>
               <input type="number" id="c-neuron-bias" class="form-input font-mono" value="1.2" step="0.1">
+              <span class="input-hint">Number added to shift the total</span>
             </div>
           </div>
           <div class="form-grid-2">
             <div class="form-group">
               <label class="form-label">Activation Function f(z)</label>
               <select id="c-neuron-act" class="form-select">
-                <option value="sigmoid" selected>Sigmoid: σ(z) = 1 / (1 + e⁻ᶻ)</option>
-                <option value="relu">ReLU: max(0, z)</option>
-                <option value="tanh">Tanh: tanh(z)</option>
-                <option value="leaky_relu">Leaky ReLU: max(0.01z, z)</option>
-                <option value="linear">Linear (None): z</option>
+                <option value="sigmoid" selected>Sigmoid: outputs a probability between 0 and 1</option>
+                <option value="relu">ReLU: max(0, z) — keeps positives, changes negatives to 0</option>
+                <option value="tanh">Tanh: smooth S-curve between -1 and +1</option>
+                <option value="leaky_relu">Leaky ReLU: keeps a tiny slope (0.01) for negatives</option>
+                <option value="linear">Linear: keeps raw weighted sum without change</option>
               </select>
             </div>
             <div style="display: flex; align-items: flex-end; margin-bottom: 1rem;">
-              <button id="c-neuron-btn" class="btn btn-primary" style="width: 100%;">Calculate Output</button>
+              <button id="c-neuron-btn" class="btn btn-primary" style="width: 100%;">Calculate Output Step-by-Step</button>
             </div>
           </div>
           <div id="c-neuron-result"></div>
@@ -446,7 +451,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-blue" style="margin-bottom: 0.4rem;">Machine Learning</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">Confusion Matrix & Classification Metrics</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">Confusion Matrix & Accuracy Metrics</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Enter correct and incorrect prediction counts to see Accuracy, Precision, Recall, and F1-Score.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="classification-metrics-calc" data-type="calculator" data-title="Classification Metrics">
               ${MLForge.storage.isBookmarked('classification-metrics-calc') ? '★' : '☆'}
@@ -459,21 +465,25 @@ MLForge.router = (function () {
             <div class="form-group">
               <label class="form-label">True Positives (TP)</label>
               <input type="number" id="c-cm-tp" class="form-input font-mono" value="85" min="0">
+              <span class="input-hint">Correct positive alarms</span>
             </div>
             <div class="form-group">
               <label class="form-label">False Positives (FP)</label>
               <input type="number" id="c-cm-fp" class="form-input font-mono" value="15" min="0">
+              <span class="input-hint">False alarms</span>
             </div>
             <div class="form-group">
               <label class="form-label">False Negatives (FN)</label>
               <input type="number" id="c-cm-fn" class="form-input font-mono" value="10" min="0">
+              <span class="input-hint">Missed positive cases</span>
             </div>
             <div class="form-group">
               <label class="form-label">True Negatives (TN)</label>
               <input type="number" id="c-cm-tn" class="form-input font-mono" value="90" min="0">
+              <span class="input-hint">Correct negative cases</span>
             </div>
           </div>
-          <button id="c-cm-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Evaluate Metrics</button>
+          <button id="c-cm-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Evaluate All Metrics</button>
           <div id="c-cm-result"></div>
         </div>
 
@@ -482,7 +492,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-violet" style="margin-bottom: 0.4rem;">Deep Learning</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">CNN 2D Convolution / Pooling Output Shape</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">CNN 2D Convolution / Pooling Output Size</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Calculate the new image width and height after sliding a convolutional filter or pooling window.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="tensor-shape-calc" data-type="calculator" data-title="Tensor Shape Calculator">
               ${MLForge.storage.isBookmarked('tensor-shape-calc') ? '★' : '☆'}
@@ -493,29 +504,29 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-4">
             <div class="form-group">
-              <label class="form-label">Input Height (H)</label>
+              <label class="form-label">Input Height (pixels)</label>
               <input type="number" id="c-ts-h" class="form-input font-mono" value="224" min="1">
             </div>
             <div class="form-group">
-              <label class="form-label">Input Width (W)</label>
+              <label class="form-label">Input Width (pixels)</label>
               <input type="number" id="c-ts-w" class="form-input font-mono" value="224" min="1">
             </div>
             <div class="form-group">
-              <label class="form-label">Kernel Size (K)</label>
+              <label class="form-label">Filter Size (K × K)</label>
               <input type="number" id="c-ts-k" class="form-input font-mono" value="7" min="1">
             </div>
             <div class="form-group">
-              <label class="form-label">Stride (S)</label>
+              <label class="form-label">Stride (pixel jump)</label>
               <input type="number" id="c-ts-s" class="form-input font-mono" value="2" min="1">
             </div>
           </div>
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label">Padding (P in pixels)</label>
+              <label class="form-label">Padding (border pixels)</label>
               <input type="number" id="c-ts-p" class="form-input font-mono" value="3" min="0">
             </div>
             <div style="display: flex; align-items: flex-end; margin-bottom: 1rem;">
-              <button id="c-ts-btn" class="btn btn-primary" style="width: 100%;">Compute Output Dimensions</button>
+              <button id="c-ts-btn" class="btn btn-primary" style="width: 100%;">Calculate Output Dimensions</button>
             </div>
           </div>
           <div id="c-ts-result"></div>
@@ -526,7 +537,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-rose" style="margin-bottom: 0.4rem;">Loss Functions</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">Loss Function Evaluator (MSE, MAE, Huber, BCE)</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">Loss Function Calculator (Prediction Error)</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Compare true answers against model predictions to calculate Mean Squared Error, Huber loss, or Cross-Entropy.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="loss-calc" data-type="calculator" data-title="Loss Function Calculator">
               ${MLForge.storage.isBookmarked('loss-calc') ? '★' : '☆'}
@@ -537,24 +549,24 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-3">
             <div class="form-group">
-              <label class="form-label">True Values y (comma separated)</label>
+              <label class="form-label">True Answers y (comma-separated)</label>
               <input type="text" id="c-loss-true" class="form-input font-mono" value="1.0, 0.0, 1.0, 1.0">
             </div>
             <div class="form-group">
-              <label class="form-label">Predicted Values ŷ (or probabilities)</label>
+              <label class="form-label">Predictions ŷ (comma-separated)</label>
               <input type="text" id="c-loss-pred" class="form-input font-mono" value="0.9, 0.1, 0.8, 0.4">
             </div>
             <div class="form-group">
-              <label class="form-label">Loss Function</label>
+              <label class="form-label">Error Formula (Loss)</label>
               <select id="c-loss-type" class="form-select">
-                <option value="bce" selected>Binary Cross-Entropy (BCE)</option>
-                <option value="mse">Mean Squared Error (MSE)</option>
-                <option value="mae">Mean Absolute Error (MAE)</option>
-                <option value="huber">Huber Loss (Robust Regression)</option>
+                <option value="bce" selected>Binary Cross-Entropy (for yes/no classification)</option>
+                <option value="mse">Mean Squared Error (MSE for regression prices)</option>
+                <option value="mae">Mean Absolute Error (MAE - average absolute gap)</option>
+                <option value="huber">Huber Loss (gentle with wild outliers)</option>
               </select>
             </div>
           </div>
-          <button id="c-loss-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute Loss</button>
+          <button id="c-loss-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute Loss Step-by-Step</button>
           <div id="c-loss-result"></div>
         </div>
 
@@ -563,7 +575,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-amber" style="margin-bottom: 0.4rem;">Project Planning & Hardware</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">GPU VRAM & Memory Footprint Estimator</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">GPU VRAM Memory Estimator</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Estimate how many gigabytes of graphics card memory your model needs to train or make predictions.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="vram-estimator-calc" data-type="calculator" data-title="GPU VRAM Estimator">
               ${MLForge.storage.isBookmarked('vram-estimator-calc') ? '★' : '☆'}
@@ -574,31 +587,33 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-4">
             <div class="form-group">
-              <label class="form-label">Parameter Count (Billions)</label>
+              <label class="form-label">Model Parameters (Billions)</label>
               <input type="number" id="c-vram-params" class="form-input font-mono" value="7.0" step="0.5" min="0.1">
+              <span class="input-hint">e.g. 7.0 for a 7B LLM</span>
             </div>
             <div class="form-group">
-              <label class="form-label">Precision</label>
+              <label class="form-label">Number Precision</label>
               <select id="c-vram-prec" class="form-select">
-                <option value="fp16" selected>FP16 / BF16 (2 bytes)</option>
-                <option value="fp32">FP32 Full (4 bytes)</option>
-                <option value="int8">INT8 Quantized (1 byte)</option>
-                <option value="int4">INT4 Quantized (0.5 byte)</option>
+                <option value="fp16" selected>FP16 / BF16 (2 bytes per weight)</option>
+                <option value="fp32">FP32 Full (4 bytes per weight)</option>
+                <option value="int8">INT8 Quantized (1 byte per weight)</option>
+                <option value="int4">INT4 Quantized (0.5 byte per weight)</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Mode</label>
+              <label class="form-label">Task Type</label>
               <select id="c-vram-mode" class="form-select">
-                <option value="inference" selected>Inference / Serving</option>
-                <option value="training">Training (Adam + Gradients)</option>
+                <option value="inference" selected>Inference (Running predictions)</option>
+                <option value="training">Training (Weights + Gradients + Adam)</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label">Batch Size</label>
               <input type="number" id="c-vram-batch" class="form-input font-mono" value="1" min="1">
+              <span class="input-hint">Examples processed together</span>
             </div>
           </div>
-          <button id="c-vram-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Estimate VRAM</button>
+          <button id="c-vram-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Estimate Required VRAM</button>
           <div id="c-vram-result"></div>
         </div>
 
@@ -607,7 +622,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-emerald" style="margin-bottom: 0.4rem;">Optimization</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">Gradient Descent Step & Momentum Calculator</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">Gradient Descent Step Calculator</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Calculate how a weight changes in one optimization step: New Weight = Old Weight − (Learning Rate × Gradient).</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="gradient-descent-calc" data-type="calculator" data-title="Gradient Descent Calculator">
               ${MLForge.storage.isBookmarked('gradient-descent-calc') ? '★' : '☆'}
@@ -618,23 +634,26 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-4">
             <div class="form-group">
-              <label class="form-label">Current Weight (θ)</label>
+              <label class="form-label">Current Weight (θ_old)</label>
               <input type="number" id="c-gd-param" class="form-input font-mono" value="2.5" step="0.1">
             </div>
             <div class="form-group">
-              <label class="form-label">Gradient (∇J)</label>
+              <label class="form-label">Gradient Slope (∇J)</label>
               <input type="number" id="c-gd-grad" class="form-input font-mono" value="1.8" step="0.1">
+              <span class="input-hint">Direction and steepness of error</span>
             </div>
             <div class="form-group">
               <label class="form-label">Learning Rate (η)</label>
               <input type="number" id="c-gd-lr" class="form-input font-mono" value="0.1" step="0.01">
+              <span class="input-hint">How big a step to take</span>
             </div>
             <div class="form-group">
-              <label class="form-label">Momentum (γ)</label>
+              <label class="form-label">Momentum Factor (γ)</label>
               <input type="number" id="c-gd-mom" class="form-input font-mono" value="0.9" step="0.05">
+              <span class="input-hint">Carry-over velocity (0 to 1)</span>
             </div>
           </div>
-          <button id="c-gd-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute Step</button>
+          <button id="c-gd-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute New Weight Step</button>
           <div id="c-gd-result"></div>
         </div>
 
@@ -643,7 +662,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-cyan" style="margin-bottom: 0.4rem;">Probability & Math</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">Bayes' Theorem Posterior Probability Calculator</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">Bayes' Rule Probability Calculator</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Calculate the updated probability of an event after observing new test results or evidence.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="bayes-calc" data-type="calculator" data-title="Bayes Theorem Calculator">
               ${MLForge.storage.isBookmarked('bayes-calc') ? '★' : '☆'}
@@ -654,22 +674,22 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-3">
             <div class="form-group">
-              <label class="form-label">Prior P(A) (or %)</label>
+              <label class="form-label">Prior Probability P(A)</label>
               <input type="number" id="c-bayes-prior" class="form-input font-mono" value="0.01" step="0.001">
-              <span class="input-hint">e.g. 0.01 or 1% disease prevalence</span>
+              <span class="input-hint">e.g. 0.01 (1% base rate)</span>
             </div>
             <div class="form-group">
-              <label class="form-label">Likelihood P(B|A) (Sensitivity)</label>
+              <label class="form-label">Test Sensitivity P(B|A)</label>
               <input type="number" id="c-bayes-sens" class="form-input font-mono" value="0.95" step="0.01">
-              <span class="input-hint">e.g. 0.95 true positive rate</span>
+              <span class="input-hint">True positive detection rate (95%)</span>
             </div>
             <div class="form-group">
-              <label class="form-label">False Alarm P(B|¬A)</label>
+              <label class="form-label">False Alarm Rate P(B|¬A)</label>
               <input type="number" id="c-bayes-fp" class="form-input font-mono" value="0.05" step="0.01">
-              <span class="input-hint">e.g. 0.05 false positive rate</span>
+              <span class="input-hint">False positive rate on healthy people (5%)</span>
             </div>
           </div>
-          <button id="c-bayes-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Calculate Posterior P(A|B)</button>
+          <button id="c-bayes-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Calculate Updated Probability P(A|B)</button>
           <div id="c-bayes-result"></div>
         </div>
 
@@ -678,7 +698,8 @@ MLForge.router = (function () {
           <div class="calc-header-meta">
             <div>
               <span class="badge badge-amber" style="margin-bottom: 0.4rem;">Project Planning</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">Train / Validation / Test Split Planner</h2>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">Dataset Split Planner (Train, Val, Test)</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Partition your dataset into exact sample counts totaling 100%.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="dataset-split-calc" data-type="calculator" data-title="Dataset Split Planner">
               ${MLForge.storage.isBookmarked('dataset-split-calc') ? '★' : '☆'}
@@ -689,23 +710,23 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-4">
             <div class="form-group">
-              <label class="form-label">Total Dataset Samples</label>
+              <label class="form-label">Total Examples in Dataset</label>
               <input type="number" id="c-split-total" class="form-input font-mono" value="50000" min="1">
             </div>
             <div class="form-group">
-              <label class="form-label">Train %</label>
+              <label class="form-label">Train % (to learn)</label>
               <input type="number" id="c-split-train" class="form-input font-mono" value="70" min="1" max="98">
             </div>
             <div class="form-group">
-              <label class="form-label">Validation %</label>
+              <label class="form-label">Validation % (to tune)</label>
               <input type="number" id="c-split-val" class="form-input font-mono" value="15" min="1" max="98">
             </div>
             <div class="form-group">
-              <label class="form-label">Test %</label>
+              <label class="form-label">Test % (final exam)</label>
               <input type="number" id="c-split-test" class="form-input font-mono" value="15" min="1" max="98">
             </div>
           </div>
-          <button id="c-split-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute Split Partitions</button>
+          <button id="c-split-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute Split Counts</button>
           <div id="c-split-result"></div>
         </div>
 
@@ -713,8 +734,9 @@ MLForge.router = (function () {
         <div class="calculator-wrapper" id="cosine-calc" data-cat="math">
           <div class="calc-header-meta">
             <div>
-              <span class="badge badge-violet" style="margin-bottom: 0.4rem;">Mathematics & NLP</span>
-              <h2 style="font-size: 1.35rem; font-weight: 700;">Cosine Similarity & Distance Calculator</h2>
+              <span class="badge badge-violet" style="margin-bottom: 0.4rem;">Mathematics & Embeddings</span>
+              <h2 style="font-size: 1.35rem; font-weight: 700;">Cosine Similarity Calculator</h2>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Measure how closely two vector embeddings point in the same direction.</p>
             </div>
             <button class="btn-icon-only" onclick="MLForge.router.toggleBookmark(this)" data-id="cosine-calc" data-type="calculator" data-title="Cosine Similarity Calculator">
               ${MLForge.storage.isBookmarked('cosine-calc') ? '★' : '☆'}
@@ -725,15 +747,15 @@ MLForge.router = (function () {
           </div>
           <div class="form-grid-2">
             <div class="form-group">
-              <label class="form-label">Vector A (comma separated)</label>
+              <label class="form-label">Vector A (comma-separated numbers)</label>
               <input type="text" id="c-cos-a" class="form-input font-mono" value="1.0, 2.0, 3.0, 0.5">
             </div>
             <div class="form-group">
-              <label class="form-label">Vector B (comma separated)</label>
+              <label class="form-label">Vector B (comma-separated numbers)</label>
               <input type="text" id="c-cos-b" class="form-input font-mono" value="2.0, 4.0, 6.0, 1.0">
             </div>
           </div>
-          <button id="c-cos-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Compute Similarity</button>
+          <button id="c-cos-btn" class="btn btn-primary" style="margin-bottom: 1rem;">Calculate Cosine Similarity</button>
           <div id="c-cos-result"></div>
         </div>
       </div>
@@ -1155,18 +1177,43 @@ MLForge.router = (function () {
             <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.6;">${currentTopic.summary}</p>
           </div>
 
+          <!-- 1. Simple Definition -->
           <section>
-            <h2 class="topic-section-title">Definition & Essence</h2>
+            <h2 class="topic-section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-cyan);"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              1. Simple Definition
+            </h2>
             <p class="topic-paragraph">${currentTopic.definition}</p>
           </section>
 
+          <!-- 2. Why Do We Need It? -->
           <section>
-            <h2 class="topic-section-title">What Problem It Solves</h2>
-            <p class="topic-paragraph">${currentTopic.problemSolved}</p>
+            <h2 class="topic-section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-amber);"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              2. Why Do We Need It?
+            </h2>
+            <p class="topic-paragraph">${currentTopic.whyWeNeedIt || currentTopic.problemSolved}</p>
           </section>
 
+          <!-- 3. Simple Real-Life Example -->
+          ${currentTopic.realLifeExample ? `
+            <section>
+              <div class="topic-example-box">
+                <div class="topic-example-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                  3. Simple Real-Life Example
+                </div>
+                <div class="topic-example-content">${currentTopic.realLifeExample}</div>
+              </div>
+            </section>
+          ` : ''}
+
+          <!-- 4. How Does It Work? -->
           <section>
-            <h2 class="topic-section-title">How It Works Step-by-Step</h2>
+            <h2 class="topic-section-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-primary);"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              4. How Does It Work?
+            </h2>
             <div style="display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0;">
               ${(currentTopic.howItWorks || []).map(step => `
                 <div class="topic-step-item">
@@ -1176,37 +1223,126 @@ MLForge.router = (function () {
             </div>
           </section>
 
+          <!-- 5. Mathematical Formulas & Symbols -->
           ${currentTopic.formulas && currentTopic.formulas.length > 0 ? `
             <section>
-              <h2 class="topic-section-title">Core Mathematical Formulas</h2>
+              <h2 class="topic-section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-violet);"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                5. Formula & Symbols Explained
+              </h2>
               ${currentTopic.formulas.map(f => `
-                <div style="margin-bottom: 0.75rem;">
-                  <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">${f.name}</span>
-                  <div class="math-block">\\[${f.exp}\\]</div>
+                <div class="card" style="margin-bottom: 1rem; padding: 1.25rem;">
+                  <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">${f.name}</div>
+                  <div class="math-block" style="margin: 0.65rem 0;">\\[${f.exp}\\]</div>
+                  ${f.explanation ? `<p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.65rem;">${f.explanation}</p>` : ''}
+                  ${f.symbols && f.symbols.length > 0 ? `
+                    <div style="margin-top: 0.5rem; border-top: 1px solid var(--border-subtle); padding-top: 0.5rem;">
+                      <div style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem;">In simple words:</div>
+                      <div class="symbol-def-list">
+                        ${f.symbols.map(s => `
+                          <div class="symbol-item">
+                            <span class="symbol-key">\\(${s.key}\\)</span>
+                            <span class="symbol-desc">${s.desc}</span>
+                          </div>
+                        `).join('')}
+                      </div>
+                    </div>
+                  ` : ''}
                 </div>
               `).join('')}
             </section>
           ` : ''}
 
+          <!-- 6. Small Numerical Example -->
+          ${currentTopic.numericalExample ? `
+            <section>
+              <div class="topic-numerical-box">
+                <div class="topic-numerical-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/></svg>
+                  6. Small Numerical Example: ${currentTopic.numericalExample.title}
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                  ${currentTopic.numericalExample.steps.map(step => `
+                    <div class="topic-numerical-step">${step}</div>
+                  `).join('')}
+                </div>
+              </div>
+            </section>
+          ` : ''}
+
+          <!-- 7. When Do We Use It? -->
+          ${currentTopic.whenToUse && currentTopic.whenToUse.length > 0 ? `
+            <section>
+              <h2 class="topic-section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-emerald);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                7. When Do We Use It?
+              </h2>
+              <ul style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; color: var(--text-secondary); margin: 0.75rem 0;">
+                ${currentTopic.whenToUse.map(u => `<li style="line-height: 1.5;">• ${u}</li>`).join('')}
+              </ul>
+            </section>
+          ` : ''}
+
+          <!-- Concept Comparison Table (When Applicable) -->
+          ${currentTopic.comparison ? `
+            <section>
+              <h2 class="topic-section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-accent-cyan);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Concept Comparison: ${currentTopic.comparison.title}
+              </h2>
+              <div class="topic-comparison-card">
+                <table class="topic-comparison-table">
+                  <thead>
+                    <tr>
+                      ${currentTopic.comparison.headers.map(h => `<th>${h}</th>`).join('')}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${currentTopic.comparison.rows.map(row => `
+                      <tr>
+                        ${row.map((cell, idx) => `<td>${idx === 0 ? `<strong>${cell}</strong>` : cell}</td>`).join('')}
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          ` : ''}
+
+          <!-- Advanced / Technical Details (Expandable) -->
+          ${currentTopic.technicalDetails ? `
+            <details class="topic-tech-details">
+              <summary class="topic-tech-summary">
+                <span>🔧 Technical Details & Deep Dive (For Advanced Developers)</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Click to expand ▼</span>
+              </summary>
+              <div class="topic-tech-body">
+                ${currentTopic.technicalDetails}
+              </div>
+            </details>
+          ` : ''}
+
+          <!-- Pros and Cons -->
           <div class="pro-con-grid">
             <div class="pro-box">
-              <div class="box-title">Advantages</div>
+              <div class="box-title">Key Advantages</div>
               <ul style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: var(--text-secondary);">
                 ${(currentTopic.pros || []).map(p => `<li>• ${p}</li>`).join('')}
               </ul>
             </div>
             <div class="con-box">
-              <div class="box-title">Limitations & Watch-outs</div>
+              <div class="box-title">Watch-outs & Limitations</div>
               <ul style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.85rem; color: var(--text-secondary);">
                 ${(currentTopic.cons || []).map(c => `<li>• ${c}</li>`).join('')}
               </ul>
             </div>
           </div>
 
+          <!-- Code Implementation Snippet & Guide -->
           ${currentTopic.codeSnippet ? `
             <section>
               <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center; justify-content: space-between; margin-top: 1.5rem; width: 100%; min-width: 0;">
-                <h2 class="topic-section-title" style="margin: 0; min-width: 0; flex: 1 1 180px;">Python Implementation Example</h2>
+                <h2 class="topic-section-title" style="margin: 0; min-width: 0; flex: 1 1 180px;">Python Code Example</h2>
                 <button class="btn btn-sm btn-ghost" style="flex-shrink: 0;" onclick="MLForge.ui.copyToClipboard(document.getElementById('topic-code-block').innerText, 'Code copied!')">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                   Copy Snippet
@@ -1215,10 +1351,16 @@ MLForge.router = (function () {
               <div class="code-container">
                 <div class="code-header">
                   <span class="code-lang">Python</span>
-                  <span>Reference Execution</span>
+                  <span>Practical Example</span>
                 </div>
                 <pre class="code-pre" id="topic-code-block"><code>${currentTopic.codeSnippet}</code></pre>
               </div>
+              ${currentTopic.codeExplanation ? `
+                <div class="topic-code-guide">
+                  <div class="topic-code-guide-title">What this code does:</div>
+                  <p style="color: var(--text-secondary); margin: 0;">${currentTopic.codeExplanation}</p>
+                </div>
+              ` : ''}
             </section>
           ` : ''}
         </article>
@@ -1345,7 +1487,7 @@ MLForge.router = (function () {
       <div style="margin-bottom: 2rem;">
         <h1 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem;">Developer Code & Implementation Reference</h1>
         <p style="color: var(--text-secondary); max-width: 780px;">
-          Production-tested Python templates for PyTorch, Scikit-Learn pipelines, FastAPI model serving, and data preprocessing. Click to copy directly into your repository.
+          Clean, production-tested Python code examples explained in simple English. Each example includes what the code does, inputs, outputs, and line-by-line guidance.
         </p>
       </div>
 
@@ -1362,15 +1504,38 @@ MLForge.router = (function () {
                 Copy Code
               </button>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; word-break: break-word;">${c.description}</p>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.5; word-break: break-word;">${c.description}</p>
+
+            ${c.explanation ? `
+              <div class="topic-example-box" style="margin: 0.75rem 0; padding: 0.85rem 1rem;">
+                <div class="topic-example-title" style="font-size: 0.85rem;">How it works in simple English:</div>
+                <div class="topic-example-content" style="font-size: 0.85rem;">${c.explanation}</div>
+              </div>
+            ` : ''}
+
+            ${c.inputs || c.outputs ? `
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem;">
+                ${c.inputs ? `
+                  <div style="padding: 0.65rem 0.85rem; background: var(--bg-app); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 0.8rem;">
+                    <strong style="color: var(--color-accent-cyan);">Inputs:</strong> ${c.inputs}
+                  </div>
+                ` : ''}
+                ${c.outputs ? `
+                  <div style="padding: 0.65rem 0.85rem; background: var(--bg-app); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 0.8rem;">
+                    <strong style="color: var(--color-accent-emerald);">Outputs:</strong> ${c.outputs}
+                  </div>
+                ` : ''}
+              </div>
+            ` : ''}
+
             <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; word-break: break-word;">
-              Requirements: <code style="color: var(--color-accent-cyan); word-break: break-word;">${c.requirements}</code>
+              Required packages: <code style="color: var(--color-accent-cyan); word-break: break-word;">${c.requirements}</code>
             </div>
 
             <div class="code-container">
               <div class="code-header">
                 <span class="code-lang">${c.language}</span>
-                <span>Production Reference</span>
+                <span>Python Reference</span>
               </div>
               <pre class="code-pre" id="code-pre-${c.id}"><code>${c.code}</code></pre>
             </div>

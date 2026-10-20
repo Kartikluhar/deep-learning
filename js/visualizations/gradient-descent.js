@@ -25,43 +25,43 @@ MLForge.viz.gradientDescent = {
         <div class="playground-controls">
           <div>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Gradient Descent Optimizer</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Watch parameter updates over iterations and see how learning rate affects convergence.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Watch the model take steps downhill to reduce its error. Adjust the step size (learning rate) to see smooth learning or wild bouncing.</p>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Loss Function Landscape</label>
+            <label class="form-label">Error Valley Shape (Loss Landscape)</label>
             <select id="gd-fn-select" class="form-select">
-              <option value="quadratic" selected>Convex: J(θ) = 0.5 θ²</option>
-              <option value="double_well">Non-Convex: J(θ) = 0.2 θ⁴ - 0.8 θ² + 0.1 θ + 1</option>
+              <option value="quadratic" selected>Smooth Bowl (Convex: single lowest point)</option>
+              <option value="double_well">Two Valleys (Non-convex: local vs global minimum)</option>
             </select>
           </div>
 
           <div class="form-group">
-            <div class="form-label"><span>Learning Rate (η)</span> <span id="gd-lr-val" class="range-val">0.15</span></div>
+            <div class="form-label"><span>Learning Rate / Step Size (η)</span> <span id="gd-lr-val" class="range-val">0.15</span></div>
             <input type="range" id="gd-lr-slider" class="range-input" min="0.01" max="1.3" step="0.02" value="0.15">
-            <span class="input-hint">η &gt; 1.0 causes oscillations or explosive divergence.</span>
+            <span class="input-hint">Setting η &gt; 1.0 makes steps so large that the model overshoots and error explodes.</span>
           </div>
 
           <div class="form-group">
-            <div class="form-label"><span>Initial Parameter θ₀</span> <span id="gd-x0-val" class="range-val">2.5</span></div>
+            <div class="form-label"><span>Starting Position θ₀</span> <span id="gd-x0-val" class="range-val">2.5</span></div>
             <input type="range" id="gd-x0-slider" class="range-input" min="-3" max="3" step="0.1" value="2.5">
           </div>
 
           <!-- Action Buttons -->
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
             <button id="gd-step-btn" class="btn btn-secondary btn-sm" style="flex: 1;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Step
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg> Take 1 Step
             </button>
             <button id="gd-auto-btn" class="btn btn-primary btn-sm" style="flex: 1;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Auto Run
             </button>
             <button id="gd-reset-btn" class="btn btn-ghost btn-sm" style="width: 100%; border: 1px solid var(--border-subtle);">
-              Reset Optimization
+              Reset Position
             </button>
           </div>
 
           <div id="gd-alert-box" style="display: none; padding: 0.75rem; border-radius: var(--radius-md); background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--color-accent-rose); font-size: 0.8rem; line-height: 1.4;">
-            ⚠️ <strong>Divergence Detected!</strong> Learning rate is too high. The step overshot the minimum and loss exploded. Lower η and reset.
+            ⚠️ <strong>Model Jumped Too Far! (Divergence)</strong> The learning rate is too large. Each step overshot the bottom of the valley, causing the error to explode into huge numbers. Lower η and click reset.
           </div>
         </div>
 

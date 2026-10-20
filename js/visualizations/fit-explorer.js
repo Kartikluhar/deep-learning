@@ -37,16 +37,16 @@ MLForge.viz.fitExplorer = {
         <div class="playground-controls">
           <div>
             <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Overfitting vs Underfitting Explorer</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Adjust model capacity to see when a model fails to capture the trend (bias) or memorizes noise (variance).</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Change how flexible the model is. Watch what happens when a model is too simple (underfitting) or memorizes random noise (overfitting).</p>
           </div>
 
           <div class="form-group">
-            <div class="form-label"><span>Model Complexity (Degree)</span> <span id="fit-degree-val" class="range-val">3</span></div>
+            <div class="form-label"><span>Model Flexibility (Degree)</span> <span id="fit-degree-val" class="range-val">3</span></div>
             <input type="range" id="fit-degree-slider" class="range-input" min="1" max="9" step="1" value="3">
             <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">
-              <span>1 (Linear)</span>
-              <span>3 (Optimal)</span>
-              <span>9 (High Poly)</span>
+              <span>1 (Too Simple Line)</span>
+              <span>3 (Just Right Curve)</span>
+              <span>9 (Too Wobbly)</span>
             </div>
           </div>
 
@@ -220,21 +220,21 @@ MLForge.viz.fitExplorer = {
 
     if (deg === 1) {
       badge.className = "badge badge-rose";
-      badge.textContent = "Underfitting (High Bias)";
-      desc.textContent = "The straight line model is too rigid to capture the natural curvature. It has high training error and misses the underlying pattern.";
+      badge.textContent = "Underfitting (Too Simple)";
+      desc.textContent = "A straight line is too simple to follow the curved wave. Because it cannot bend, it makes big errors even on the practice training points.";
       gapEl.textContent = "High Underfit Error";
       gapEl.style.color = "var(--color-accent-rose)";
     } else if (deg >= 7) {
       badge.className = "badge badge-amber";
-      badge.textContent = "Overfitting (High Variance)";
-      desc.textContent = "The model has too many degrees of freedom. It twists wildly between points to memorize the noise, causing catastrophic errors on unseen test inputs.";
-      gapEl.textContent = "Severe Overfit Gap";
+      badge.textContent = "Overfitting (Memorizing Noise)";
+      desc.textContent = "The model is too complicated. It twists wildly up and down to touch every single noisy dot. While training error is low, it will make huge mistakes on brand new data.";
+      gapEl.textContent = "Danger: Memorizing Noise";
       gapEl.style.color = "var(--color-accent-amber)";
     } else {
       badge.className = "badge badge-emerald";
-      badge.textContent = "Optimal Balance";
-      desc.textContent = "The polynomial smoothly captures the true generative curve while filtering out point-level noise. Best generalization expected.";
-      gapEl.textContent = "Optimal (Healthy)";
+      badge.textContent = "Just Right (Balanced Fit)";
+      desc.textContent = "The curve captures the true pattern smoothly without getting tricked by random noise bumps. It will generalize accurately to new data.";
+      gapEl.textContent = "Balanced (Healthy)";
       gapEl.style.color = "#10b981";
     }
 

@@ -52,14 +52,14 @@ MLForge.calculators.ml = {
     }
 
     const steps = [
-      { label: "Mean Absolute Error: \\(\\text{MAE} = \\frac{1}{n} \\sum |y_i - \\hat{y}_i|\\)", calc: `\\(\\frac{${sumAbs.toFixed(4)}}{${n}} =\\) <strong>${mae.toFixed(4)}</strong>` },
-      { label: "Mean Squared Error: \\(\\text{MSE} = \\frac{1}{n} \\sum (y_i - \\hat{y}_i)^2\\)", calc: `\\(\\frac{${sumSq.toFixed(4)}}{${n}} =\\) <strong>${mse.toFixed(4)}</strong>` },
-      { label: "Root Mean Squared Error: \\(\\text{RMSE} = \\sqrt{\\text{MSE}}\\)", calc: `\\(\\sqrt{${mse.toFixed(4)}} =\\) <strong>${rmse.toFixed(4)}</strong>` },
+      { label: "Step 1: Mean Absolute Error (average distance without minus signs: \\(\\text{MAE}\\))", calc: `\\(\\frac{${sumAbs.toFixed(4)}}{${n}} =\\) <strong>${mae.toFixed(4)}</strong>` },
+      { label: "Step 2: Mean Squared Error (squares errors to penalize big mistakes: \\(\\text{MSE}\\))", calc: `\\(\\frac{${sumSq.toFixed(4)}}{${n}} =\\) <strong>${mse.toFixed(4)}</strong>` },
+      { label: "Step 3: Root Mean Squared Error (square root back in original data units: \\(\\text{RMSE}\\))", calc: `\\(\\sqrt{${mse.toFixed(4)}} =\\) <strong>${rmse.toFixed(4)}</strong>` },
       {
-        label: "R² Coefficient of Determination: \\(R^2 = 1 - \\frac{\\text{SS}_{\\text{res}}}{\\text{SS}_{\\text{tot}}}\\)",
+        label: "Step 4: R² Score (percentage of total variation explained by the model: \\(R^2\\))",
         calc: ssTotal === 0
-          ? "Target variance is zero (constant target)."
-          : `\\(1 - \\frac{${sumSq.toFixed(4)}}{${ssTotal.toFixed(4)}} =\\) <strong>${r2.toFixed(4)}</strong> ${r2 < 0 ? '<span style="color:var(--color-accent-rose);">(Negative R² indicates model performs worse than horizontal mean line ȳ)</span>' : ''}`
+          ? "Target variation is zero (all actual values are identical)."
+          : `\\(1 - \\frac{${sumSq.toFixed(4)}}{${ssTotal.toFixed(4)}} =\\) <strong>${r2.toFixed(4)}</strong> ${r2 < 0 ? '<span style="color:var(--color-accent-rose);">(Negative R² means the model predicts worse than simply guessing the average!)</span>' : ''}`
       }
     ];
 
@@ -105,14 +105,14 @@ MLForge.calculators.ml = {
     const fnr = (fn + tp) > 0 ? fn / (fn + tp) : 0;
 
     const steps = [
-      { label: "Accuracy", calc: `(TP + TN) / Total = (${tp} + ${tn}) / ${total} = <strong>${(accuracy * 100).toFixed(2)}%</strong> (${accuracy.toFixed(4)})` },
-      { label: "Precision", calc: `TP / (TP + FP) = ${tp} / (${tp} + ${fp}) = <strong>${(precision * 100).toFixed(2)}%</strong> (${precision.toFixed(4)})` },
-      { label: "Recall (Sensitivity)", calc: `TP / (TP + FN) = ${tp} / (${tp} + ${fn}) = <strong>${(recall * 100).toFixed(2)}%</strong> (${recall.toFixed(4)})` },
-      { label: "Specificity", calc: `TN / (TN + FP) = ${tn} / (${tn} + ${fp}) = <strong>${(specificity * 100).toFixed(2)}%</strong> (${specificity.toFixed(4)})` },
-      { label: "F1-Score", calc: `2 × (Precision × Recall) / (P + R) = <strong>${f1.toFixed(4)}</strong>` },
-      { label: "Balanced Accuracy", calc: `(Recall + Specificity) / 2 = <strong>${(balancedAcc * 100).toFixed(2)}%</strong>` },
-      { label: "False Positive Rate (FPR)", calc: `FP / (FP + TN) = ${fp} / (${fp} + ${tn}) = <strong>${(fpr * 100).toFixed(2)}%</strong>` },
-      { label: "False Negative Rate (FNR)", calc: `FN / (FN + TP) = ${fn} / (${fn} + ${tp}) = <strong>${(fnr * 100).toFixed(2)}%</strong>` }
+      { label: "Accuracy (overall percentage of correct predictions)", calc: `(TP + TN) / Total = (${tp} + ${tn}) / ${total} = <strong>${(accuracy * 100).toFixed(2)}%</strong> (${accuracy.toFixed(4)})` },
+      { label: "Precision (when model predicts positive, how often is it right?)", calc: `TP / (TP + FP) = ${tp} / (${tp} + ${fp}) = <strong>${(precision * 100).toFixed(2)}%</strong> (${precision.toFixed(4)})` },
+      { label: "Recall / Sensitivity (of all real positives, how many did it find?)", calc: `TP / (TP + FN) = ${tp} / (${tp} + ${fn}) = <strong>${(recall * 100).toFixed(2)}%</strong> (${recall.toFixed(4)})` },
+      { label: "Specificity (of all real negatives, how many did it identify correctly?)", calc: `TN / (TN + FP) = ${tn} / (${tn} + ${fp}) = <strong>${(specificity * 100).toFixed(2)}%</strong> (${specificity.toFixed(4)})` },
+      { label: "F1-Score (fair balance between Precision and Recall)", calc: `2 × (Precision × Recall) / (P + R) = <strong>${f1.toFixed(4)}</strong>` },
+      { label: "Balanced Accuracy (average of recall and specificity)", calc: `(Recall + Specificity) / 2 = <strong>${(balancedAcc * 100).toFixed(2)}%</strong>` },
+      { label: "False Positive Rate (false alarms among actual negatives)", calc: `FP / (FP + TN) = ${fp} / (${fp} + ${tn}) = <strong>${(fpr * 100).toFixed(2)}%</strong>` },
+      { label: "False Negative Rate (missed cases among actual positives)", calc: `FN / (FN + TP) = ${fn} / (${fn} + ${tp}) = <strong>${(fnr * 100).toFixed(2)}%</strong>` }
     ];
 
     return {
@@ -157,8 +157,8 @@ MLForge.calculators.ml = {
 
     const posterior = (pBgA * pA) / pB;
     const steps = [
-      { label: "1. Marginal Evidence: \\(P(B)\\)", calc: pB_calc_formula },
-      { label: "2. Posterior Probability: \\(P(A|B) = \\frac{P(B|A)P(A)}{P(B)}\\)", calc: `\\(\\frac{${pBgA.toFixed(4)} \\times ${pA.toFixed(4)}}{${pB.toFixed(4)}} =\\) <strong>${posterior.toFixed(4)}</strong> (<strong>${(posterior * 100).toFixed(2)}%</strong>)` }
+      { label: "Step 1: Total Evidence (overall chance of seeing symptom or test B: \\(P(B)\\))", calc: pB_calc_formula },
+      { label: "Step 2: Updated Probability (chance that A is true now that we saw B: \\(P(A|B)\\))", calc: `\\(\\frac{${pBgA.toFixed(4)} \\times ${pA.toFixed(4)}}{${pB.toFixed(4)}} =\\) <strong>${posterior.toFixed(4)}</strong> (<strong>${(posterior * 100).toFixed(2)}%</strong>)` }
     ];
 
     return { posterior, pB, steps };
@@ -185,9 +185,9 @@ MLForge.calculators.ml = {
 
     const zScores = nums.map(x => (x - mean) / stdDev);
     const steps = [
-      { label: "Mean (μ)", calc: `Sum = ${nums.reduce((a,b)=>a+b,0).toFixed(4)} ÷ ${n} = <strong>${mean.toFixed(4)}</strong>` },
-      { label: "Sample Std Deviation (s)", calc: `√(Σ(x - μ)² / (n - 1)) = <strong>${stdDev.toFixed(4)}</strong>` },
-      { label: "Z-Scores Sample Output", calc: zScores.map((z, i) => `x${i+1} (${nums[i]}) → <strong>${z.toFixed(4)}</strong>`).slice(0, 6).join(", ") + (zScores.length > 6 ? ` ... (+${zScores.length - 6} more)` : '') }
+      { label: "Step 1: Calculate the Average (Mean μ)", calc: `Sum = ${nums.reduce((a,b)=>a+b,0).toFixed(4)} ÷ ${n} = <strong>${mean.toFixed(4)}</strong>` },
+      { label: "Step 2: Calculate Spread Distance (Standard Deviation s)", calc: `√(Σ(x - μ)² / (n - 1)) = <strong>${stdDev.toFixed(4)}</strong>` },
+      { label: "Step 3: Standardized Z-Scores (number of standard deviations away from the mean)", calc: zScores.map((z, i) => `x${i+1} (${nums[i]}) → <strong>${z.toFixed(4)}</strong>`).slice(0, 6).join(", ") + (zScores.length > 6 ? ` ... (+${zScores.length - 6} more)` : '') }
     ];
 
     return { mean, stdDev, zScores, steps };
@@ -215,9 +215,9 @@ MLForge.calculators.ml = {
     const normalized = nums.map(x => minBound + ((x - minX) / range) * targetRange);
 
     const steps = [
-      { label: "Range Bounds", calc: `Min: ${minX.toFixed(4)}, Max: ${maxX.toFixed(4)}, Target Range: [${minBound}, ${maxBound}]` },
-      { label: "Formula", calc: `x' = ${minBound} + [(x - ${minX.toFixed(4)}) / ${range.toFixed(4)}] × ${targetRange}` },
-      { label: "Normalized Sample Output", calc: normalized.map((v, i) => `x${i+1}: <strong>${v.toFixed(4)}</strong>`).slice(0, 6).join(", ") }
+      { label: "Step 1: Find Smallest and Largest Values", calc: `Lowest = ${minX.toFixed(4)}, Highest = ${maxX.toFixed(4)}, New Target Range = [${minBound}, ${maxBound}]` },
+      { label: "Step 2: Rescaling Formula", calc: `x' = ${minBound} + [(x - ${minX.toFixed(4)}) / ${range.toFixed(4)}] × ${targetRange}` },
+      { label: "Step 3: Scaled Values", calc: normalized.map((v, i) => `x${i+1}: <strong>${v.toFixed(4)}</strong>`).slice(0, 6).join(", ") }
     ];
 
     return { minX, maxX, normalized, steps };
@@ -273,10 +273,10 @@ MLForge.calculators.ml = {
     const r = Math.sign(slope) * Math.sqrt(Math.max(0, r2));
 
     const steps = [
-      { label: "Means", calc: `x̄ = ${meanX.toFixed(4)}, ȳ = ${meanY.toFixed(4)}` },
-      { label: "Slope (w / m)", calc: `Σ(x - x̄)(y - ȳ) / Σ(x - x̄)² = ${num.toFixed(4)} / ${den.toFixed(4)} = <strong>${slope.toFixed(4)}</strong>` },
-      { label: "Intercept (b)", calc: `ȳ - m·x̄ = ${meanY.toFixed(4)} - (${slope.toFixed(4)} × ${meanX.toFixed(4)}) = <strong>${intercept.toFixed(4)}</strong>` },
-      { label: "Regression Equation", calc: `<strong>ŷ = ${slope.toFixed(4)}x + ${intercept.toFixed(4)}</strong> (R² = ${r2.toFixed(4)}, Pearson r = ${r.toFixed(4)})` }
+      { label: "Step 1: Calculate Averages (x̄, ȳ)", calc: `Average X = ${meanX.toFixed(4)}, Average Y = ${meanY.toFixed(4)}` },
+      { label: "Step 2: Calculate Slope (how much Y increases when X goes up by 1)", calc: `Σ(x - x̄)(y - ȳ) / Σ(x - x̄)² = ${num.toFixed(4)} / ${den.toFixed(4)} = <strong>${slope.toFixed(4)}</strong>` },
+      { label: "Step 3: Calculate Starting Intercept (value of Y when X is 0)", calc: `ȳ - m·x̄ = ${meanY.toFixed(4)} - (${slope.toFixed(4)} × ${meanX.toFixed(4)}) = <strong>${intercept.toFixed(4)}</strong>` },
+      { label: "Step 4: Final Best-Fit Line Formula", calc: `<strong>ŷ = ${slope.toFixed(4)}x + ${intercept.toFixed(4)}</strong> (R² = ${r2.toFixed(4)}, Pearson correlation r = ${r.toFixed(4)})` }
     ];
 
     return { slope, intercept, r2, r, steps };
@@ -309,9 +309,9 @@ MLForge.calculators.ml = {
     const minkowski = Math.pow(sumP, 1 / p);
 
     const steps = [
-      { label: "Euclidean Distance (L2)", calc: `√(Σ|aᵢ - bᵢ|²) = √(${sumSq.toFixed(4)}) = <strong>${euclidean.toFixed(4)}</strong>` },
-      { label: "Manhattan Distance (L1)", calc: `Σ|aᵢ - bᵢ| = <strong>${manhattan.toFixed(4)}</strong>` },
-      { label: `Minkowski Distance (p=${p})`, calc: `(Σ|aᵢ - bᵢ|^${p})^(1/${p}) = <strong>${minkowski.toFixed(4)}</strong>` }
+      { label: "Euclidean Distance (Straight Line distance: L2)", calc: `√(Σ|aᵢ - bᵢ|²) = √(${sumSq.toFixed(4)}) = <strong>${euclidean.toFixed(4)}</strong>` },
+      { label: "Manhattan Distance (Grid / City-block distance: L1)", calc: `Σ|aᵢ - bᵢ| = <strong>${manhattan.toFixed(4)}</strong>` },
+      { label: `Minkowski Distance (Generalized distance formula with p=${p})`, calc: `(Σ|aᵢ - bᵢ|^${p})^(1/${p}) = <strong>${minkowski.toFixed(4)}</strong>` }
     ];
 
     return { euclidean, manhattan, minkowski, steps };
@@ -347,10 +347,10 @@ MLForge.calculators.ml = {
     const distance = 1 - similarity;
 
     const steps = [
-      { label: "Vector Dot Product: \\(\\mathbf{A} \\cdot \\mathbf{B} = \\sum_{i=1}^n A_i B_i\\)", calc: `<strong>${dot.toFixed(4)}</strong>` },
-      { label: "Euclidean Norms: \\(\\|\\mathbf{A}\\|, \\|\\mathbf{B}\\|\\)", calc: `\\(\\|\\mathbf{A}\\| = ${normA.toFixed(4)}, \\quad \\|\\mathbf{B}\\| = ${normB.toFixed(4)}\\)` },
-      { label: "Cosine Similarity: \\(\\cos(\\theta) = \\frac{\\mathbf{A} \\cdot \\mathbf{B}}{\\|\\mathbf{A}\\| \\|\\mathbf{B}\\|}\\)", calc: `\\(\\frac{${dot.toFixed(4)}}{${normA.toFixed(4)} \\times ${normB.toFixed(4)}} =\\) <strong>${similarity.toFixed(4)}</strong>` },
-      { label: "Cosine Distance: \\(1 - \\cos(\\theta)\\)", calc: `\\(1 - ${similarity.toFixed(4)} =\\) <strong>${distance.toFixed(4)}</strong>` }
+      { label: "Step 1: Multiply matching elements (Dot Product: \\(\\mathbf{A} \\cdot \\mathbf{B}\\))", calc: `<strong>${dot.toFixed(4)}</strong>` },
+      { label: "Step 2: Find total length (Norm) of each vector", calc: `Length A = ${normA.toFixed(4)}, Length B = ${normB.toFixed(4)}` },
+      { label: "Step 3: Direction Similarity (1.0 = identical direction, 0.0 = completely unrelated)", calc: `\\(\\frac{${dot.toFixed(4)}}{${normA.toFixed(4)} \\times ${normB.toFixed(4)}} =\\) <strong>${similarity.toFixed(4)}</strong>` },
+      { label: "Step 4: Cosine Distance (1 minus similarity)", calc: `\\(1 - ${similarity.toFixed(4)} =\\) <strong>${distance.toFixed(4)}</strong>` }
     ];
 
     return { similarity, distance, steps };
@@ -387,18 +387,18 @@ MLForge.calculators.ml = {
       const splitEnt = computeEntropy(split);
       const weight = countTotal / parentTotal;
       weightedChildEntropy += weight * splitEnt;
-      splitSteps.push(`Branch ${idx+1} (${countTotal}/${parentTotal} samples): Entropy = ${splitEnt.toFixed(4)}`);
+      splitSteps.push(`Branch ${idx+1} (${countTotal}/${parentTotal} items): Disorder (Entropy) = ${splitEnt.toFixed(4)}`);
     });
 
     const infoGain = parentEntropy - weightedChildEntropy;
 
     const steps = [
-      { label: "Parent Node Entropy H(S)", calc: `-${parentCounts.map(c => `(${c}/${parentTotal})log₂(${c}/${parentTotal})`).join(" - ")} = <strong>${parentEntropy.toFixed(4)} bits</strong>` }
+      { label: "Step 1: Starting Disorder (Parent Entropy)", calc: `-${parentCounts.map(c => `(${c}/${parentTotal})log₂(${c}/${parentTotal})`).join(" - ")} = <strong>${parentEntropy.toFixed(4)} bits</strong>` }
     ];
 
     if (childSplits.length > 0) {
-      steps.push({ label: "Child Branch Entropies", calc: splitSteps.join("<br>") });
-      steps.push({ label: "Information Gain IG(S, A)", calc: `H(S) - Σ ( |Sᵥ| / |S| ) H(Sᵥ) = ${parentEntropy.toFixed(4)} - ${weightedChildEntropy.toFixed(4)} = <strong>${infoGain.toFixed(4)} bits</strong>` });
+      steps.push({ label: "Step 2: Disorder in each branch after splitting", calc: splitSteps.join("<br>") });
+      steps.push({ label: "Step 3: Information Gain (how much disorder was removed by this question)", calc: `Starting Entropy (${parentEntropy.toFixed(4)}) - Split Entropy (${weightedChildEntropy.toFixed(4)}) = <strong>${infoGain.toFixed(4)} bits</strong>` });
     }
 
     return { parentEntropy, infoGain, steps };
@@ -421,17 +421,17 @@ MLForge.calculators.ml = {
 
     let recommendation = "";
     if (ratio >= 20) {
-      recommendation = "Severe imbalance! Standard accuracy will be misleading. Recommended: SMOTE / ADASYN oversampling, Focal Loss, Class Weights, and optimizing PR-AUC instead of ROC-AUC.";
+      recommendation = "Severe imbalance! Standard accuracy will be misleading (guessing the majority class always gets a high score). Recommendation: Create synthetic minority examples with SMOTE, use Class Weights, and measure Precision-Recall rather than basic accuracy.";
     } else if (ratio >= 5) {
-      recommendation = "Moderate imbalance. Recommended: Stratified K-Fold CV, class-weighted loss (e.g. class_weight='balanced'), and evaluating F1-Score.";
+      recommendation = "Moderate imbalance. Recommendation: Use Stratified K-Fold cross-validation so every test fold has the same ratio, set class_weight='balanced', and focus on F1-Score.";
     } else {
-      recommendation = "Mild or balanced class distribution. Standard cross-validation and accuracy/cross-entropy are suitable.";
+      recommendation = "Balanced or mild ratio. Standard cross-validation and standard accuracy or cross-entropy work well here.";
     }
 
     const steps = [
-      { label: "Class Distribution", calc: counts.map((c, i) => `Class ${i+1}: <strong>${c.toLocaleString()}</strong> (${percentages[i].toFixed(2)}%)`).join(" | ") },
+      { label: "Class Breakdown", calc: counts.map((c, i) => `Class ${i+1}: <strong>${c.toLocaleString()}</strong> (${percentages[i].toFixed(2)}%)`).join(" | ") },
       { label: "Imbalance Ratio", calc: `<strong>1 : ${ratio.toFixed(1)}</strong>` },
-      { label: "Engineering Recommendation", calc: recommendation }
+      { label: "Practical Advice for Developers", calc: recommendation }
     ];
 
     return { ratio, percentages, steps };

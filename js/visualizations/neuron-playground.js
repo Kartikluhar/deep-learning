@@ -16,8 +16,8 @@ MLForge.viz.neuron = {
         <!-- Controls Column -->
         <div class="playground-controls">
           <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Neuron Hyperparameters</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Adjust inputs, synaptic weights, and bias to observe how the neuron fires.</p>
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">How an Artificial Neuron Works</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Adjust input values (x), importance weights (w), and the bias number (b) to see how a neuron calculates its total and fires.</p>
           </div>
 
           <div class="form-group">
@@ -32,7 +32,7 @@ MLForge.viz.neuron = {
           </div>
 
           <!-- Inputs -->
-          <div style="font-size: 0.825rem; font-weight: 600; color: var(--color-accent-cyan); margin-top: 0.5rem;">Input Signals (x)</div>
+          <div style="font-size: 0.825rem; font-weight: 600; color: var(--color-accent-cyan); margin-top: 0.5rem;">Input Values (x)</div>
           <div class="form-group">
             <div class="form-label"><span>Input x₁</span> <span id="np-x1-val" class="range-val">1.0</span></div>
             <input type="range" id="np-x1" class="range-input" min="-3" max="3" step="0.1" value="1.0">
@@ -47,7 +47,7 @@ MLForge.viz.neuron = {
           </div>
 
           <!-- Weights -->
-          <div style="font-size: 0.825rem; font-weight: 600; color: var(--color-accent-violet); margin-top: 0.5rem;">Synaptic Weights (w)</div>
+          <div style="font-size: 0.825rem; font-weight: 600; color: var(--color-accent-violet); margin-top: 0.5rem;">Importance Weights (w)</div>
           <div class="form-group">
             <div class="form-label"><span>Weight w₁</span> <span id="np-w1-val" class="range-val">0.8</span></div>
             <input type="range" id="np-w1" class="range-input" min="-3" max="3" step="0.1" value="0.8">
@@ -62,7 +62,7 @@ MLForge.viz.neuron = {
           </div>
 
           <!-- Bias -->
-          <div style="font-size: 0.825rem; font-weight: 600; color: var(--color-accent-amber); margin-top: 0.5rem;">Neuron Bias Offset (b)</div>
+          <div style="font-size: 0.825rem; font-weight: 600; color: var(--color-accent-amber); margin-top: 0.5rem;">Neuron Bias Number (b)</div>
           <div class="form-group">
             <div class="form-label"><span>Bias b</span> <span id="np-b-val" class="range-val">-0.2</span></div>
             <input type="range" id="np-b" class="range-input" min="-3" max="3" step="0.1" value="-0.2">
@@ -77,15 +77,15 @@ MLForge.viz.neuron = {
 
           <div class="playground-stats-bar">
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Summation (z = Σwᵢxᵢ + b)</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Combined Total (z = Σwᵢxᵢ + b)</span>
               <div id="np-sum-readout" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--text-main);">0.000</div>
             </div>
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Activated Output a = f(z)</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Final Output a = f(z)</span>
               <div id="np-act-readout" style="font-family: var(--font-mono); font-size: 1.4rem; font-weight: 800; color: var(--color-accent-cyan);">0.000</div>
             </div>
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Neuron Excitation</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Neuron Status</span>
               <div id="np-status-readout" class="badge badge-cyan" style="font-size: 0.8rem; margin-top: 2px;">Active</div>
             </div>
           </div>

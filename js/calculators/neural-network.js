@@ -44,11 +44,11 @@ MLForge.calculators.nn = {
     const linearCombination = weightedSum + b; // z
 
     steps.push({
-      label: "1. Dot Product: \\(\\sum_{i=1}^n w_i x_i\\)",
+      label: "Step 1: Multiply each input by its weight (Dot Product: \\(\\sum_{i=1}^n w_i x_i\\))",
       calc: products.join(" + ") + ` = <strong>${weightedSum.toFixed(4)}</strong>`
     });
     steps.push({
-      label: "2. Add Bias Offset: \\(z = \\sum w_i x_i + b\\)",
+      label: "Step 2: Add the bias number (Offset: \\(z = \\sum w_i x_i + b\\))",
       calc: `${weightedSum.toFixed(4)} + ${b} = <strong>${linearCombination.toFixed(4)}</strong>`
     });
 
@@ -81,7 +81,7 @@ MLForge.calculators.nn = {
     }
 
     steps.push({
-      label: `3. Apply Activation [${activation.toUpperCase()}]`,
+      label: `Step 3: Pass total through activation function [${activation.toUpperCase()}]`,
       calc: actFormula
     });
 
@@ -117,13 +117,13 @@ MLForge.calculators.nn = {
       const softmaxVals = exps.map(e => e / sumExps);
 
       steps.push({
-        label: "Stable Exponentiation [e^(z - max)]",
-        calc: `max(z) = ${maxVal}. Exponentials sum = ${sumExps.toFixed(4)}`
+        label: "Step 1: Shift scores and calculate powers safely [e^(z - max)]",
+        calc: `Highest score: max(z) = ${maxVal}. Sum of exponents = ${sumExps.toFixed(4)}. Each score turns into a clean probability that adds up to 100%.`
       });
 
       return {
         values: softmaxVals,
-        formatted: softmaxVals.map((v, i) => `P(class ${i+1}) = ${(v * 100).toFixed(2)}% (${v.toFixed(4)})`),
+        formatted: softmaxVals.map((v, i) => `Class ${i+1}: ${(v * 100).toFixed(2)}% chance (${v.toFixed(4)})`),
         steps
       };
     }
@@ -158,8 +158,8 @@ MLForge.calculators.nn = {
     });
 
     steps.push({
-      label: `Evaluation for ${functionName}`,
-      calc: results.map(r => `f(${r.x}) = ${r.y.toFixed(4)} | f'(${r.x}) = ${r.derivative.toFixed(4)}`).join("<br>")
+      label: `Results and Derivatives for ${functionName}`,
+      calc: results.map(r => `Input x = ${r.x} → Output f(x) = ${r.y.toFixed(4)} | Slope f'(x) = ${r.derivative.toFixed(4)}`).join("<br>")
     });
 
     return {
@@ -192,11 +192,11 @@ MLForge.calculators.nn = {
         }
         const mse = totalLoss / n;
         steps.push({
-          label: "1. Squared Residuals",
+          label: "Step 1: Find the error for each example and square it",
           calc: individualErrors.join("<br>")
         });
         steps.push({
-          label: "2. Mean Squared Error: \\(\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^n (y_i - \\hat{y}_i)^2\\)",
+          label: "Step 2: Average the squared errors (Mean Squared Error)",
           calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\text{MSE} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${mse.toFixed(4)}</strong>`
         });
         return { loss: mse, rmse: Math.sqrt(mse), steps };
@@ -210,8 +210,8 @@ MLForge.calculators.nn = {
           totalLoss += absDiff;
         }
         const mae = totalLoss / n;
-        steps.push({ label: "1. Absolute Residuals", calc: individualErrors.join("<br>") });
-        steps.push({ label: "2. Mean Absolute Error: \\(\\text{MAE} = \\frac{1}{n} \\sum_{i=1}^n |y_i - \\hat{y}_i|\\)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\text{MAE} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${mae.toFixed(4)}</strong>` });
+        steps.push({ label: "Step 1: Find the absolute error (distance ignoring plus/minus signs)", calc: individualErrors.join("<br>") });
+        steps.push({ label: "Step 2: Average the absolute errors (Mean Absolute Error)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\text{MAE} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${mae.toFixed(4)}</strong>` });
         return { loss: mae, steps };
       }
       case 'huber': {
@@ -230,8 +230,8 @@ MLForge.calculators.nn = {
           totalLoss += err;
         }
         const huberLoss = totalLoss / n;
-        steps.push({ label: `1. Huber Errors (\\(\\delta = ${delta}\\))`, calc: individualErrors.join("<br>") });
-        steps.push({ label: "2. Mean Huber Loss: \\(\\frac{1}{n} \\sum L_\\delta\\)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies L_\\delta = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${huberLoss.toFixed(4)}</strong>` });
+        steps.push({ label: `Step 1: Calculate Huber error for each sample (threshold \\(\\delta = ${delta}\\))`, calc: individualErrors.join("<br>") });
+        steps.push({ label: "Step 2: Average the Huber errors (smooth blend of MSE and MAE)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies L_\\delta = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${huberLoss.toFixed(4)}</strong>` });
         return { loss: huberLoss, steps };
       }
       case 'bce': {
@@ -248,8 +248,8 @@ MLForge.calculators.nn = {
           totalLoss += term;
         }
         const bce = totalLoss / n;
-        steps.push({ label: "1. Per-Sample Log Loss (with \\(10^{-15}\\) safety clipping)", calc: individualErrors.join("<br>") });
-        steps.push({ label: "2. Binary Cross-Entropy: \\(\\mathcal{L}_{\\text{BCE}} = -\\frac{1}{n} \\sum [y_i \\ln p_i + (1-y_i)\\ln(1-p_i)]\\)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\mathcal{L}_{\\text{BCE}} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${bce.toFixed(4)}</strong>` });
+        steps.push({ label: "Step 1: Calculate cross-entropy penalty for each sample", calc: individualErrors.join("<br>") });
+        steps.push({ label: "Step 2: Average the loss across all samples (Binary Cross-Entropy)", calc: `\\(\\text{Total Sum} = ${totalLoss.toFixed(4)} \\implies \\mathcal{L}_{\\text{BCE}} = \\frac{${totalLoss.toFixed(4)}}{${n}} =\\) <strong>${bce.toFixed(4)}</strong>` });
         return { loss: bce, steps };
       }
       default:
@@ -282,22 +282,22 @@ MLForge.calculators.nn = {
       newVelocity = gamma * vOld + lr * grad;
       newParam = theta - newVelocity;
       steps.push({
-        label: "1. Update Momentum Velocity: \\(v_t = \\gamma v_{t-1} + \\eta \\nabla J(\\theta)\\)",
+        label: "Step 1: Calculate rolling momentum speed: \\(v_t = \\gamma v_{t-1} + \\eta \\nabla J(\\theta)\\)",
         calc: `(${gamma} \\times ${vOld.toFixed(4)}) + (${lr} \\times ${grad.toFixed(4)}) = <strong>${newVelocity.toFixed(4)}</strong>`
       });
       steps.push({
-        label: "2. Update Parameter: \\(\\theta_{\\text{new}} = \\theta_{\\text{old}} - v_t\\)",
+        label: "Step 2: Update parameter using momentum: \\(\\theta_{\\text{new}} = \\theta_{\\text{old}} - v_t\\)",
         calc: `${theta.toFixed(4)} - ${newVelocity.toFixed(4)} = <strong>${newParam.toFixed(4)}</strong>`
       });
     } else {
       const delta = lr * grad;
       newParam = theta - delta;
       steps.push({
-        label: "1. Calculate Step Delta: \\(\\Delta\\theta = \\eta \\nabla J(\\theta)\\)",
+        label: "Step 1: Calculate step distance (learning rate × slope): \\(\\Delta\\theta = \\eta \\nabla J(\\theta)\\)",
         calc: `${lr} \\times ${grad.toFixed(4)} = <strong>${delta.toFixed(4)}</strong>`
       });
       steps.push({
-        label: "2. Update Parameter: \\(\\theta_{\\text{new}} = \\theta_{\\text{old}} - \\eta \\nabla J(\\theta)\\)",
+        label: "Step 2: Move downhill to update parameter: \\(\\theta_{\\text{new}} = \\theta_{\\text{old}} - \\Delta\\theta\\)",
         calc: `${theta.toFixed(4)} - ${delta.toFixed(4)} = <strong>${newParam.toFixed(4)}</strong>`
       });
     }
@@ -336,8 +336,8 @@ MLForge.calculators.nn = {
     const loss = 0.5 * Math.pow(pred - target, 2);
 
     steps.push({
-      label: "Forward Pass",
-      calc: `z1 = (${w1}×${x}) + ${b1} = ${z1.toFixed(3)}<br>a1 = ${act}(${z1.toFixed(3)}) = ${a1.toFixed(3)}<br>pred ŷ = (${w2}×${a1.toFixed(3)}) + ${b2} = ${pred.toFixed(3)}<br>Loss = 0.5·(${pred.toFixed(3)} - ${target})² = ${loss.toFixed(4)}`
+      label: "Step 1: Forward Pass (Calculate prediction ŷ and error loss)",
+      calc: `z1 = (${w1}×${x}) + ${b1} = ${z1.toFixed(3)}<br>a1 = ${act}(${z1.toFixed(3)}) = ${a1.toFixed(3)}<br>Prediction ŷ = (${w2}×${a1.toFixed(3)}) + ${b2} = ${pred.toFixed(3)}<br>Error Loss = 0.5·(${pred.toFixed(3)} - ${target})² = ${loss.toFixed(4)}`
     });
 
     // --- Backward Pass (Chain Rule) ---
@@ -359,8 +359,8 @@ MLForge.calculators.nn = {
     const dL_db1 = dL_dz1;
 
     steps.push({
-      label: "Backward Gradients (Chain Rule)",
-      calc: `∂L/∂pred = (ŷ - y) = ${dL_dpred.toFixed(4)}<br>∂L/∂w2 = (∂L/∂pred) · a1 = ${dL_dw2.toFixed(4)}<br>∂L/∂b2 = ${dL_db2.toFixed(4)}<br>∂L/∂w1 = (∂L/∂pred · w2 · ${act}') · x = ${dL_dw1.toFixed(4)}<br>∂L/∂b1 = ${dL_db1.toFixed(4)}`
+      label: "Step 2: Backward Pass (Find how each weight affected the error using Chain Rule)",
+      calc: `Output error (ŷ - target) = ${dL_dpred.toFixed(4)}<br>Weight w2 slope = (output error) · a1 = ${dL_dw2.toFixed(4)}<br>Bias b2 slope = output error = ${dL_db2.toFixed(4)}<br>Weight w1 slope = (output error · w2 · activation slope) · x = ${dL_dw1.toFixed(4)}<br>Bias b1 slope = hidden error = ${dL_db1.toFixed(4)}`
     });
 
     // --- Weight Updates ---
@@ -370,7 +370,7 @@ MLForge.calculators.nn = {
     const new_b1 = b1 - lr * dL_db1;
 
     steps.push({
-      label: `Parameter Updates (η = ${lr})`,
+      label: `Step 3: Update Weights and Biases (Learning Rate η = ${lr})`,
       calc: `w2: ${w2.toFixed(3)} → <strong>${new_w2.toFixed(4)}</strong><br>b2: ${b2.toFixed(3)} → <strong>${new_b2.toFixed(4)}</strong><br>w1: ${w1.toFixed(3)} → <strong>${new_w1.toFixed(4)}</strong><br>b1: ${b1.toFixed(3)} → <strong>${new_b1.toFixed(4)}</strong>`
     });
 
@@ -457,16 +457,16 @@ MLForge.calculators.nn = {
 
     const steps = [
       {
-        label: "Output Spatial Dimension Formula",
+        label: "Step 1: Output size formula",
         calc: "\\[W_{\\text{out}} = \\left\\lfloor \\frac{W_{\\text{in}} - K_{\\text{eff}} + 2P}{S} \\right\\rfloor + 1\\]"
       },
       {
-        label: "Height Calculation: \\(H_{\\text{out}}\\)",
-        calc: `\\(\\left\\lfloor \\frac{${inH} - ${effectiveKernel} + 2(${padding})}{${stride}} \\right\\rfloor + 1 =\\) <strong>${outH}</strong>`
+        label: "Step 2: Output height calculation: \\(H_{\\text{out}}\\)",
+        calc: `\\(\\left\\lfloor \\frac{${inH} - ${effectiveKernel} + 2(${padding})}{${stride}} \\right\\rfloor + 1 =\\) <strong>${outH} pixels</strong>`
       },
       {
-        label: "Width Calculation: \\(W_{\\text{out}}\\)",
-        calc: `\\(\\left\\lfloor \\frac{${inW} - ${effectiveKernel} + 2(${padding})}{${stride}} \\right\\rfloor + 1 =\\) <strong>${outW}</strong>`
+        label: "Step 3: Output width calculation: \\(W_{\\text{out}}\\)",
+        calc: `\\(\\left\\lfloor \\frac{${inW} - ${effectiveKernel} + 2(${padding})}{${stride}} \\right\\rfloor + 1 =\\) <strong>${outW} pixels</strong>`
       }
     ];
 
@@ -497,22 +497,22 @@ MLForge.calculators.nn = {
 
     const steps = [
       {
-        label: "Full Batches per Epoch",
-        calc: `⌊${datasetSize} / ${batchSize}⌋ = ${fullBatches} full batches`
+        label: "Step 1: Full batches in one pass (Epoch)",
+        calc: `⌊${datasetSize} / ${batchSize}⌋ = <strong>${fullBatches} full batches</strong>`
       },
       {
-        label: "Partial Batch Status",
+        label: "Step 2: Leftover data samples",
         calc: remainder > 0
           ? `${remainder} leftover samples (${dropLast ? 'Dropped via drop_last=True' : 'Kept as 1 smaller final batch'})`
           : "Clean divide (0 leftover samples)"
       },
       {
-        label: "Steps per Epoch",
-        calc: `${stepsPerEpoch} steps / epoch`
+        label: "Step 3: Model weight updates per epoch",
+        calc: `<strong>${stepsPerEpoch} steps / epoch</strong>`
       },
       {
-        label: "Total Training Optimization Steps",
-        calc: `${stepsPerEpoch} steps/epoch × ${epochs} epochs = <strong>${totalSteps.toLocaleString()} steps</strong>`
+        label: "Step 4: Total training steps across all epochs",
+        calc: `${stepsPerEpoch} steps/epoch × ${epochs} epochs = <strong>${totalSteps.toLocaleString()} total steps</strong>`
       }
     ];
 
@@ -548,9 +548,9 @@ MLForge.calculators.nn = {
     trainCount += remainder; // allocate integer rounding residual to train set
 
     const steps = [
-      { label: "Train Set Allocation", calc: `${trainPct}% of ${totalSamples.toLocaleString()} = <strong>${trainCount.toLocaleString()}</strong> samples` },
-      { label: "Validation Set Allocation", calc: `${valPct}% of ${totalSamples.toLocaleString()} = <strong>${valCount.toLocaleString()}</strong> samples` },
-      { label: "Test Set Allocation", calc: `${testPct}% of ${totalSamples.toLocaleString()} = <strong>${testCount.toLocaleString()}</strong> samples` }
+      { label: "Training Data (used to teach the model)", calc: `${trainPct}% of ${totalSamples.toLocaleString()} = <strong>${trainCount.toLocaleString()}</strong> samples` },
+      { label: "Validation Data (used to tune settings and catch overfitting)", calc: `${valPct}% of ${totalSamples.toLocaleString()} = <strong>${valCount.toLocaleString()}</strong> samples` },
+      { label: "Test Data (final exam with unseen examples)", calc: `${testPct}% of ${totalSamples.toLocaleString()} = <strong>${testCount.toLocaleString()}</strong> samples` }
     ];
 
     return {

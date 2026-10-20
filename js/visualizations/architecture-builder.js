@@ -23,8 +23,8 @@ MLForge.viz.archBuilder = {
         <!-- Controls Column -->
         <div class="playground-controls">
           <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Network Architecture Builder</h3>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Construct custom feedforward topologies and watch synaptic connectivity and parameters update.</p>
+            <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Neural Network Architecture Builder</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Stack layers together, choose neurons per layer, and watch the network connections and weight count update live.</p>
           </div>
 
           <div style="display: flex; gap: 0.5rem;">
@@ -51,12 +51,12 @@ MLForge.viz.archBuilder = {
               <div id="ab-total-layers" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 700; color: var(--text-main);">4</div>
             </div>
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Total Trainable Parameters</span>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Total Learnable Weights & Biases</span>
               <div id="ab-total-params" style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #38bdf8;">106</div>
             </div>
             <div>
-              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Status</span>
-              <div class="badge badge-emerald">Valid Topology</div>
+              <span style="font-size: 0.725rem; color: var(--text-muted); text-transform: uppercase;">Network Status</span>
+              <div class="badge badge-emerald">Ready to Train</div>
             </div>
           </div>
         </div>
