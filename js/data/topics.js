@@ -1489,5 +1489,1189 @@ preprocessor = ColumnTransformer(transformers=[
 # Fit on training data only
 X_train_processed = preprocessor.fit_transform(X_train)`,
     codeExplanation: "ColumnTransformer applies StandardScaler to numerical columns and OneHotEncoder to text category columns all at once in a clean, leak-free pipeline."
+  },
+
+  {
+    "id": "decision-trees",
+    "title": "Decision Trees (CART)",
+    "section": "Machine Learning",
+    "category": "Classification & Regression",
+    "summary": "A flowchart of yes/no questions that splits data step by step to reach a clear prediction.",
+    "definition": "A Decision Tree is a supervised machine learning algorithm that works like a flowchart. It asks a series of simple questions about your data features and follows the branches down to make a final prediction.",
+    "whyWeNeedIt": "Many machine learning models are hard to understand because they use complicated mathematical weights. Decision trees are completely transparent. A doctor, loan officer, or auditor can read the tree rules and see exactly why the model made its decision.",
+    "realLifeExample": "Think of playing the game 20 Questions. You want to guess a mystery animal. You ask: 'Does it live on land?' (Yes) -> 'Does it bark?' (Yes) -> 'It is a dog!' Each question cuts away the wrong answers until you reach the final decision.",
+    "howItWorks": [
+      "1. Start at the top (the Root Node) with all your training data in one group.",
+      "2. Test different questions on every feature (for example: 'Is Age > 30?' or 'Is Income > $50,000?').",
+      "3. Pick the question that splits the examples into the cleanest, purest groups (measured by Gini Impurity or Information Gain).",
+      "4. Split the data along those branches and repeat the same process on each new branch (Child Nodes).",
+      "5. Stop when you reach a set limit (such as maximum depth) or when all points in a group belong to the same answer (Leaf Node)."
+    ],
+    "formulas": [
+      {
+        "name": "Gini Impurity Formula",
+        "exp": "\\text{Gini} = 1 - \\sum_{i=1}^C p_i^2",
+        "explanation": "This formula measures how mixed or messy a group of data is. If every example in the bucket belongs to the exact same class, Gini is 0 (completely pure). If classes are mixed 50/50, Gini is high.",
+        "symbols": [
+          {
+            "key": "C",
+            "desc": "The total number of different classes or categories."
+          },
+          {
+            "key": "p_i",
+            "desc": "The fraction or percentage of items in the bucket that belong to class i."
+          }
+        ]
+      },
+      {
+        "name": "Information Gain Formula",
+        "exp": "IG(S, A) = \\text{Entropy}(S) - \\sum_{v} \\frac{|S_v|}{|S|} \\text{Entropy}(S_v)",
+        "explanation": "This formula calculates how much disorder is removed after asking a specific question.",
+        "symbols": [
+          {
+            "key": "S",
+            "desc": "The original group of examples before splitting."
+          },
+          {
+            "key": "A",
+            "desc": "The feature question used to split the group."
+          },
+          {
+            "key": "S_v",
+            "desc": "The smaller subgroup that answered 'yes' or 'no' to question A."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Calculating Gini Impurity for a Fruit Basket",
+      "steps": [
+        "Suppose a basket contains 8 apples and 2 oranges (10 fruits total).",
+        "Step 1: Calculate the fraction of apples: 8 / 10 = 0.8.",
+        "Step 2: Calculate the fraction of oranges: 2 / 10 = 0.2.",
+        "Step 3: Square each fraction: 0.8² = 0.64, and 0.2² = 0.04.",
+        "Step 4: Add the squared fractions: 0.64 + 0.04 = 0.68.",
+        "Step 5: Subtract the total from 1: 1 − 0.68 = 0.32.",
+        "Result: The Gini Impurity is 0.32. A lower number means the bucket is cleaner and more reliable."
+      ]
+    },
+    "whenToUse": [
+      "Use when you need an explainable model that humans, auditors, or doctors can easily inspect.",
+      "Use when your dataset has a mix of numbers and categories and you want a quick baseline without standardizing values."
+    ],
+    "comparison": {
+      "title": "Single Decision Tree vs Random Forest",
+      "headers": [
+        "Feature",
+        "Single Decision Tree",
+        "Random Forest"
+      ],
+      "rows": [
+        [
+          "Number of Trees",
+          "1 single tree",
+          "Dozens or hundreds of trees voting together"
+        ],
+        [
+          "Interpretability",
+          "Very easy to draw, read, and follow",
+          "Black box (hard to follow hundreds of trees at once)"
+        ],
+        [
+          "Overfitting Risk",
+          "High (easily grows too deep and memorizes noise)",
+          "Low (averaging many trees cancels out random errors)"
+        ],
+        [
+          "Accuracy",
+          "Moderate",
+          "High (one of the strongest models for tabular data)"
+        ]
+      ]
+    },
+    "technicalDetails": "CART (Classification and Regression Trees) builds binary trees using greedy recursive splitting. At each node, it scans all candidate split points to maximize impurity reduction $\\Delta I = I_{\\text{parent}} - \\frac{N_L}{N} I_L - \\frac{N_R}{N} I_R$. Unconstrained trees have high variance and zero training error. To prevent severe overfitting, practitioners use cost-complexity pruning ($R_\\alpha(T) = R(T) + \\alpha |T|$) or restrict hyperparameters like `max_depth` and `min_samples_leaf`.",
+    "pros": [
+      "Extremely easy to explain to non-technical users using visual diagrams.",
+      "Requires little data preprocessing (no need to scale or normalize numbers)."
+    ],
+    "cons": [
+      "Easily overfits if allowed to grow deep without limits.",
+      "Small changes in training data can produce a completely different tree layout (high variance)."
+    ],
+    "useCases": [
+      "Medical diagnosis flowcharts (checking patient symptoms step by step).",
+      "Loan approval decision systems (checking credit score, income, and debt).",
+      "Customer churn prediction in customer support."
+    ],
+    "codeSnippet": "# Decision Tree Classifier in Scikit-Learn\nfrom sklearn.tree import DecisionTreeClassifier, plot_tree\n\n# 1. Create tree with a depth limit to avoid overfitting\ntree = DecisionTreeClassifier(max_depth=3, criterion='gini', random_state=42)\n\n# 2. Train on features and labels\ntree.fit(X_train, y_train)\n\n# 3. Predict new sample\nprediction = tree.predict(X_test)",
+    "codeExplanation": "DecisionTreeClassifier creates a binary decision tree. Setting max_depth=3 keeps the tree small and readable, preventing it from memorizing noisy training data."
+  },
+
+  {
+    "id": "k-nearest-neighbors",
+    "title": "K-Nearest Neighbors (KNN)",
+    "section": "Machine Learning",
+    "category": "Classification & Regression",
+    "summary": "Predicts the label of a new data point by finding its closest neighbors and taking a vote.",
+    "definition": "K-Nearest Neighbors (KNN) is a simple algorithm that classifies new data points based on what their closest neighbors look like. If most of the nearest neighbors are red, the new point is labeled red.",
+    "whyWeNeedIt": "KNN is intuitive and requires zero training time. It memorizes the existing examples and makes decisions directly from geometric distance, making it a great benchmark for pattern recognition.",
+    "realLifeExample": "Imagine moving to a new neighborhood. You want to know the local lifestyle. You look at the 5 houses closest to yours. If 4 of them have dogs and bicycles, you can safely assume this is a pet-friendly, cycling-friendly street.",
+    "howItWorks": [
+      "1. Store all training examples in memory (KNN does not compute weights during training).",
+      "2. When a new query point arrives, measure the distance between it and every stored training point.",
+      "3. Sort the distances from closest to farthest and pick the K closest points (neighbors).",
+      "4. For classification: Take a majority vote among the K neighbors (e.g., if K=5 and 4 are cats, predict cat).",
+      "5. For regression: Calculate the average number among the K neighbors."
+    ],
+    "formulas": [
+      {
+        "name": "Euclidean Distance (Straight Line)",
+        "exp": "d(p, q) = \\sqrt{\\sum_{i=1}^n (p_i - q_i)^2}",
+        "explanation": "This formula measures the straight-line ruler distance between two points p and q in multi-dimensional space.",
+        "symbols": [
+          {
+            "key": "p_i",
+            "desc": "The value of feature i for the first point."
+          },
+          {
+            "key": "q_i",
+            "desc": "The value of feature i for the second point."
+          },
+          {
+            "key": "n",
+            "desc": "The total number of features (dimensions)."
+          }
+        ]
+      },
+      {
+        "name": "Manhattan Distance (City Grid)",
+        "exp": "d(p, q) = \\sum_{i=1}^n |p_i - q_i|",
+        "explanation": "This formula measures distance along grid blocks, like walking along city streets instead of flying straight through buildings.",
+        "symbols": [
+          {
+            "key": "|p_i - q_i|",
+            "desc": "The absolute difference along feature dimension i."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Finding the Closest Neighbor in 2D Space",
+      "steps": [
+        "A new sample is located at coordinates (1, 2).",
+        "Neighbor A is at (4, 6).",
+        "Step 1: Find difference in x: 4 − 1 = 3. Square it: 3² = 9.",
+        "Step 2: Find difference in y: 6 − 2 = 4. Square it: 4² = 16.",
+        "Step 3: Add the squared differences: 9 + 16 = 25.",
+        "Step 4: Take the square root: √25 = 5.",
+        "Result: Neighbor A is exactly 5 units away."
+      ]
+    },
+    "whenToUse": [
+      "Use when your dataset is small to moderate in size and features have similar scales.",
+      "Use when decision boundaries are irregular and cannot be easily drawn with straight lines."
+    ],
+    "comparison": {
+      "title": "KNN vs K-Means Clustering",
+      "headers": [
+        "Feature",
+        "K-Nearest Neighbors (KNN)",
+        "K-Means Clustering"
+      ],
+      "rows": [
+        [
+          "Learning Type",
+          "Supervised (needs labeled answers y)",
+          "Unsupervised (no labels, finds clusters alone)"
+        ],
+        [
+          "What K Means",
+          "The number of closest neighbor points to check",
+          "The number of cluster groups to create"
+        ],
+        [
+          "Training Speed",
+          "Instant (lazy learner, just stores data)",
+          "Iterative (repeatedly updates cluster centers)"
+        ],
+        [
+          "Prediction Speed",
+          "Slow for large datasets (calculates all distances)",
+          "Fast (only measures distance to K centroids)"
+        ]
+      ]
+    },
+    "technicalDetails": "KNN is a non-parametric, lazy learning algorithm with $O(1)$ training complexity and $O(N \\cdot d)$ inference complexity per query. When $N$ is large, spatial partitioning data structures such as KD-Trees or Ball-Trees reduce search time to $O(d \\log N)$. In high dimensions ($d > 50$), the curse of dimensionality makes distances uniform, requiring dimensionality reduction (like PCA) prior to running KNN.",
+    "pros": [
+      "Extremely simple to understand with no mathematical training assumptions.",
+      "Naturally handles multi-class classification and non-linear patterns."
+    ],
+    "cons": [
+      "Prediction becomes slow on large datasets because it compares against every point.",
+      "Severely damaged by unscaled features (large numbers dominate distances)."
+    ],
+    "useCases": [
+      "Product recommendation systems (users who bought similar items).",
+      "Handwriting digit recognition on small image datasets.",
+      "Filling in missing sensor data using neighboring readings."
+    ],
+    "codeSnippet": "# K-Nearest Neighbors Classifier in Scikit-Learn\nfrom sklearn.neighbors import KNeighborsClassifier\nfrom sklearn.preprocessing import StandardScaler\n\n# Scaling is mandatory for distance algorithms!\nscaler = StandardScaler()\nX_train_scaled = scaler.fit_transform(X_train)\n\n# Create KNN model with 5 neighbors\nknn = KNeighborsClassifier(n_neighbors=5, metric='euclidean')\nknn.fit(X_train_scaled, y_train)",
+    "codeExplanation": "KNeighborsClassifier finds the 5 closest neighbors using Euclidean distance. Notice that features are scaled first with StandardScaler so large values do not overwhelm small ones."
+  },
+
+  {
+    "id": "k-means-clustering",
+    "title": "K-Means Clustering",
+    "section": "Machine Learning",
+    "category": "Unsupervised Clustering",
+    "summary": "Groups unlabeled data points into K clusters by finding the center point of each group.",
+    "definition": "K-Means Clustering is an unsupervised machine learning algorithm that organizes data into K distinct groups. It automatically finds the center point (centroid) of each group and assigns every data point to its nearest center.",
+    "whyWeNeedIt": "Companies often have millions of customer records without any labels describing what kind of shoppers they are. K-Means automatically groups customers by their spending behavior so businesses can market to them intelligently.",
+    "realLifeExample": "Imagine a pizza delivery company opening 3 new delivery hubs in a city. They look at a map of where customers live and place the 3 hubs right in the center of customer clusters to minimize total driving time.",
+    "howItWorks": [
+      "1. Choose K: Decide how many groups you want to find (e.g., K = 3).",
+      "2. Initialize: Place K starting center points (centroids) randomly in the data space.",
+      "3. Assignment Step: Measure distance from every data point to each centroid. Assign each point to its closest centroid.",
+      "4. Update Step: Recalculate the position of each centroid by taking the average (mean) of all points currently assigned to it.",
+      "5. Repeat: Keep alternating between assignment and update until the centroids stop moving (convergence)."
+    ],
+    "formulas": [
+      {
+        "name": "Cluster Inertia (Within-Cluster Sum of Squares)",
+        "exp": "J = \\sum_{k=1}^K \\sum_{x \\in C_k} \\|x - \\mu_k\\|^2",
+        "explanation": "This formula measures how tight and compact the clusters are. We want every data point to be as close to its group center as possible, making J small.",
+        "symbols": [
+          {
+            "key": "K",
+            "desc": "The total number of clusters."
+          },
+          {
+            "key": "C_k",
+            "desc": "The set of all data points belonging to cluster k."
+          },
+          {
+            "key": "\\mu_k",
+            "desc": "The center point (centroid) of cluster k."
+          },
+          {
+            "key": "\\|x - \\mu_k\\|^2",
+            "desc": "The squared distance from point x to its centroid."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Centroid Update on 1D Points",
+      "steps": [
+        "Cluster 1 currently contains 3 customer spending amounts: $10, $20, and $60.",
+        "Step 1: Sum the spending amounts: 10 + 20 + 60 = 90.",
+        "Step 2: Divide by the count of points: 90 / 3 = 30.",
+        "Result: The new centroid for Cluster 1 moves to position 30."
+      ]
+    },
+    "whenToUse": [
+      "Use when you have unlabeled data and want to discover natural groupings or customer segments.",
+      "Use when you want to compress colors in an image or group documents by topic."
+    ],
+    "comparison": {
+      "title": "K-Means vs Hierarchical Clustering",
+      "headers": [
+        "Feature",
+        "K-Means Clustering",
+        "Hierarchical Clustering"
+      ],
+      "rows": [
+        [
+          "Speed & Scalability",
+          "Fast and scalable to millions of samples $O(N)$",
+          "Slow on large data $O(N^2)$ or $O(N^3)$"
+        ],
+        [
+          "Specifying K",
+          "Must choose K before running the algorithm",
+          "Creates a tree (dendrogram); you can cut at any K"
+        ],
+        [
+          "Cluster Shape",
+          "Assumes round, spherical clusters of similar size",
+          "Can capture arbitrary shapes and nested structures"
+        ]
+      ]
+    },
+    "technicalDetails": "K-Means is an Expectation-Maximization heuristic for NP-hard sum-of-squares optimization. The standard algorithm (Lloyd's) can get trapped in sub-optimal local minima. Modern implementations use **K-Means++ initialization**, which chooses initial centroids with probability proportional to squared distance from existing centroids, guaranteeing an $O(\\log K)$ approximation ratio. The optimal $K$ is typically selected using the Elbow Method or Silhouette analysis.",
+    "pros": [
+      "Fast, scalable, and easy to compute on large datasets.",
+      "Guaranteed to converge to a stable clustering solution."
+    ],
+    "cons": [
+      "You must guess or search for the right number of clusters K upfront.",
+      "Struggles with elongated, crescent-shaped, or unevenly sized clusters."
+    ],
+    "useCases": [
+      "Customer market segmentation (budget shoppers vs luxury buyers).",
+      "Image color quantization (reducing 16 million colors to 16 dominant colors).",
+      "Anomaly detection (points far away from all centroids are suspicious)."
+    ],
+    "codeSnippet": "# K-Means Clustering with Scikit-Learn\nfrom sklearn.cluster import KMeans\n\n# 1. Create model looking for 3 clusters with smart initialization\nkmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)\n\n# 2. Fit to unlabeled data and get cluster assignments\nlabels = kmeans.fit_predict(X)\n\n# 3. Inspect final center coordinates\ncenters = kmeans.cluster_centers_",
+    "codeExplanation": "KMeans groups the data into 3 clusters. init='k-means++' spreads initial centroids apart smartly so the algorithm converges faster and avoids bad local minima."
+  },
+
+  {
+    "id": "support-vector-machines",
+    "title": "Support Vector Machines (SVM)",
+    "section": "Machine Learning",
+    "category": "Classification & Regression",
+    "summary": "Finds the widest possible boundary (street) that separates two classes with maximum safety margin.",
+    "definition": "A Support Vector Machine (SVM) is a supervised algorithm that finds the best decision boundary between two classes. It looks for the boundary with the widest possible gap (margin) between the closest points of each class.",
+    "whyWeNeedIt": "Many lines can separate two classes of data, but lines drawn too close to data points make mistakes on new examples. SVM finds the safest, widest street possible, making it very robust to new data.",
+    "realLifeExample": "Imagine drawing a border between two countries. Instead of placing the fence right against one town's backyards, you create the widest possible neutral zone (buffer zone) between the closest towns on both sides.",
+    "howItWorks": [
+      "1. Plot your training data points in space.",
+      "2. Identify the critical border points from each class that sit closest to the enemy class (these are the 'Support Vectors').",
+      "3. Draw a decision boundary line (hyperplane) midway between the support vectors.",
+      "4. Maximize the width of the empty street (margin) between the classes.",
+      "5. If points cannot be separated with a flat line, use a Kernel Trick to lift the data into a higher dimension where a flat slice can separate them."
+    ],
+    "formulas": [
+      {
+        "name": "Margin Width Formula",
+        "exp": "\\text{Margin} = \\frac{2}{\\|\\mathbf{w}\\|}",
+        "explanation": "This formula calculates the total width of the street separating the two classes. To make the street as wide as possible, we minimize the length of weight vector w.",
+        "symbols": [
+          {
+            "key": "\\|\\mathbf{w}\\|",
+            "desc": "The Euclidean length (norm) of the model weight vector."
+          }
+        ]
+      },
+      {
+        "name": "RBF Kernel (Radial Basis Function)",
+        "exp": "K(\\mathbf{x}, \\mathbf{x}') = \\exp(-\\gamma \\|\\mathbf{x} - \\mathbf{x}'\\|^2)",
+        "explanation": "This mathematical formula calculates similarity between two points in curved space, allowing SVM to draw circular or wavy boundaries.",
+        "symbols": [
+          {
+            "key": "\\gamma",
+            "desc": "Controls how far the influence of a single training point reaches."
+          },
+          {
+            "key": "\\|\\mathbf{x} - \\mathbf{x}'\\|^2",
+            "desc": "The squared distance between two samples."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "How Weight Size Controls Margin Width",
+      "steps": [
+        "Suppose the weight vector length is ||w|| = 2.0.",
+        "Street margin width = 2 / 2.0 = 1.0 unit wide.",
+        "If the optimizer adjusts weights so ||w|| = 0.5:",
+        "New street margin width = 2 / 0.5 = 4.0 units wide.",
+        "Result: A smaller weight norm creates a 4× wider safety buffer!"
+      ]
+    },
+    "whenToUse": [
+      "Use when your dataset has a clear margin of separation and medium sample size.",
+      "Use in high-dimensional tasks (such as bioinformatics, gene analysis, or text classification) where features outnumber samples."
+    ],
+    "comparison": {
+      "title": "SVM vs Logistic Regression",
+      "headers": [
+        "Feature",
+        "Support Vector Machine (SVM)",
+        "Logistic Regression"
+      ],
+      "rows": [
+        [
+          "Boundary Focus",
+          "Focuses only on border points (support vectors)",
+          "Influenced by every single data point"
+        ],
+        [
+          "Output",
+          "Outputs direct hard class labels or distance",
+          "Outputs smooth calibrated probabilities (0% to 100%)"
+        ],
+        [
+          "Non-Linear Data",
+          "Powerful Kernel Trick projects into high dimensions",
+          "Requires manual polynomial feature engineering"
+        ]
+      ]
+    },
+    "technicalDetails": "SVM solves a convex quadratic programming problem: $\\min_{\\mathbf{w}, b} \\frac{1}{2}\\|\\mathbf{w}\\|^2 + C\\sum \\xi_i$ subject to $y_i(\\mathbf{w}^T\\mathbf{x}_i + b) \\ge 1 - \\xi_i$. The parameter $C$ controls the trade-off between maximizing margin width and penalizing margin violations. Mercer's theorem enables computing inner products in infinite-dimensional Hilbert spaces implicitly via kernel functions $K(\\mathbf{x}, \\mathbf{x}')$ without calculating high-dimensional coordinates explicitly.",
+    "pros": [
+      "Extremely effective in high-dimensional spaces where features exceed samples.",
+      "Robust to outliers far away from the decision boundary."
+    ],
+    "cons": [
+      "Slow to train on very large datasets ($N > 100,000$).",
+      "Does not directly provide probability estimates."
+    ],
+    "useCases": [
+      "Cancer tumor classification from genetic microarray data.",
+      "Handwriting and optical character recognition (OCR).",
+      "Text category and sentiment classification."
+    ],
+    "codeSnippet": "# Support Vector Classifier with RBF Kernel\nfrom sklearn.svm import SVC\n\n# C controls margin softness; gamma controls curve tightness\nsvm_model = SVC(kernel='rbf', C=1.0, gamma='scale')\nsvm_model.fit(X_train, y_train)\n\n# Identify the support vectors\nsupport_vecs = svm_model.support_vectors_",
+    "codeExplanation": "SVC fits a support vector classifier. kernel='rbf' allows it to draw curved boundaries. The model only needs to remember the critical support vectors to make future predictions."
+  },
+
+  {
+    "id": "principal-component-analysis",
+    "title": "Principal Component Analysis (PCA)",
+    "section": "Machine Learning",
+    "category": "Dimensionality Reduction",
+    "summary": "Reduces high-dimensional data into fewer summary features while keeping the most important information.",
+    "definition": "Principal Component Analysis (PCA) is an unsupervised technique that simplifies datasets with many columns into just a few summary columns (Principal Components). It keeps the maximum amount of variation while removing redundant, repetitive information.",
+    "whyWeNeedIt": "Datasets with 100+ columns are slow to train, hard to visualize, and cause overfitting. PCA lets you compress 100 columns into 2 or 3 columns so you can plot them on a 2D screen or speed up training without losing the big picture.",
+    "realLifeExample": "Imagine shining a flashlight on a 3D teapot to project its 2D shadow on a wall. If you turn the teapot to the right angle, its flat shadow clearly shows the spout, handle, and lid. PCA finds that exact best angle to compress 3D into 2D without losing the teapot's shape.",
+    "howItWorks": [
+      "1. Standardize: Center the data around 0 so every feature has equal scale.",
+      "2. Covariance Matrix: Calculate how every feature varies in relation to all other features.",
+      "3. Eigenvectors & Eigenvalues: Find the directions of greatest spread (eigenvectors) and measure how much variance lives along each direction (eigenvalues).",
+      "4. Sort: Rank the components from highest variance to lowest variance.",
+      "5. Project: Keep the top components (e.g., the top 2 that capture 90% of variance) and project the data onto those new axes."
+    ],
+    "formulas": [
+      {
+        "name": "Explained Variance Ratio",
+        "exp": "\\text{EVR}_k = \\frac{\\lambda_k}{\\sum_{j=1}^D \\lambda_j}",
+        "explanation": "This formula tells you what percentage of total information (variance) is captured by component number k.",
+        "symbols": [
+          {
+            "key": "\\lambda_k",
+            "desc": "The eigenvalue (variance amount) of component k."
+          },
+          {
+            "key": "D",
+            "desc": "The total number of original dimensions/features."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Measuring Information Kept by Top Components",
+      "steps": [
+        "Suppose a dataset has 3 components with eigenvalues: λ₁ = 6.0, λ₂ = 3.0, λ₃ = 1.0.",
+        "Step 1: Calculate total variance: 6.0 + 3.0 + 1.0 = 10.0.",
+        "Step 2: Component 1 fraction: 6.0 / 10.0 = 60%.",
+        "Step 3: Component 2 fraction: 3.0 / 10.0 = 30%.",
+        "Step 4: Combine the top 2 components: 60% + 30% = 90%.",
+        "Result: Keeping just 2 components preserves 90% of all information while dropping 1/3 of the columns!"
+      ]
+    },
+    "whenToUse": [
+      "Use when you want to visualize high-dimensional data on a 2D or 3D scatter plot.",
+      "Use to speed up training when you have hundreds of correlated features."
+    ],
+    "comparison": {
+      "title": "Feature Selection vs PCA (Feature Extraction)",
+      "headers": [
+        "Feature",
+        "Feature Selection",
+        "PCA (Feature Extraction)"
+      ],
+      "rows": [
+        [
+          "How it Works",
+          "Picks and keeps original columns, drops the rest",
+          "Blends all columns together into brand new summary axes"
+        ],
+        [
+          "Interpretability",
+          "High (feature names like 'Income' and 'Age' stay unchanged)",
+          "Low (new axes are mathematical blends of all features)"
+        ],
+        [
+          "Information Retained",
+          "Discards all information from dropped columns",
+          "Preserves information from all columns in top components"
+        ]
+      ]
+    },
+    "technicalDetails": "PCA computes an orthogonal linear transformation $Y = XW$. Mathematically, $W$ corresponds to the right-singular vectors of centered matrix $X$ obtained via Singular Value Decomposition (SVD): $X = U \\Sigma V^T$. The principal direction matrix is $W = V$. The eigenvalues $\\lambda_i = \\sigma_i^2 / (n-1)$ represent the variances along the principal axes. PCA is sensitive to outliers and assumes linear relationships among features.",
+    "pros": [
+      "Removes multi-collinearity (all new components are strictly perpendicular/independent).",
+      "Dramatically speeds up downstream machine learning training."
+    ],
+    "cons": [
+      "The new components are hard to interpret in human terms.",
+      "Only captures linear relationships; misses non-linear curves (use UMAP or t-SNE instead)."
+    ],
+    "useCases": [
+      "Facial recognition (Eigenfaces compression).",
+      "Customer genomic data visualization in 2D plots.",
+      "Compressing noisy sensor data in manufacturing."
+    ],
+    "codeSnippet": "# PCA Dimensionality Reduction in Scikit-Learn\nfrom sklearn.decomposition import PCA\nfrom sklearn.preprocessing import StandardScaler\n\n# 1. Standardize data (crucial for PCA!)\nX_scaled = StandardScaler().fit_transform(X)\n\n# 2. Keep enough components to capture 95% of information\npca = PCA(n_components=0.95)\nX_reduced = pca.fit_transform(X_scaled)\n\nprint(f\"Reduced from {X.shape[1]} to {X_reduced.shape[1]} features.\")",
+    "codeExplanation": "PCA(n_components=0.95) automatically chooses the minimum number of principal components needed to retain 95% of the total dataset variance."
+  },
+
+  {
+    "id": "cross-validation-tuning",
+    "title": "Cross-Validation & Hyperparameter Tuning",
+    "section": "Machine Learning",
+    "category": "Model Selection & Validation",
+    "summary": "Techniques to test models fairly across multiple data splits and find the best configuration settings.",
+    "definition": "Cross-Validation is a testing method that splits data into multiple folds so every example gets used for both training and testing. Hyperparameter Tuning is the search process used to find the best configuration knobs (like tree depth or learning rate).",
+    "whyWeNeedIt": "A single train/test split can give lucky or unlucky accuracy scores depending on which random samples were picked. Cross-validation gives an honest, dependable score. Tuning ensures you don't use weak default model settings.",
+    "realLifeExample": "Imagine preparing for a driving test. If you practice on only one street and take the test on that same street, you might pass by pure luck. But if you practice across 5 different neighborhoods and test in each one, your final score is genuinely reliable.",
+    "howItWorks": [
+      "1. K-Fold Split: Divide your dataset into K equal slices (usually K = 5).",
+      "2. Train & Test: Train your model on 4 slices and test it on the 5th slice. Record the score.",
+      "3. Rotate: Repeat this 5 times, making sure a different slice serves as the test set each time.",
+      "4. Average: Calculate the average of all 5 scores for an honest benchmark.",
+      "5. Tuning: Use Grid Search or Random Search to evaluate different hyperparameter settings across all folds to pick the champion configuration."
+    ],
+    "formulas": [
+      {
+        "name": "K-Fold Cross-Validation Average Score",
+        "exp": "\\text{CV}_K = \\frac{1}{K} \\sum_{k=1}^K \\text{Score}_k",
+        "explanation": "This formula averages the accuracy scores across all K testing rounds to produce one rock-solid performance metric.",
+        "symbols": [
+          {
+            "key": "K",
+            "desc": "The total number of folds (slices) of data."
+          },
+          {
+            "key": "\\text{Score}_k",
+            "desc": "The test score achieved on fold round k."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Calculating a 5-Fold Cross-Validation Score",
+      "steps": [
+        "A model is evaluated across 5 folds with these accuracy scores:",
+        "Fold 1: 88%, Fold 2: 92%, Fold 3: 90%, Fold 4: 86%, Fold 5: 94%.",
+        "Step 1: Sum the scores: 88 + 92 + 90 + 86 + 94 = 450%.",
+        "Step 2: Divide by the number of folds: 450 / 5 = 90.0%.",
+        "Result: The true cross-validation score is 90.0%."
+      ]
+    },
+    "whenToUse": [
+      "Always use cross-validation when evaluating models before deploying them to production.",
+      "Use tuning whenever a model has settings that control complexity (like learning rate, tree depth, or regularization C)."
+    ],
+    "comparison": {
+      "title": "Grid Search vs Random Search",
+      "headers": [
+        "Feature",
+        "Grid Search (GridSearchCV)",
+        "Random Search (RandomizedSearchCV)"
+      ],
+      "rows": [
+        [
+          "Search Strategy",
+          "Checks every single possible combination in a fixed grid",
+          "Picks random combinations from defined ranges"
+        ],
+        [
+          "Speed",
+          "Slow (grows exponentially with each new parameter)",
+          "Fast (checks a set budget of trials)"
+        ],
+        [
+          "Best Used For",
+          "Tuning 1 or 2 parameters with narrow ranges",
+          "Tuning multiple parameters in complex models"
+        ]
+      ]
+    },
+    "technicalDetails": "In classification tasks with class imbalance, standard K-Fold causes label frequency skew. **Stratified K-Fold** preserves original class percentages in every fold. For time-series data, random shuffling creates future data leakage; practitioners must use **TimeSeriesSplit** (walk-forward rolling origin). When evaluating tuned models, **Nested Cross-Validation** (an inner loop for tuning, an outer loop for error estimation) is necessary to avoid optimistic selection bias.",
+    "pros": [
+      "Provides a dependable, robust estimate of real-world generalization performance.",
+      "Uses all data efficiently without wasting samples on a single permanent hold-out test set."
+    ],
+    "cons": [
+      "Takes K times longer to run because the model must be trained K separate times.",
+      "Exhaustive grid searches on deep learning models can take hours or days."
+    ],
+    "useCases": [
+      "Selecting the winning model architecture in Kaggle machine learning competitions.",
+      "Tuning max_depth and learning_rate in XGBoost pipelines.",
+      "Benchmarking medical diagnostic models where data is scarce and every sample counts."
+    ],
+    "codeSnippet": "# Stratified K-Fold and RandomizedSearchCV in Scikit-Learn\nfrom sklearn.model_selection import RandomizedSearchCV, StratifiedKFold\nfrom sklearn.ensemble import RandomForestClassifier\n\nparam_dist = {\n    'n_estimators': [50, 100, 200],\n    'max_depth': [3, 5, 10, None],\n    'min_samples_split': [2, 5, 10]\n}\n\ncv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)\nsearch = RandomizedSearchCV(RandomForestClassifier(), param_dist, n_iter=10, cv=cv)\nsearch.fit(X_train, y_train)\n\nprint(\"Best Parameters:\", search.best_params_)",
+    "codeExplanation": "RandomizedSearchCV tests 10 random combinations of settings across 5 stratified folds to find the best configuration without wasting time checking every single point on a dense grid."
+  },
+
+  {
+    "id": "artificial-neural-networks",
+    "title": "Artificial Neural Networks (ANN / MLP)",
+    "section": "Deep Learning",
+    "category": "Architectures",
+    "summary": "The foundational deep learning network made of connected layers of artificial neurons.",
+    "definition": "An Artificial Neural Network (ANN), also called a Multi-Layer Perceptron (MLP), is a system inspired by biological brain neurons. It stacks layers of artificial neurons together to learn non-linear patterns from complex data.",
+    "whyWeNeedIt": "Simple linear models can only draw flat lines or planes. Real-world problems (like recognizing handwriting, forecasting electricity, or diagnosing diseases) have complex curved relationships that only multi-layer neural networks can learn.",
+    "realLifeExample": "Think of an assembly line in a bakery. The first station weighs raw flour and sugar (Input Layer). The middle stations mix dough, add flavor, and bake (Hidden Layers). The final station boxes the cake and labels it 'Chocolate Birthday Cake' (Output Layer). Each layer builds on the work of the layer before it.",
+    "howItWorks": [
+      "1. Input Layer: Takes raw numerical features (like age, income, or pixel brightness).",
+      "2. Hidden Layers: Each neuron calculates a weighted sum of its inputs, adds a bias number, and passes the result through an activation function (like ReLU).",
+      "3. Forward Pass: Numbers travel layer by layer from the input to the output to produce a final prediction.",
+      "4. Loss Calculation: The model compares its output against the real answer to measure its mistake.",
+      "5. Backpropagation & Optimizer: The network uses calculus (the Chain Rule) to send error signals backward and adjusts all weights so future mistakes are smaller."
+    ],
+    "formulas": [
+      {
+        "name": "Layer Forward Pass Equation",
+        "exp": "\\mathbf{a}^{[l]} = g^{[l]}(\\mathbf{W}^{[l]} \\mathbf{a}^{[l-1]} + \\mathbf{b}^{[l]})",
+        "explanation": "This formula calculates the activation outputs for any layer l by multiplying the previous layer's output by the weight matrix, adding the bias vector, and applying activation function g.",
+        "symbols": [
+          {
+            "key": "\\mathbf{a}^{[l]}",
+            "desc": "The output vector of activations produced by layer l."
+          },
+          {
+            "key": "\\mathbf{W}^{[l]}",
+            "desc": "The weight matrix connecting layer l-1 to layer l."
+          },
+          {
+            "key": "\\mathbf{b}^{[l]}",
+            "desc": "The bias offset vector for layer l."
+          },
+          {
+            "key": "g^{[l]}",
+            "desc": "The non-linear activation function (such as ReLU or Sigmoid)."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Calculating a Neuron's Output",
+      "steps": [
+        "A hidden neuron has 2 inputs: x₁ = 2.0 and x₂ = 3.0.",
+        "The weights are w₁ = 0.5 and w₂ = -0.2, with bias b = 0.1.",
+        "Step 1: Multiply inputs by weights: (2.0 × 0.5) + (3.0 × -0.2) = 1.0 − 0.6 = 0.4.",
+        "Step 2: Add the bias: 0.4 + 0.1 = 0.5 (this is z).",
+        "Step 3: Apply ReLU activation: max(0, 0.5) = 0.5.",
+        "Result: The neuron fires an output of 0.5."
+      ]
+    },
+    "whenToUse": [
+      "Use for complex tabular prediction tasks where feature relationships are non-linear.",
+      "Use as the final decision head on top of CNN, RNN, or Transformer feature extractors."
+    ],
+    "comparison": {
+      "title": "Single Neuron (Perceptron) vs Multi-Layer ANN",
+      "headers": [
+        "Feature",
+        "Single Perceptron",
+        "Multi-Layer ANN (Deep Network)"
+      ],
+      "rows": [
+        [
+          "Layers",
+          "1 single layer (no hidden layers)",
+          "Input + 1 or more Hidden Layers + Output"
+        ],
+        [
+          "Decision Boundary",
+          "Strictly straight lines only (fails on XOR)",
+          "Can learn any arbitrary curved shape"
+        ],
+        [
+          "Parameters",
+          "A few weights",
+          "Thousands or millions of weights organized in matrices"
+        ]
+      ]
+    },
+    "technicalDetails": "The Universal Approximation Theorem (Hornik et al., 1989) proves that a standard feedforward network with a single hidden layer containing finite neurons and non-linear activation can approximate any continuous function on compact subsets of $\\mathbb{R}^n$. In deep stacks, proper weight initialization (He/Kaiming initialization for ReLU, Glorot/Xavier for Tanh) is essential to prevent activations and gradients from exploding or vanishing across layer boundaries.",
+    "pros": [
+      "Can approximate virtually any mathematical function given enough neurons.",
+      "Powers everything from simple classifiers to state-of-the-art deep architectures."
+    ],
+    "cons": [
+      "Prone to overfitting if regularized poorly (needs Dropout or Weight Decay).",
+      "Requires more training data and tuning than simple tree-based algorithms."
+    ],
+    "useCases": [
+      "Credit risk scoring and default likelihood estimation.",
+      "Predicting house pricing from 50 mixed housing features.",
+      "Sensor anomaly classification in industrial machinery."
+    ],
+    "codeSnippet": "# Building an ANN / MLP in PyTorch\nimport torch\nimport torch.nn as nn\n\nclass FeedForwardANN(nn.Module):\n    def __init__(self, in_features, hidden_dim, out_classes):\n        super().__init__()\n        self.net = nn.Sequential(\n            nn.Linear(in_features, hidden_dim),\n            nn.ReLU(),\n            nn.Dropout(0.2),\n            nn.Linear(hidden_dim, out_classes)\n        )\n    def forward(self, x):\n        return self.net(x)",
+    "codeExplanation": "This PyTorch module stacks a Linear layer, a ReLU activation, a Dropout layer to prevent overfitting, and a final Linear layer to output predictions."
+  },
+
+  {
+    "id": "transfer-learning",
+    "title": "Transfer Learning & Fine-Tuning",
+    "section": "Deep Learning",
+    "category": "Techniques & Workflows",
+    "summary": "Reusing a large pretrained model on a new, related task instead of training from scratch.",
+    "definition": "Transfer Learning is a technique where you take a neural network already trained on a massive dataset (like ImageNet or Wikipedia) and adapt it to your specific task using a small amount of new data.",
+    "whyWeNeedIt": "Training a modern vision or language model from scratch requires millions of examples and thousands of dollars in GPU computing. Transfer learning lets you build a world-class model in minutes with just a few hundred training samples.",
+    "realLifeExample": "If you already know how to ride a bicycle, learning to ride a motorcycle takes only an afternoon because you already understand balance, steering, and braking. You don't have to start learning from zero.",
+    "howItWorks": [
+      "1. Download a pretrained model (the Backbone) trained on a massive dataset.",
+      "2. Remove the old output layer that was designed for the original task (e.g., classifying 1,000 generic objects).",
+      "3. Attach a new output layer (the Head) designed for your specific task (e.g., 2 classes: Healthy vs Tumor).",
+      "4. Freeze the Backbone: Lock the early layers so their general feature detectors (edges, shapes) do not change.",
+      "5. Train the Head: Train only the new output layer on your small dataset with a small learning rate.",
+      "6. (Optional) Fine-Tuning: Unfreeze the top backbone layers and train gently with a very tiny learning rate."
+    ],
+    "formulas": [
+      {
+        "name": "Fine-Tuning Parameter Update",
+        "exp": "\\theta_{\\text{head}} \\leftarrow \\theta_{\\text{head}} - \\eta \\nabla_{\\theta_{\\text{head}}} \\mathcal{L}",
+        "explanation": "During transfer learning, only the new classifier head parameters are updated by gradients, keeping the massive backbone weights frozen.",
+        "symbols": [
+          {
+            "key": "\\theta_{\\text{head}}",
+            "desc": "The weights and biases in the newly attached output layer."
+          },
+          {
+            "key": "\\eta",
+            "desc": "The learning rate (typically set small, e.g. 1e-4)."
+          },
+          {
+            "key": "\\mathcal{L}",
+            "desc": "The loss on the new target dataset."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Saving GPU Training Time with Frozen Layers",
+      "steps": [
+        "Suppose a full vision model has 25,000,000 parameters.",
+        "You freeze the backbone and only train the new head (512 inputs to 2 output classes).",
+        "Step 1: Calculate head weights: 512 × 2 = 1,024 weights.",
+        "Step 2: Calculate head biases: 2 biases.",
+        "Step 3: Total trainable parameters: 1,024 + 2 = 1,026 parameters.",
+        "Result: You train only 1,026 weights instead of 25,000,000—over 24,000 times faster!"
+      ]
+    },
+    "whenToUse": [
+      "Always use transfer learning for computer vision (using ResNet, EfficientNet) or NLP (using BERT, RoBERTa, LLMs).",
+      "Use whenever you have limited labeled training data (hundreds or thousands of samples)."
+    ],
+    "comparison": {
+      "title": "Training From Scratch vs Transfer Learning",
+      "headers": [
+        "Feature",
+        "Training From Scratch",
+        "Transfer Learning"
+      ],
+      "rows": [
+        [
+          "Data Needed",
+          "Huge (millions of labeled images or texts)",
+          "Small (hundreds or thousands of samples)"
+        ],
+        [
+          "Compute Cost",
+          "Expensive (days/weeks on GPU clusters)",
+          "Very cheap (minutes on a single laptop or GPU)"
+        ],
+        [
+          "Overfitting Risk",
+          "Severe on small datasets",
+          "Low (backbone has already learned robust representations)"
+        ]
+      ]
+    },
+    "technicalDetails": "Early layers in deep convolutional networks learn generic Gabor-like edge and texture filters, while deeper layers capture task-specific semantics (Zeiler & Fergus, 2014). In transfer learning, freezing early layers prevents catastrophic forgetting of foundational filters. When domain divergence between source and target is high, progressive unfreezing and discriminative layer learning rates (higher $\\eta$ for the head, lower $\\eta$ for earlier layers) yield optimal convergence.",
+    "pros": [
+      "Achieves state-of-the-art accuracy with minimal training data.",
+      "Saves massive amounts of time, electricity, and cloud computing costs."
+    ],
+    "cons": [
+      "The pretrained model might carry unwanted biases from its original dataset.",
+      "If your task is completely different from the source domain (e.g., satellite radar vs ImageNet dogs), transfer benefits shrink."
+    ],
+    "useCases": [
+      "Medical skin cancer classification using a pretrained ResNet.",
+      "Customer sentiment analysis using a pretrained BERT model.",
+      "Detecting defect cracks on manufacturing pipelines."
+    ],
+    "codeSnippet": "# Transfer Learning in PyTorch with torchvision\nimport torchvision.models as models\nimport torch.nn as nn\n\n# 1. Load pretrained ResNet-18\nmodel = models.resnet18(weights=models.ResNet18_Weights.DEFAULT)\n\n# 2. Freeze all backbone layers\nfor param in model.parameters():\n    param.requires_grad = False\n\n# 3. Replace final layer for our 2 classes (e.g. Dog vs Cat)\nin_features = model.fc.in_features\nmodel.fc = nn.Linear(in_features, 2)  # only this layer trains!",
+    "codeExplanation": "We load ResNet-18 with pretrained ImageNet weights, set requires_grad=False to freeze all layers, and replace model.fc with a new 2-class output layer that trains quickly."
+  },
+
+  {
+    "id": "large-language-models",
+    "title": "Large Language Models (LLMs) & Text Generation",
+    "section": "Deep Learning",
+    "category": "Natural Language Processing",
+    "summary": "How modern AI models like ChatGPT and Gemini predict the next word to generate human-like text.",
+    "definition": "A Large Language Model (LLM) is a massive neural network trained on hundreds of billions of words from books, articles, and websites. At its core, it works by predicting the most likely next word (token) in a sentence.",
+    "whyWeNeedIt": "Old software required hardcoded grammar rules that broke on real human speech. LLMs learn grammar, common sense, facts, and reasoning naturally from reading text, allowing them to translate, summarize, write code, and chat.",
+    "realLifeExample": "Think of the autocomplete suggestion bar on your phone's keyboard, but made billions of times smarter. When you type: 'The capital of France is...', your phone suggests 'Paris'. An LLM does this for full essays, computer code, and complex explanations.",
+    "howItWorks": [
+      "1. Tokenization: Break input text into pieces called tokens (words, parts of words, or punctuation marks).",
+      "2. Embeddings: Convert each token into a list of numbers (vector) that captures its meaning.",
+      "3. Self-Attention: The model looks at all words in the sentence together to understand who did what to whom.",
+      "4. Logit Probabilities: The model calculates probability scores for every possible word in its vocabulary (e.g., 50,000 choices).",
+      "5. Sampling: The model picks the winning next token using Temperature controls, appends it to the sentence, and repeats the process."
+    ],
+    "formulas": [
+      {
+        "name": "Softmax Probability with Temperature",
+        "exp": "P(w_i) = \\frac{e^{z_i / T}}{\\sum_{j} e^{z_j / T}}",
+        "explanation": "This formula turns raw model scores (logits z) into word probabilities. Temperature T controls how creative or predictable the answer is.",
+        "symbols": [
+          {
+            "key": "z_i",
+            "desc": "The raw score (logit) calculated for word i."
+          },
+          {
+            "key": "T",
+            "desc": "Temperature: low T (<0.5) = focused and factual; high T (>0.8) = creative and diverse."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Predicting the Next Word with Probabilities",
+      "steps": [
+        "Given the prompt 'I love eating...', the model scores 3 candidate words:",
+        "Word 1: 'pizza' (score z = 2.0)",
+        "Word 2: 'salad' (score z = 1.0)",
+        "Word 3: 'bricks' (score z = -2.0)",
+        "Step 1: Calculate powers: e² ≈ 7.39, e¹ ≈ 2.72, e⁻² ≈ 0.14.",
+        "Step 2: Sum the powers: 7.39 + 2.72 + 0.14 = 10.25.",
+        "Step 3: Probabilities: P(pizza) = 7.39 / 10.25 = 72.1%, P(salad) = 26.5%, P(bricks) = 1.4%.",
+        "Result: The model picks 'pizza' with 72% confidence."
+      ]
+    },
+    "whenToUse": [
+      "Use when building conversational chatbots, customer service assistants, or automated summarizers.",
+      "Use for code generation, text translation, and natural language data extraction."
+    ],
+    "comparison": {
+      "title": "Low Temperature vs High Temperature",
+      "headers": [
+        "Setting",
+        "Low Temperature (e.g. 0.1 - 0.3)",
+        "High Temperature (e.g. 0.8 - 1.0)"
+      ],
+      "rows": [
+        [
+          "Behavior",
+          "Strict, factual, predictable, and focused",
+          "Creative, diverse, surprising, and imaginative"
+        ],
+        [
+          "Word Choice",
+          "Always picks the top probability word",
+          "Samples from wider possibilities"
+        ],
+        [
+          "Best Used For",
+          "Coding, math, medical answers, data extraction",
+          "Creative writing, poetry, brainstorming ideas"
+        ]
+      ]
+    },
+    "technicalDetails": "Modern LLMs are decoder-only Transformers (e.g., GPT, Llama) trained with autoregressive causal language modeling loss: $\\mathcal{L} = -\\sum \\log P(x_t | x_{<t})$. During inference, **KV Caching** stores Key and Value projection matrices from past tokens to eliminate quadratic redundant computation. Models are aligned for safety and instruction-following using Reinforcement Learning from Human Feedback (RLHF) and Direct Preference Optimization (DPO).",
+    "pros": [
+      "Incredible versatility: a single model can write poetry, debug code, and translate 50 languages.",
+      "Zero-shot and few-shot capabilities: can solve tasks by reading prompt instructions without fine-tuning."
+    ],
+    "cons": [
+      "Can 'hallucinate' (confidently invent false facts).",
+      "Expensive to run and host due to large GPU memory (VRAM) requirements."
+    ],
+    "useCases": [
+      "Automated coding assistants and documentation generators.",
+      "Customer support chatbots that answer user questions 24/7.",
+      "Summarizing 50-page legal or financial PDF documents."
+    ],
+    "codeSnippet": "# Using an Open-Source LLM with Hugging Face Transformers\nfrom transformers import pipeline\n\n# 1. Load text generation pipeline with a pretrained model\ngenerator = pipeline('text-generation', model='gpt2')\n\n# 2. Generate text with temperature controls\noutput = generator(\"Machine learning is simple because\", \n                   max_length=30, \n                   temperature=0.7, \n                   num_return_sequences=1)\n\nprint(output[0]['generated_text'])",
+    "codeExplanation": "This Hugging Face pipeline tokenizes your prompt, passes it through the Transformer model, and samples the next tokens one by one up to max_length."
+  },
+
+  {
+    "id": "embeddings-and-vector-search",
+    "title": "Embeddings, Vector Search & RAG",
+    "section": "Deep Learning",
+    "category": "Representations & Retrieval",
+    "summary": "Converting text and documents into lists of numbers to find content by meaning rather than keywords.",
+    "definition": "An Embedding is a list of numbers (a vector) that captures the meaning of a sentence, paragraph, or image. Vector Search compares these lists using geometry to find content with similar meaning, powering RAG (Retrieval-Augmented Generation).",
+    "whyWeNeedIt": "Old search engines search for exact matching keywords. If someone searches for 'automobile repair', a keyword search completely misses articles that say 'car maintenance'. Embeddings understand that 'automobile' and 'car' mean the same thing.",
+    "realLifeExample": "Imagine a giant library where books are organized by topic on a map. Books about airplanes and helicopters sit right next to each other on shelf (10, 42). Books about Italian cooking sit far away at shelf (85, 3). If you ask for 'flying machines', the librarian takes you straight to shelf (10, 42) even if the book title doesn't contain the word 'flying'.",
+    "howItWorks": [
+      "1. Embed Documents: Pass your company documents into an embedding model to turn each paragraph into a vector (e.g., 768 numbers).",
+      "2. Store in Vector DB: Save these vectors in a specialized Vector Database (like Chroma, FAISS, or Pinecone).",
+      "3. Embed User Query: When a user asks a question, pass their question through the same embedding model.",
+      "4. Vector Search: Compute Cosine Similarity to find the documents closest in space to the user's question.",
+      "5. RAG Synthesis: Give those retrieved documents to an LLM as context, and tell it: 'Answer the user's question using ONLY these facts.' This eliminates hallucinations."
+    ],
+    "formulas": [
+      {
+        "name": "Cosine Similarity Formula",
+        "exp": "\\cos(\\theta) = \\frac{\\mathbf{u} \\cdot \\mathbf{v}}{\\|\\mathbf{u}\\| \\|\\mathbf{v}\\|}",
+        "explanation": "This formula measures the angle between two embedding vectors. If they point in the exact same direction, similarity is 1.0 (identical meaning). If they are perpendicular, similarity is 0.0 (unrelated).",
+        "symbols": [
+          {
+            "key": "\\mathbf{u} \\cdot \\mathbf{v}",
+            "desc": "The dot product (multiplying matching numbers and summing)."
+          },
+          {
+            "key": "\\|\\mathbf{u}\\|",
+            "desc": "The length (norm) of vector u."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Measuring Meaning Similarity with Cosine Similarity",
+      "steps": [
+        "A user searches for 'puppy': Vector Q = [1, 0].",
+        "Document 1 is about 'little dog': Vector A = [0.95, 0.1].",
+        "Document 2 is about 'space rocket': Vector B = [0.05, 0.99].",
+        "Step 1: Compute similarity with Doc 1: (1 × 0.95) / (1 × √0.91) ≈ 0.99 (Almost 100% match!).",
+        "Step 2: Compute similarity with Doc 2: (1 × 0.05) / (1 × √0.98) ≈ 0.05 (No match).",
+        "Result: Document 1 is retrieved because its vector points in nearly the exact same direction."
+      ]
+    },
+    "whenToUse": [
+      "Use when building AI search systems that must understand synonyms, concepts, and intent.",
+      "Use in RAG (Retrieval-Augmented Generation) so your LLM answers questions using your private company manuals without making things up."
+    ],
+    "comparison": {
+      "title": "Keyword Search vs Vector Search",
+      "headers": [
+        "Feature",
+        "Keyword Search (BM25 / Full-Text)",
+        "Vector Semantic Search"
+      ],
+      "rows": [
+        [
+          "Matching Style",
+          "Looks for exact word spelling matches",
+          "Looks for semantic conceptual meaning"
+        ],
+        [
+          "Synonym Handling",
+          "Fails unless synonyms are hardcoded",
+          "Naturally understands that 'couch' = 'sofa'"
+        ],
+        [
+          "Typo Tolerance",
+          "Low (unless fuzzy spelling rules are added)",
+          "High (similar spellings stay close in vector space)"
+        ],
+        [
+          "Best Practice",
+          "Combine BOTH in Hybrid Search for the highest accuracy",
+          "Combine BOTH in Hybrid Search for the highest accuracy"
+        ]
+      ]
+    },
+    "technicalDetails": "Embedding models (such as text-embedding-3 or open-source BGE) are trained using contrastive learning losses (e.g., InfoNCE) where matching pairs $(q, d^+)$ are pulled together in unit hyperspheres while non-matching pairs $(q, d^-)$ are pushed apart. In production vector databases, exact k-Nearest Neighbors ($O(N)$) is too slow; systems use **Approximate Nearest Neighbors (ANN)** indexing algorithms like **HNSW** (Hierarchical Navigable Small World graphs) to query millions of vectors in sub-millisecond time.",
+    "pros": [
+      "Allows searching by concept, intent, and meaning across millions of documents.",
+      "Solves the LLM hallucination problem by grounding responses in verified facts."
+    ],
+    "cons": [
+      "Can occasionally miss exact model part numbers (e.g. 'Model-X7B') where exact keyword search shines.",
+      "Requires running text through embedding models, adding a tiny amount of compute."
+    ],
+    "useCases": [
+      "Corporate internal knowledge bases (asking questions over HR manuals and contracts).",
+      "E-commerce product search (searching 'warm clothes for snow' finds winter jackets).",
+      "Duplicate ticket detection in customer support helpdesks."
+    ],
+    "codeSnippet": "# Semantic Search with SentenceTransformers\nfrom sentence_transformers import SentenceTransformer, util\n\n# 1. Load an embedding model\nembedder = SentenceTransformer('all-MiniLM-L6-v2')\n\ndocuments = [\"A quick brown dog jumps over the log.\", \"Python is a great programming language.\"]\nquery = \"A canine leaping over wood.\"\n\n# 2. Convert text to embeddings\ndoc_vectors = embedder.encode(documents)\nquery_vector = embedder.encode(query)\n\n# 3. Find the most similar document\nscores = util.cos_sim(query_vector, doc_vectors)\nprint(f\"Match score with Doc 0 (dog): {scores[0][0]:.3f}\")  # High score!",
+    "codeExplanation": "SentenceTransformer encodes sentences into dense vectors. Notice that even though 'canine' and 'dog' are different words, their vectors have a very high cosine similarity score."
+  },
+
+  {
+    "id": "generative-ai-diffusion",
+    "title": "Generative AI: Diffusion Models & GANs",
+    "section": "Deep Learning",
+    "category": "Generative Architectures",
+    "summary": "How modern AI creates brand new, realistic images and audio by learning to remove noise.",
+    "definition": "Generative AI is a family of deep learning models designed to create brand new content (like images, music, or 3D models). Modern image generators use Diffusion Models, which learn to turn pure random static noise into clear, detailed pictures.",
+    "whyWeNeedIt": "Traditional AI is discriminative: it looks at an image and classifies it ('Is this a cat?'). Generative AI goes one step further: given the text prompt 'a cat on the moon', it creates a brand new, photo-realistic image that never existed before.",
+    "realLifeExample": "Imagine an artist carving a statue from a block of rough marble. At first, the block looks like a shapeless lump of stone (random noise). Step by step, the artist chips away unwanted pieces until a beautiful sculpture appears. Diffusion models do the exact same thing with digital pixels.",
+    "howItWorks": [
+      "1. Forward Process (Adding Noise): Take a clear photo and slowly add random static noise over 1,000 steps until it turns into complete fuzzy static.",
+      "2. Training the Neural Network (U-Net): Train a model to look at a noisy image and guess what noise was added at that exact step.",
+      "3. Reverse Process (Generating New Images): Start with pure random digital static.",
+      "4. Denoising Steps: Tell the model to subtract a little bit of noise at a time over 50 steps.",
+      "5. Conditioning: Feed user text prompts (like 'a red sports car') so the model guides the denoising toward that specific picture."
+    ],
+    "formulas": [
+      {
+        "name": "Diffusion Denoising Objective",
+        "exp": "L(\\theta) = \\mathbb{E}_{t, \\mathbf{x}_0, \\boldsymbol{\\epsilon}} \\left[ \\| \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta(\\mathbf{x}_t, t) \\|^2 \\right]",
+        "explanation": "This formula trains the network to look at a noisy image x_t and predict the exact random noise vector ε that was added to it.",
+        "symbols": [
+          {
+            "key": "\\boldsymbol{\\epsilon}",
+            "desc": "The true random noise added to the image."
+          },
+          {
+            "key": "\\boldsymbol{\\epsilon}_\\theta",
+            "desc": "The noise predicted by the neural network."
+          },
+          {
+            "key": "\\mathbf{x}_t",
+            "desc": "The image at noise time-step t."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Step-by-Step Denoising Concept",
+      "steps": [
+        "Suppose a pixel has noisy value 0.85.",
+        "The model analyzes surrounding context and predicts that 0.30 of that value is random static noise.",
+        "Step 1: Subtract predicted noise: 0.85 − 0.30 = 0.55.",
+        "Result: The pixel becomes clearer and closer to the true image color. Repeating this across all pixels turns static into a crisp picture."
+      ]
+    },
+    "whenToUse": [
+      "Use when generating photo-realistic images, concept art, textures, or video from text prompts.",
+      "Use for image upscaling (super-resolution), image inpainting (removing objects), and audio synthesis."
+    ],
+    "comparison": {
+      "title": "Diffusion Models vs GANs (Generative Adversarial Networks)",
+      "headers": [
+        "Feature",
+        "Diffusion Models (Stable Diffusion, Midjourney)",
+        "GANs (StyleGAN)"
+      ],
+      "rows": [
+        [
+          "Training Stability",
+          "Very stable (standard mean squared error loss)",
+          "Fickle and tricky (generator and discriminator fight)"
+        ],
+        [
+          "Generation Quality",
+          "State-of-the-art detail and diversity",
+          "Fast, but prone to mode collapse (repeating same output)"
+        ],
+        [
+          "Generation Speed",
+          "Slower (requires 20-50 iterative denoising steps)",
+          "Instant (single forward pass through generator)"
+        ]
+      ]
+    },
+    "technicalDetails": "Denoising Diffusion Probabilistic Models (DDPM) define a forward Markov chain $q(\\mathbf{x}_t | \\mathbf{x}_{t-1}) = \\mathcal{N}(\\mathbf{x}_t; \\sqrt{1-\\beta_t}\\mathbf{x}_{t-1}, \\beta_t \\mathbf{I})$. In **Latent Diffusion Models (Stable Diffusion)**, the diffusion process is executed inside a compressed latent space produced by a pre-trained Variational Autoencoder (VAE), reducing computational requirements by $64\\times$. Classifier-Free Guidance (CFG) balances fidelity and prompt adherence by interpolating conditioned and unconditioned noise estimates.",
+    "pros": [
+      "Produces breathtaking, high-resolution visual art and photorealism.",
+      "Extremely stable training compared to older generative techniques."
+    ],
+    "cons": [
+      "Inference takes several seconds because it must run the neural network multiple times.",
+      "Requires substantial GPU memory (VRAM) to generate high-resolution images."
+    ],
+    "useCases": [
+      "AI concept art and marketing illustration generation.",
+      "Photographic super-resolution and removing watermark objects.",
+      "Designing new protein molecules in medicine (AlphaFold-style generative biology)."
+    ],
+    "codeSnippet": "# Running Stable Diffusion with Hugging Face Diffusers\nfrom diffusers import StableDiffusionPipeline\nimport torch\n\n# 1. Load pretrained diffusion pipeline\npipe = StableDiffusionPipeline.from_pretrained(\"runwayml/stable-diffusion-v1-5\", torch_dtype=torch.float16)\npipe = pipe.to(\"cuda\")\n\n# 2. Generate an image from a simple prompt\nprompt = \"A cozy wooden cabin in the snowy mountains at sunset\"\nimage = pipe(prompt).images[0]\nimage.save(\"cabin.png\")",
+    "codeExplanation": "This diffusers script loads Stable Diffusion, sends it to the GPU, starts from random noise, and iteratively denoises it into a high-resolution image matching the prompt."
+  },
+
+  {
+    "id": "vision-transformers",
+    "title": "Vision Transformers (ViT) & Modern Vision",
+    "section": "Deep Learning",
+    "category": "Computer Vision",
+    "summary": "How Transformers process images by cutting pictures into patches like words in a sentence.",
+    "definition": "A Vision Transformer (ViT) is an architecture that applies the Transformer's self-attention mechanism to images. Instead of using sliding filters like a CNN, it cuts an image into a grid of small square patches and processes them just like words in a sentence.",
+    "whyWeNeedIt": "CNNs look at small neighboring pixels at a time and only connect distant parts of an image in deep layers. Vision Transformers can look at the top-left and bottom-right corners of an image simultaneously from the very first layer, capturing global context much better.",
+    "realLifeExample": "Imagine solving a jigsaw puzzle. A CNN looks at the puzzle through a tiny magnifying glass, sliding it slowly across the table. A Vision Transformer dumps all the puzzle pieces on the table, looks at every piece at once, and immediately notices which pieces belong to the sky and which belong to the grass.",
+    "howItWorks": [
+      "1. Patch Extraction: Cut an image (e.g. 224×224 pixels) into a grid of small squares (e.g. 16×16 patches).",
+      "2. Linear Projection: Flatten each patch into a list of numbers (creating visual 'words' or tokens).",
+      "3. Positional Embedding: Add a position number to each patch so the model knows where it was in the original picture.",
+      "4. Transformer Encoder: Pass the sequence of patch tokens through standard multi-head self-attention layers.",
+      "5. Classification Head: Look at a special [CLS] token output to predict what the image contains (e.g., 'Golden Retriever')."
+    ],
+    "formulas": [
+      {
+        "name": "Number of Image Patches Formula",
+        "exp": "N = \\frac{H \\cdot W}{P^2}",
+        "explanation": "This formula tells you how many visual patch tokens are created from an image of height H and width W with patch size P.",
+        "symbols": [
+          {
+            "key": "H, W",
+            "desc": "The height and width of the input image in pixels."
+          },
+          {
+            "key": "P",
+            "desc": "The size of each square patch (commonly P = 16 pixels)."
+          },
+          {
+            "key": "N",
+            "desc": "The total number of image tokens fed into the Transformer."
+          }
+        ]
+      }
+    ],
+    "numericalExample": {
+      "title": "Calculating Image Tokens for Vision Transformer",
+      "steps": [
+        "Suppose you have a 224 × 224 pixel image.",
+        "You use standard 16 × 16 pixel patches.",
+        "Step 1: Calculate total image pixels: 224 × 224 = 50,176 pixels.",
+        "Step 2: Calculate patch area: 16 × 16 = 256 pixels per patch.",
+        "Step 3: Divide: 50,176 / 256 = 196 patches.",
+        "Result: The image is converted into a sequence of 196 tokens (just like a 196-word paragraph!)."
+      ]
+    },
+    "whenToUse": [
+      "Use when you have large image datasets or can use a pretrained checkpoint (e.g. Google ViT, CLIP).",
+      "Use in multimodal AI systems (like GPT-4V or Gemini) where image and text tokens are processed by the same Transformer engine."
+    ],
+    "comparison": {
+      "title": "CNNs vs Vision Transformers (ViT)",
+      "headers": [
+        "Feature",
+        "Convolutional Neural Networks (CNN)",
+        "Vision Transformers (ViT)"
+      ],
+      "rows": [
+        [
+          "Receptive Field",
+          "Local first (slides small 3×3 filters over neighbors)",
+          "Global from layer 1 (every patch attends to every patch)"
+        ],
+        [
+          "Inductive Bias",
+          "High (built-in assumption that nearby pixels are related)",
+          "Low (must learn image geometry from massive training data)"
+        ],
+        [
+          "Performance on Small Data",
+          "Better when training from scratch on small datasets",
+          "Prone to overfitting unless pretrained on large datasets"
+        ],
+        [
+          "Performance on Huge Data",
+          "Plateaus as datasets grow massive",
+          "Continues improving (superior scaling laws)"
+        ]
+      ]
+    },
+    "technicalDetails": "ViT (Dosovitskiy et al., 2020) avoids 2D convolutions by reshaping image $\\mathbf{x} \\in \\mathbb{R}^{H \\times W \\times C}$ into flattened 2D patches $\\mathbf{x}_p \\in \\mathbb{R}^{N \\times (P^2 \\cdot C)}$. A trainable linear projection maps each patch to model dimension $D$. Standard 1D learnable position embeddings are added to preserve spatial coordinates. Because ViTs lack translation equivariance, self-attention complexity scales quadratically with patch count $\\mathcal{O}(N^2)$, prompting architectures like Swin Transformer to introduce shifted local windows.",
+    "pros": [
+      "Superior accuracy when pretrained on large datasets (ImageNet-21k, JFT-300M).",
+      "Unifies vision and language architectures under one single Transformer design."
+    ],
+    "cons": [
+      "Struggles if trained from scratch on small datasets without pretraining.",
+      "High computational cost on high-resolution images."
+    ],
+    "useCases": [
+      "Multimodal AI vision (answering questions about photos in ChatGPT/Gemini).",
+      "Autonomous vehicle road scene understanding.",
+      "Medical MRI and X-ray anomaly detection."
+    ],
+    "codeSnippet": "# Using a Pretrained Vision Transformer with PyTorch and timm\nimport timm\nimport torch\n\n# 1. Load pretrained Vision Transformer (ViT-Base, patch size 16)\nmodel = timm.create_model('vit_base_patch16_224', pretrained=True)\nmodel.eval()\n\n# 2. Pass dummy image tensor (batch=1, channels=3, height=224, width=224)\ndummy_image = torch.randn(1, 3, 224, 224)\noutput_logits = model(dummy_image)\n\nprint(\"Predictions shape:\", output_logits.shape)  # [1, 1000] classes",
+    "codeExplanation": "timm loads a ViT model pretrained on ImageNet. The image is split into 16x16 pixel patches and passed through Transformer self-attention blocks to output 1,000 class probabilities."
   }
 ];
