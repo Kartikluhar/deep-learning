@@ -30,7 +30,13 @@ MLForge.search = (function () {
     'vram': ['gpu memory', 'hardware estimator', 'model footprint', 'fp16', 'int8'],
     'relu': ['rectified linear unit', 'activation function', 'dying relu'],
     'ols': ['ordinary least squares', 'linear regression'],
-    'auc': ['roc', 'area under curve', 'classification metrics']
+    'auc': ['roc', 'area under curve', 'classification metrics'],
+    'dsa': ['data structures', 'algorithms', 'binary search', 'linked list', 'trees', 'dynamic programming'],
+    'dp': ['dynamic programming', 'memoization', 'tabulation', 'knapsack', 'climbing stairs'],
+    'bfs': ['breadth first search', 'queue', 'level order'],
+    'dfs': ['depth first search', 'recursion', 'backtracking'],
+    'bst': ['binary search tree', 'validate bst', 'inorder'],
+    'lru': ['least recently used', 'cache', 'doubly linked list']
   };
 
   function buildIndex() {
@@ -120,6 +126,41 @@ MLForge.search = (function () {
       category: 'Reference',
       link: '#math-verification'
     });
+
+    // 7. DSA Platform: Topics, Problems, and Tools
+    if (window.MLForge && window.MLForge.dsa && window.MLForge.dsa.data) {
+      if (MLForge.dsa.data.topics) {
+        MLForge.dsa.data.topics.forEach(t => {
+          searchIndex.push({
+            id: `dsa-topic-${t.id}`,
+            title: `DSA: ${t.title}`,
+            desc: t.summary || t.definition.slice(0, 100),
+            category: 'DSA Topics',
+            link: `#dsa/topic/${t.id}`
+          });
+        });
+      }
+
+      if (MLForge.dsa.data.problems) {
+        MLForge.dsa.data.problems.forEach(p => {
+          searchIndex.push({
+            id: `dsa-prob-${p.id}`,
+            title: `Problem: ${p.title} (${p.difficulty})`,
+            desc: `${p.pattern} • ${p.statement.slice(0, 85)}...`,
+            category: 'DSA Problems',
+            link: `#dsa/problem/${p.id}`
+          });
+        });
+      }
+
+      searchIndex.push(
+        { id: 'dsa-tool-dashboard', title: 'DSA Dashboard', desc: 'Master Data Structures & Algorithms learning hub and roadmap', category: 'DSA Tools', link: '#dsa/dashboard' },
+        { id: 'dsa-tool-cheatsheet', title: 'Complexity Cheat Sheet', desc: 'Time and space complexity reference for all data structures and algorithms', category: 'DSA Tools', link: '#dsa/complexity-cheat-sheet' },
+        { id: 'dsa-tool-patterns', title: 'DSA Interview Patterns Guide', desc: 'Diagnose problems using 15+ patterns: Two Pointers, Sliding Window, DP, etc.', category: 'DSA Tools', link: '#dsa/interview-practice' },
+        { id: 'dsa-tool-visualizers', title: 'Interactive Algorithm Visualizers', desc: 'Sorting, Binary Search, BST, BFS/DFS graph, and DP table visual animations', category: 'DSA Tools', link: '#dsa/visualizers' },
+        { id: 'dsa-tool-progress', title: 'My DSA Progress', desc: 'Track solved problems, completed syllabus topics, and bookmarks', category: 'DSA Tools', link: '#dsa/progress' }
+      );
+    }
   }
 
   function init() {

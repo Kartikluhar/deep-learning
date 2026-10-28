@@ -56,6 +56,12 @@ MLForge.router = (function () {
       case 'math-verification':
         renderMathVerification();
         break;
+      case 'dsa':
+        if (window.MLForge && window.MLForge.dsa && window.MLForge.dsa.router) {
+          window.MLForge.dsa.router.handleRoute(parts.slice(1));
+          return;
+        }
+        break;
       default:
         renderDashboard();
         break;

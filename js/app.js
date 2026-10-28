@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     MLForge.router.init();
   }
 
+  // 3b. Initialize DSA Module
+  if (MLForge.dsa) {
+    if (MLForge.dsa.router) MLForge.dsa.router.init();
+    if (MLForge.dsa.app) MLForge.dsa.app.init();
+  }
+
   // 4. Bind Global Top-Bar & Sidebar Event Listeners
   const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   if (sidebarCollapseBtn) {
@@ -97,6 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.hash = '#topics';
       } else if (key === 'f') {
         window.location.hash = '#formulas';
+      } else if (key === 'a') {
+        window.location.hash = '#dsa/dashboard';
+      } else if (key === 'b') {
+        window.location.hash = '#dsa/problem-bank';
       }
       lastKey = '';
     } else {

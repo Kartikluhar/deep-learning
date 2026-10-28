@@ -137,6 +137,57 @@ MLForge.ui = (function () {
     const panel = document.getElementById('context-panel');
     if (!panel) return;
     if (!content) {
+      const isDSA = (window.location.hash || '').startsWith('#dsa');
+
+      if (isDSA) {
+        panel.innerHTML = `
+          <div class="context-panel-header">
+            <div class="context-panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              DSA Companion
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-emerald); margin-bottom: 0.5rem;">DSA Shortcuts</div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Omnisearch</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">Ctrl+K</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">DSA Dashboard</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">G A</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Problem Bank</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">G B</kbd></div>
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-cyan); margin-bottom: 0.5rem;">Interview Rules of Thumb</div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
+              <li>• <strong>Constraints $N \le 10^5$:</strong> Target an $O(N)$ or $O(N \log N)$ algorithm. An $O(N^2)$ solution will time out.</li>
+              <li>• <strong>Sorted Input:</strong> Think Binary Search or Two Pointers before allocating extra hash map memory.</li>
+              <li>• <strong>Subarrays:</strong> Think Sliding Window (if values positive) or Prefix Sum + Hash Map (if negatives present).</li>
+            </ul>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-violet); margin-bottom: 0.5rem;">Recent DSA Activity</div>
+            <div id="panel-dsa-recent-list" style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.825rem;">
+              <!-- Populated below -->
+            </div>
+          </div>
+        `;
+
+        const recentListEl = document.getElementById('panel-dsa-recent-list');
+        if (recentListEl && window.MLForge.dsa && window.MLForge.dsa.storage) {
+          const recentProbs = MLForge.dsa.storage.getRecentProblems();
+          if (!recentProbs.length) {
+            recentListEl.innerHTML = `<span style="color: var(--text-muted); font-size: 0.75rem;">No recent problems viewed yet.</span>`;
+          } else {
+            recentListEl.innerHTML = recentProbs.slice(0, 4).map(p => `
+              <a href="#dsa/problem/${p.id}" style="display: flex; align-items: center; justify-content: space-between; padding: 0.35rem 0.5rem; border-radius: 4px; background: var(--bg-badge); color: var(--text-main); text-decoration: none;">
+                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px;">${p.title}</span>
+                <span class="badge ${p.difficulty === 'Easy' ? 'badge-easy' : p.difficulty === 'Medium' ? 'badge-medium' : 'badge-hard'}" style="font-size: 0.6rem;">${p.difficulty}</span>
+              </a>
+            `).join('');
+          }
+        }
+        return;
+      }
+
       // Default shortcuts & tips
       panel.innerHTML = `
         <div class="context-panel-header">
