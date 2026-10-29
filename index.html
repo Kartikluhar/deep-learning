@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/pages.css">
   <link rel="stylesheet" href="css/dsa.css">
+  <link rel="stylesheet" href="css/git.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -122,6 +123,60 @@
             </button>
             <div class="sidebar-accordion-content" id="dsa-topics-subnav">
               <!-- Dynamically populated with all syllabus topics -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Group: Git & GitHub -->
+        <div class="nav-group sidebar-git-section" id="sidebar-git-group">
+          <div class="nav-group-title" style="color: var(--color-accent-violet); display: flex; align-items: center; justify-content: space-between;">
+            <span>Git &amp; GitHub</span>
+            <span class="badge git-badge-purple" style="font-size: 0.6rem;">PRO</span>
+          </div>
+
+          <a href="#git/dashboard" class="nav-item" id="nav-git-dashboard">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg>
+            <span class="nav-item-text">Git Dashboard</span>
+          </a>
+
+          <a href="#git/commands" class="nav-item" id="nav-git-commands">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span class="nav-item-text">Commands Library</span>
+            <span class="nav-item-badge" style="background: var(--color-accent-violet-light); color: var(--color-accent-violet);">40+</span>
+          </a>
+
+          <a href="#git/visualizers" class="nav-item" id="nav-git-visualizers">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span class="nav-item-text">Visual Learning Tools</span>
+            <span class="nav-item-badge">3 Tools</span>
+          </a>
+
+          <a href="#git/practice-lab" class="nav-item" id="nav-git-practice">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="nav-item-text">Practice Lab</span>
+          </a>
+
+          <a href="#git/cheat-sheet" class="nav-item" id="nav-git-cheatsheet">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="nav-item-text">Git Cheat Sheet</span>
+          </a>
+
+          <a href="#git/progress" class="nav-item" id="nav-git-progress">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="nav-item-text">My Progress</span>
+          </a>
+
+          <!-- Collapsible Syllabus Accordion -->
+          <div class="sidebar-collapsible" style="margin-top: 0.25rem;">
+            <button class="sidebar-accordion-trigger" id="git-topics-accordion-btn" type="button">
+              <span style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Git Topics Syllabus</span>
+              </span>
+              <svg class="accordion-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="sidebar-accordion-content sidebar-git-accordion-content" id="git-topics-subnav">
+              <!-- Dynamically populated with all 24 Git topics -->
             </div>
           </div>
         </div>
@@ -283,6 +338,16 @@
   <script src="js/dsa/dsa-visualizers.js?v=1"></script>
   <script src="js/dsa/dsa-router.js?v=1"></script>
   <script src="js/dsa/dsa-app.js?v=1"></script>
+
+  <!-- Git & GitHub Learning Module -->
+  <script src="js/git/git-storage.js?v=1"></script>
+  <script src="js/git/git-data-topics.js?v=1"></script>
+  <script src="js/git/git-data-commands.js?v=1"></script>
+  <script src="js/git/git-data-workflows.js?v=1"></script>
+  <script src="js/git/git-data-practice.js?v=1"></script>
+  <script src="js/git/git-visualizers.js?v=1"></script>
+  <script src="js/git/git-router.js?v=1"></script>
+  <script src="js/git/git-app.js?v=1"></script>
 
   <script src="js/search.js?v=3"></script>
   <script src="js/router.js?v=3"></script>

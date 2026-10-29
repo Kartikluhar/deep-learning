@@ -62,6 +62,12 @@ MLForge.router = (function () {
           return;
         }
         break;
+      case 'git':
+        if (window.MLForge && window.MLForge.git && window.MLForge.git.router) {
+          window.MLForge.git.router.handleRoute(parts.slice(1));
+          return;
+        }
+        break;
       default:
         renderDashboard();
         break;

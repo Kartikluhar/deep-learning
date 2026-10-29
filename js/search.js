@@ -36,7 +36,11 @@ MLForge.search = (function () {
     'bfs': ['breadth first search', 'queue', 'level order'],
     'dfs': ['depth first search', 'recursion', 'backtracking'],
     'bst': ['binary search tree', 'validate bst', 'inorder'],
-    'lru': ['least recently used', 'cache', 'doubly linked list']
+    'lru': ['least recently used', 'cache', 'doubly linked list'],
+    'git': ['version control', 'github', 'commit', 'branch', 'merge', 'pull request', 'repository'],
+    'pr': ['pull request', 'code review', 'github', 'merge'],
+    'rebase': ['rebase', 'squash', 'interactive rebase', 'linear history'],
+    'stash': ['shelve', 'temporary save', 'clean working directory']
   };
 
   function buildIndex() {
@@ -159,6 +163,41 @@ MLForge.search = (function () {
         { id: 'dsa-tool-patterns', title: 'DSA Interview Patterns Guide', desc: 'Diagnose problems using 15+ patterns: Two Pointers, Sliding Window, DP, etc.', category: 'DSA Tools', link: '#dsa/interview-practice' },
         { id: 'dsa-tool-visualizers', title: 'Interactive Algorithm Visualizers', desc: 'Sorting, Binary Search, BST, BFS/DFS graph, and DP table visual animations', category: 'DSA Tools', link: '#dsa/visualizers' },
         { id: 'dsa-tool-progress', title: 'My DSA Progress', desc: 'Track solved problems, completed syllabus topics, and bookmarks', category: 'DSA Tools', link: '#dsa/progress' }
+      );
+    }
+
+    // 8. Git & GitHub Learning Platform: Topics, Commands, and Tools
+    if (window.MLForge && window.MLForge.git && window.MLForge.git.data) {
+      if (MLForge.git.data.topics) {
+        MLForge.git.data.topics.forEach(t => {
+          searchIndex.push({
+            id: `git-topic-${t.id}`,
+            title: `Git: ${t.title}`,
+            desc: t.summary || t.title,
+            category: 'Git & GitHub',
+            link: `#git/topic/${t.id}`
+          });
+        });
+      }
+
+      if (MLForge.git.data.commands) {
+        MLForge.git.data.commands.forEach(c => {
+          searchIndex.push({
+            id: `git-cmd-${c.id}`,
+            title: `Git Command: ${c.name}`,
+            desc: `${c.syntax} — ${c.simpleMeaning}`,
+            category: 'Git Commands',
+            link: `#git/commands`
+          });
+        });
+      }
+
+      searchIndex.push(
+        { id: 'git-tool-dashboard', title: 'Git & GitHub Dashboard', desc: 'Master Git & GitHub workflow guides, branch diagrams, and learning path', category: 'Git Tools', link: '#git/dashboard' },
+        { id: 'git-tool-visualizers', title: 'Git Visualizers & Simulators', desc: '4-Box Lifecycle, Branch DAG graph, and Merge Conflict Simulator', category: 'Git Tools', link: '#git/visualizers' },
+        { id: 'git-tool-lab', title: 'Git Practice Lab', desc: 'Interactive developer scenario challenges and quiz', category: 'Git Tools', link: '#git/practice-lab' },
+        { id: 'git-tool-cheatsheet', title: 'Git Cheat Sheet', desc: 'Fast searchable command reference table', category: 'Git Tools', link: '#git/cheat-sheet' },
+        { id: 'git-tool-progress', title: 'My Git Progress', desc: 'Track completed lessons and bookmarked commands', category: 'Git Tools', link: '#git/progress' }
       );
     }
   }

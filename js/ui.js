@@ -138,6 +138,56 @@ MLForge.ui = (function () {
     if (!panel) return;
     if (!content) {
       const isDSA = (window.location.hash || '').startsWith('#dsa');
+      const isGit = (window.location.hash || '').startsWith('#git');
+
+      if (isGit) {
+        panel.innerHTML = `
+          <div class="context-panel-header">
+            <div class="context-panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg>
+              Git Companion
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-violet); margin-bottom: 0.5rem;">Git Shortcuts</div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Omnisearch</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">Ctrl+K</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Git Dashboard</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">G G</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Git Commands</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">G K</kbd></div>
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-emerald); margin-bottom: 0.5rem;">Golden Rules of Git</div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
+              <li>• <strong>Pull before Push:</strong> Always update local main with <code>git pull --ff-only</code> before creating branches.</li>
+              <li>• <strong>Never Push Secrets:</strong> Ensure <code>.env</code> and API keys are strictly in <code>.gitignore</code> before running <code>git add .</code>.</li>
+              <li>• <strong>Never Rebase Shared History:</strong> Rebase only private local branches before opening a PR.</li>
+            </ul>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-accent-cyan); margin-bottom: 0.5rem;">Recent Git Activity</div>
+            <div id="panel-git-recent-list" style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.825rem;">
+              <!-- Populated below -->
+            </div>
+          </div>
+        `;
+
+        const recentListEl = document.getElementById('panel-git-recent-list');
+        if (recentListEl && window.MLForge.git && window.MLForge.git.storage) {
+          const recentItems = MLForge.git.storage.getRecent();
+          if (!recentItems.length) {
+            recentListEl.innerHTML = `<span style="color: var(--text-muted); font-size: 0.75rem;">No recent Git lessons viewed yet.</span>`;
+          } else {
+            recentListEl.innerHTML = recentItems.slice(0, 4).map(r => `
+              <a href="${r.link}" style="display: flex; align-items: center; justify-content: space-between; padding: 0.35rem 0.5rem; border-radius: 4px; background: var(--bg-badge); color: var(--text-main); text-decoration: none;">
+                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px;">${r.title}</span>
+                <span class="badge git-badge-purple" style="font-size: 0.6rem;">${r.type}</span>
+              </a>
+            `).join('');
+          }
+        }
+        return;
+      }
 
       if (isDSA) {
         panel.innerHTML = `

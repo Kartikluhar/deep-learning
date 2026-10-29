@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (MLForge.dsa.app) MLForge.dsa.app.init();
   }
 
+  // 3c. Initialize Git & GitHub Module
+  if (MLForge.git) {
+    if (MLForge.git.router) MLForge.git.router.init();
+    if (MLForge.git.app) MLForge.git.app.init();
+  }
+
   // 4. Bind Global Top-Bar & Sidebar Event Listeners
   const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   if (sidebarCollapseBtn) {
@@ -107,6 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.hash = '#dsa/dashboard';
       } else if (key === 'b') {
         window.location.hash = '#dsa/problem-bank';
+      } else if (key === 'g') {
+        window.location.hash = '#git/dashboard';
+      } else if (key === 'k') {
+        window.location.hash = '#git/commands';
       }
       lastKey = '';
     } else {
