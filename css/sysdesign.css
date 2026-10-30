@@ -1,0 +1,1043 @@
+/* ==========================================================================
+   MLForge System Design Learning Section Stylesheet
+   Design Tokens, Sidebar Navigation, Dashboards, Diagram Playground,
+   Interactive Simulators, Calculators, Case Studies, and Responsive Layout
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   System Design Color Tokens & Badges
+   -------------------------------------------------------------------------- */
+:root {
+  --color-sysdesign-amber: #f59e0b;
+  --color-sysdesign-amber-light: rgba(245, 158, 11, 0.12);
+  --color-sysdesign-orange: #f97316;
+  --color-sysdesign-orange-light: rgba(249, 115, 22, 0.12);
+  --color-sysdesign-cyan: #06b6d4;
+  --color-sysdesign-blue: #0ea5e9;
+  --color-sysdesign-indigo: #6366f1;
+  --color-sysdesign-emerald: #10b981;
+  --color-sysdesign-rose: #f43f5e;
+}
+
+.badge-sysdesign-amber {
+  background: var(--color-sysdesign-amber-light);
+  color: var(--color-sysdesign-amber);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-sysdesign-orange {
+  background: var(--color-sysdesign-orange-light);
+  color: var(--color-sysdesign-orange);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.badge-beginner {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-intermediate {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-advanced {
+  background: rgba(244, 63, 94, 0.12);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   Sidebar System Design Section & Accordion
+   -------------------------------------------------------------------------- */
+.sidebar-sysdesign-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.sidebar-sysdesign-accordion-content {
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-left: 0.75rem;
+  margin-top: 0.25rem;
+  border-left: 1px dashed rgba(245, 158, 11, 0.3);
+  margin-left: 0.85rem;
+}
+
+.sidebar-sysdesign-accordion-content.expanded {
+  display: flex;
+}
+
+/* --------------------------------------------------------------------------
+   System Design Dashboard & Hero
+   -------------------------------------------------------------------------- */
+.sysdesign-hero {
+  position: relative;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(249, 115, 22, 0.08) 45%, rgba(9, 13, 22, 0.95) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 30px rgba(245, 158, 11, 0.12);
+  overflow: hidden;
+}
+
+.sysdesign-hero::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sysdesign-hero-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.75rem;
+  color: var(--text-main);
+}
+
+.sysdesign-hero-title span {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sysdesign-hero-subtitle {
+  font-size: 1.025rem;
+  color: var(--text-secondary);
+  max-width: 780px;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Dashboard Stats Counter Grid
+   -------------------------------------------------------------------------- */
+.sysdesign-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sysdesign-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.sysdesign-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.sysdesign-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sysdesign-stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+  font-family: var(--font-mono);
+}
+
+.sysdesign-stat-meta {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Continue Learning Banner
+   -------------------------------------------------------------------------- */
+.sysdesign-continue-banner {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, rgba(17, 24, 39, 0.8) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Roadmap Stepper & Learning Path
+   -------------------------------------------------------------------------- */
+.sysdesign-roadmap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.sysdesign-roadmap-step {
+  display: flex;
+  gap: 1.25rem;
+  position: relative;
+}
+
+.sysdesign-roadmap-step::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 17px;
+  bottom: -16px;
+  width: 2px;
+  background: var(--border-subtle);
+}
+
+.sysdesign-roadmap-step:last-child::before {
+  display: none;
+}
+
+.sysdesign-step-indicator {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 2px solid var(--color-sysdesign-amber);
+  color: var(--color-sysdesign-amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.sysdesign-step-indicator.completed {
+  background: var(--color-accent-emerald);
+  border-color: var(--color-accent-emerald);
+  color: #fff;
+}
+
+.sysdesign-step-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  color: inherit;
+}
+
+.sysdesign-step-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateX(4px);
+  background: var(--bg-card-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Case Study & Architecture Cards Grid
+   -------------------------------------------------------------------------- */
+.sysdesign-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.sysdesign-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.sysdesign-card:hover {
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.1);
+  transform: translateY(-3px);
+}
+
+.sysdesign-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.sysdesign-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.sysdesign-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.sysdesign-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Topic Reader Layout
+   -------------------------------------------------------------------------- */
+.topic-reader-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.topic-reader-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.topic-reader-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.topic-reader-summary {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.topic-section-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.75rem;
+}
+
+.topic-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.topic-section-title svg {
+  color: var(--color-sysdesign-amber);
+}
+
+.analogy-box {
+  background: rgba(245, 158, 11, 0.06);
+  border-left: 4px solid var(--color-sysdesign-amber);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1.1rem 1.35rem;
+  margin: 1.25rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.analogy-box strong {
+  color: var(--color-sysdesign-amber);
+}
+
+.diagram-container {
+  background: #060911;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #38bdf8;
+  line-height: 1.45;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.diagram-caption {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-family: var(--font-sans);
+}
+
+/* Comparison Tables */
+.sysdesign-table-wrapper {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.sysdesign-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.sysdesign-table th {
+  background: var(--bg-table-header);
+  color: var(--text-main);
+  padding: 0.85rem 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sysdesign-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.sysdesign-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sysdesign-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Pros and Cons Grid */
+.pros-cons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.pros-card {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.cons-card {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.pros-title {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cons-title {
+  color: #f43f5e;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pros-cons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Calculators & Tools
+   -------------------------------------------------------------------------- */
+.calc-card-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.calc-input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.calc-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.calc-field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.calc-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  transition: border-color var(--transition-fast);
+}
+
+.calc-input:focus {
+  outline: none;
+  border-color: var(--color-sysdesign-amber);
+}
+
+.calc-results-panel {
+  background: #090e1a;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.calc-result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.calc-result-label {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calc-result-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-sysdesign-amber);
+  font-family: var(--font-mono);
+}
+
+.calc-result-note {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Load Balancer Simulator Styles
+   -------------------------------------------------------------------------- */
+.simulator-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.simulator-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.5rem;
+}
+
+.sim-servers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.sim-server-card {
+  background: #090e1a;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.sim-server-card.active {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.sim-server-card.offline {
+  border-color: rgba(244, 63, 94, 0.4);
+  opacity: 0.6;
+}
+
+.sim-server-card.receiving {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  border-color: var(--color-sysdesign-amber);
+}
+
+.sim-server-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sim-server-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.sim-server-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.sim-server-status.offline {
+  background: #f43f5e;
+}
+
+.sim-server-count {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--color-sysdesign-amber);
+}
+
+.sim-traffic-log {
+  background: #050811;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  max-height: 140px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Message Queue Simulator Styles
+   -------------------------------------------------------------------------- */
+.mq-sim-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .mq-sim-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mq-box {
+  background: #080d1a;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mq-queue-track {
+  background: #050811;
+  border: 1px dashed rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-sm);
+  min-height: 180px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+  max-height: 260px;
+}
+
+.mq-message-pill {
+  background: var(--bg-card);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideInDown 200ms ease;
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mq-dlq-box {
+  background: rgba(244, 63, 94, 0.05);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Architecture Diagram Playground
+   -------------------------------------------------------------------------- */
+.playground-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.playground-toolbar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.playground-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.playground-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1rem;
+  min-height: 620px;
+}
+
+@media (max-width: 860px) {
+  .playground-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.playground-palette {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.palette-item-btn {
+  background: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-main);
+  font-size: 0.825rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.palette-item-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--color-sysdesign-amber);
+  color: var(--color-sysdesign-amber);
+  transform: translateX(3px);
+}
+
+.playground-canvas-container {
+  background: #080d18;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.canvas-node {
+  position: absolute;
+  background: #111827;
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.9rem;
+  min-width: 140px;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+  z-index: 10;
+}
+
+.canvas-node:hover {
+  border-color: var(--color-sysdesign-amber);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(245, 158, 11, 0.2);
+}
+
+.canvas-node.selected {
+  border-color: #38bdf8;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.canvas-node-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  flex: 1;
+}
+
+.canvas-node-del {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+}
+
+.canvas-node-del:hover {
+  color: #f43f5e;
+  background: rgba(244, 63, 94, 0.15);
+}
+
+.playground-svg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.playground-empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Interview Question Bank Cards
+   -------------------------------------------------------------------------- */
+.interview-q-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: border-color var(--transition-fast);
+}
+
+.interview-q-card:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.interview-q-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.interview-q-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.interview-q-scratchpad {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  margin-top: 0.75rem;
+  resize: vertical;
+}
+
+.interview-solution-box {
+  background: #090e1a;
+  border-left: 3px solid var(--color-sysdesign-amber);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  display: none;
+}
+
+.interview-solution-box.visible {
+  display: block;
+  animation: fadeIn 250ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   Glossary & Quick Revision Cards
+   -------------------------------------------------------------------------- */
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.glossary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.glossary-card:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+}
+
+.glossary-term {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-sysdesign-amber);
+}
+
+.glossary-def {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.glossary-example {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--bg-badge);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Quizzes Component
+   -------------------------------------------------------------------------- */
+.quiz-option-btn {
+  background: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  color: var(--text-main);
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+}
+
+.quiz-option-btn:hover:not(:disabled) {
+  border-color: var(--color-sysdesign-amber);
+  background: var(--bg-card-hover);
+}
+
+.quiz-option-btn.correct {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+}
+
+.quiz-option-btn.incorrect {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: #f43f5e !important;
+  color: #f43f5e !important;
+}
+

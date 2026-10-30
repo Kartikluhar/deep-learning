@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (MLForge.git.app) MLForge.git.app.init();
   }
 
+  // 3d. Initialize System Design Module
+  if (MLForge.sysdesign) {
+    if (MLForge.sysdesign.router) MLForge.sysdesign.router.init();
+    if (MLForge.sysdesign.app) MLForge.sysdesign.app.init();
+  }
+
   // 4. Bind Global Top-Bar & Sidebar Event Listeners
   const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   if (sidebarCollapseBtn) {

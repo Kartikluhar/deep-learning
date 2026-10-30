@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="css/pages.css">
   <link rel="stylesheet" href="css/dsa.css">
   <link rel="stylesheet" href="css/git.css">
+  <link rel="stylesheet" href="css/sysdesign.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -177,6 +178,94 @@
             </button>
             <div class="sidebar-accordion-content sidebar-git-accordion-content" id="git-topics-subnav">
               <!-- Dynamically populated with all 24 Git topics -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Group: System Design -->
+        <div class="nav-group sidebar-sysdesign-section" id="sidebar-sysdesign-group">
+          <div class="nav-group-title" style="color: var(--color-sysdesign-amber); display: flex; align-items: center; justify-content: space-between;">
+            <span>System Design</span>
+            <span class="badge badge-sysdesign-amber" style="font-size: 0.6rem;">PRO</span>
+          </div>
+
+          <a href="#sysdesign/dashboard" class="nav-item" id="nav-sysdesign-dashboard">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span class="nav-item-text">System Design Dashboard</span>
+          </a>
+
+          <a href="#sysdesign/playground" class="nav-item" id="nav-sysdesign-playground">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span class="nav-item-text">Diagram Playground</span>
+            <span class="nav-item-badge" style="background: var(--color-sysdesign-amber-light); color: var(--color-sysdesign-amber);">Canvas</span>
+          </a>
+
+          <a href="#sysdesign/case-studies" class="nav-item" id="nav-sysdesign-cases">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span class="nav-item-text">Real-World Case Studies</span>
+            <span class="nav-item-badge" style="background: var(--color-sysdesign-orange-light); color: var(--color-sysdesign-orange);">35+</span>
+          </a>
+
+          <a href="#sysdesign/lld" class="nav-item" id="nav-sysdesign-lld">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span class="nav-item-text">Low-Level Design (LLD)</span>
+            <span class="nav-item-badge" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">SOLID</span>
+          </a>
+
+          <a href="#sysdesign/patterns" class="nav-item" id="nav-sysdesign-patterns">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span class="nav-item-text">Design Patterns</span>
+            <span class="nav-item-badge" style="background: var(--color-sysdesign-amber-light); color: var(--color-sysdesign-amber);">20+</span>
+          </a>
+
+          <a href="#sysdesign/calculators" class="nav-item" id="nav-sysdesign-calculators">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/></svg>
+            <span class="nav-item-text">Capacity Calculators</span>
+            <span class="nav-item-badge">3 Tools</span>
+          </a>
+
+          <a href="#sysdesign/simulators" class="nav-item" id="nav-sysdesign-simulators">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span class="nav-item-text">System Simulators</span>
+            <span class="nav-item-badge">2 Tools</span>
+          </a>
+
+          <a href="#sysdesign/interview" class="nav-item" id="nav-sysdesign-interview">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="nav-item-text">Interview Preparation</span>
+          </a>
+
+          <a href="#sysdesign/quizzes" class="nav-item" id="nav-sysdesign-quizzes">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="nav-item-text">Practice Quizzes</span>
+          </a>
+
+          <a href="#sysdesign/roadmap" class="nav-item" id="nav-sysdesign-roadmap">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <span class="nav-item-text">Learning Roadmap</span>
+          </a>
+
+          <a href="#sysdesign/glossary" class="nav-item" id="nav-sysdesign-glossary">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span class="nav-item-text">Glossary &amp; Revision</span>
+          </a>
+
+          <a href="#sysdesign/progress" class="nav-item" id="nav-sysdesign-progress">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="nav-item-text">My Progress</span>
+          </a>
+
+          <!-- Collapsible Syllabus Accordion -->
+          <div class="sidebar-collapsible" style="margin-top: 0.25rem;">
+            <button class="sidebar-accordion-trigger" id="sysdesign-topics-accordion-btn" type="button">
+              <span style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>System Design Syllabus</span>
+              </span>
+              <svg class="accordion-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="sidebar-accordion-content sidebar-sysdesign-accordion-content" id="sysdesign-topics-subnav">
+              <!-- Dynamically populated with all syllabus topics -->
             </div>
           </div>
         </div>
@@ -348,6 +437,21 @@
   <script src="js/git/git-visualizers.js?v=1"></script>
   <script src="js/git/git-router.js?v=1"></script>
   <script src="js/git/git-app.js?v=1"></script>
+
+  <!-- System Design Learning Module -->
+  <script src="js/sysdesign/sysdesign-storage.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-topics.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-patterns.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-lld.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-hld.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-interview.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-quizzes.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-data-glossary.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-calculators.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-simulators.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-playground.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-router.js?v=1"></script>
+  <script src="js/sysdesign/sysdesign-app.js?v=1"></script>
 
   <script src="js/search.js?v=3"></script>
   <script src="js/router.js?v=3"></script>

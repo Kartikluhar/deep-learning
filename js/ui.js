@@ -139,6 +139,57 @@ MLForge.ui = (function () {
     if (!content) {
       const isDSA = (window.location.hash || '').startsWith('#dsa');
       const isGit = (window.location.hash || '').startsWith('#git');
+      const isSysDesign = (window.location.hash || '').startsWith('#sysdesign');
+
+      if (isSysDesign) {
+        panel.innerHTML = `
+          <div class="context-panel-header">
+            <div class="context-panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              System Design Companion
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-sysdesign-amber); margin-bottom: 0.5rem;">System Design Shortcuts</div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Omnisearch</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">Ctrl+K</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">SD Dashboard</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">G S</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Diagram Playground</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">G P</kbd></div>
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: #10b981; margin-bottom: 0.5rem;">Golden Architectural Rules</div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
+              <li>• <strong>Estimate First:</strong> Always calculate Back-of-the-Envelope RPS and Storage before choosing components.</li>
+              <li>• <strong>Design for Failure:</strong> Assume every network link, cache node, and disk will fail at 3 AM.</li>
+              <li>• <strong>Measure Tail Latency:</strong> Monitor p99 and p99.9, never mean or average latency.</li>
+              <li>• <strong>Cache Invalidation:</strong> In Cache-Aside, always update DB then DELETE the cache key.</li>
+            </ul>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: #0ea5e9; margin-bottom: 0.5rem;">Recent System Design Activity</div>
+            <div id="panel-sysdesign-recent-list" style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.825rem;">
+              <!-- Populated below -->
+            </div>
+          </div>
+        `;
+
+        const recentListEl = document.getElementById('panel-sysdesign-recent-list');
+        if (recentListEl && window.MLForge.sysdesign && window.MLForge.sysdesign.storage) {
+          const recentItems = MLForge.sysdesign.storage.getRecentTopics();
+          if (!recentItems.length) {
+            recentListEl.innerHTML = `<span style="color: var(--text-muted); font-size: 0.75rem;">No recent System Design lessons viewed yet.</span>`;
+          } else {
+            recentListEl.innerHTML = recentItems.slice(0, 4).map(r => `
+              <a href="${r.link}" style="display: flex; align-items: center; justify-content: space-between; padding: 0.35rem 0.5rem; border-radius: 4px; background: var(--bg-badge); color: var(--text-main); text-decoration: none;">
+                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px;">${r.title}</span>
+                <span class="badge badge-sysdesign-amber" style="font-size: 0.6rem;">${r.type}</span>
+              </a>
+            `).join('');
+          }
+        }
+        return;
+      }
 
       if (isGit) {
         panel.innerHTML = `

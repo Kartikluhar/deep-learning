@@ -68,6 +68,12 @@ MLForge.router = (function () {
           return;
         }
         break;
+      case 'sysdesign':
+        if (window.MLForge && window.MLForge.sysdesign && window.MLForge.sysdesign.router) {
+          window.MLForge.sysdesign.router.handleRoute(parts.slice(1));
+          return;
+        }
+        break;
       default:
         renderDashboard();
         break;

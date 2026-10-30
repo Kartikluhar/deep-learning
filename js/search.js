@@ -40,7 +40,15 @@ MLForge.search = (function () {
     'git': ['version control', 'github', 'commit', 'branch', 'merge', 'pull request', 'repository'],
     'pr': ['pull request', 'code review', 'github', 'merge'],
     'rebase': ['rebase', 'squash', 'interactive rebase', 'linear history'],
-    'stash': ['shelve', 'temporary save', 'clean working directory']
+    'stash': ['shelve', 'temporary save', 'clean working directory'],
+    'sysdesign': ['system design', 'hld', 'lld', 'architecture', 'scalability', 'distributed systems'],
+    'hld': ['high level design', 'architecture', 'case study', 'system design', 'scalability'],
+    'lld': ['low level design', 'solid', 'oop', 'parking lot', 'elevator', 'design patterns'],
+    'cap': ['cap theorem', 'consistency', 'availability', 'partition tolerance'],
+    'cache': ['caching', 'redis', 'cache aside', 'memcached', 'cdn', 'lru', 'hit ratio'],
+    'kafka': ['message queue', 'event streaming', 'pub sub', 'dead letter queue', 'rabbitmq'],
+    'sharding': ['database sharding', 'partitioning', 'horizontal scaling', 'consistent hashing'],
+    'loadbalancer': ['load balancing', 'reverse proxy', 'nginx', 'round robin', 'least connections']
   };
 
   function buildIndex() {
@@ -198,6 +206,67 @@ MLForge.search = (function () {
         { id: 'git-tool-lab', title: 'Git Practice Lab', desc: 'Interactive developer scenario challenges and quiz', category: 'Git Tools', link: '#git/practice-lab' },
         { id: 'git-tool-cheatsheet', title: 'Git Cheat Sheet', desc: 'Fast searchable command reference table', category: 'Git Tools', link: '#git/cheat-sheet' },
         { id: 'git-tool-progress', title: 'My Git Progress', desc: 'Track completed lessons and bookmarked commands', category: 'Git Tools', link: '#git/progress' }
+      );
+    }
+
+    // 9. System Design Platform: Topics, Case Studies, Patterns, Tools
+    if (window.MLForge && window.MLForge.sysdesign && window.MLForge.sysdesign.data) {
+      if (MLForge.sysdesign.data.topics) {
+        MLForge.sysdesign.data.topics.forEach(t => {
+          searchIndex.push({
+            id: `sd-topic-${t.id}`,
+            title: `System Design: ${t.title}`,
+            desc: t.summary || t.definition.slice(0, 100),
+            category: 'System Design Topics',
+            link: `#sysdesign/topic/${t.id}`
+          });
+        });
+      }
+
+      if (MLForge.sysdesign.data.caseStudies) {
+        MLForge.sysdesign.data.caseStudies.forEach(cs => {
+          searchIndex.push({
+            id: `sd-case-${cs.id}`,
+            title: `Architecture: ${cs.title} (${cs.tier})`,
+            desc: cs.summary,
+            category: 'System Design Case Studies',
+            link: `#sysdesign/case-study/${cs.id}`
+          });
+        });
+      }
+
+      if (MLForge.sysdesign.data.patterns) {
+        MLForge.sysdesign.data.patterns.forEach(p => {
+          searchIndex.push({
+            id: `sd-pat-${p.id}`,
+            title: `Pattern: ${p.name}`,
+            desc: p.problem.slice(0, 90),
+            category: 'System Design Patterns',
+            link: `#sysdesign/patterns`
+          });
+        });
+      }
+
+      if (MLForge.sysdesign.data.glossary) {
+        MLForge.sysdesign.data.glossary.forEach(g => {
+          searchIndex.push({
+            id: `sd-gloss-${g.term}`,
+            title: `Definition: ${g.term}`,
+            desc: g.definition.slice(0, 90),
+            category: 'System Design Glossary',
+            link: g.topicLink || `#sysdesign/glossary`
+          });
+        });
+      }
+
+      searchIndex.push(
+        { id: 'sd-tool-dashboard', title: 'System Design Dashboard', desc: 'System Design learning dashboard and stats', category: 'System Design Tools', link: '#sysdesign/dashboard' },
+        { id: 'sd-tool-playground', title: 'Architecture Diagram Playground', desc: 'Visually construct, connect, and export system designs', category: 'System Design Tools', link: '#sysdesign/playground' },
+        { id: 'sd-tool-calculators', title: 'Capacity Estimation Calculator', desc: 'Estimate RPS, Peak Multiplier, Storage, and Bandwidth', category: 'System Design Tools', link: '#sysdesign/calculators' },
+        { id: 'sd-tool-simulators', title: 'System Simulators (Load Balancer & Message Queue)', desc: 'Interactive L4/L7 load balancing and dead-letter queue simulators', category: 'System Design Tools', link: '#sysdesign/simulators' },
+        { id: 'sd-tool-interview', title: 'System Design Interview Questions', desc: 'Practice question bank with step-by-step solutions', category: 'System Design Tools', link: '#sysdesign/interview' },
+        { id: 'sd-tool-lld', title: 'Low-Level Design (LLD) & SOLID', desc: 'OOP design patterns and runnable case studies', category: 'System Design Tools', link: '#sysdesign/lld' },
+        { id: 'sd-tool-roadmap', title: 'System Design Learning Roadmap', desc: '15-step structured curriculum from fundamentals to scale', category: 'System Design Tools', link: '#sysdesign/roadmap' }
       );
     }
   }
@@ -368,6 +437,7 @@ MLForge.search = (function () {
     if (cat === 'Playgrounds') return 'badge-violet';
     if (cat === 'Formulas') return 'badge-amber';
     if (cat === 'Code Examples') return 'badge-emerald';
+    if (cat && cat.startsWith('System Design')) return 'badge-sysdesign-amber';
     return 'badge-blue';
   }
 
@@ -408,9 +478,17 @@ MLForge.search = (function () {
     }
   }
 
+  function addItem(item) {
+    if (item && item.id) {
+      searchIndex.push(item);
+    }
+  }
+
   return {
     init,
     open,
-    close
+    close,
+    addItem,
+    buildIndex
   };
 })();

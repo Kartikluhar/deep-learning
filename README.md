@@ -78,6 +78,16 @@ Copyable, tested Python templates for:
 - **LocalStorage Persistence**: Bookmarks and recently used calculators stay in your browser.
 - **Fully Responsive**: Adapts seamlessly to wide desktop monitors, laptops, tablets, and mobile phones with collapsible sidebar and mobile drawer.
 
+### 4. System Design Engineering Platform (Zero-to-Scale)
+Complete curriculum and interactive developer workspace for distributed systems and technical interview preparation:
+- **Core Topics Curriculum**: Comprehensive guides on Fundamentals, Networking, API Design, Database Design, Caching, Load Balancing, Scalability, Distributed Systems, Message Queues, Microservices, Storage & CDN, Reliability, Security, and Observability.
+- **Real-World High-Level Design (HLD) Case Studies**: TinyURL, Rate Limiter, WhatsApp Real-Time Chat, YouTube/Netflix Video Streaming Platform, E-commerce, Uber, and more.
+- **Low-Level Design (LLD) & OOP**: SOLID principles, UML diagrams, GoF Design Patterns, and runnable machine coding solutions (Parking Lot, Elevator Management, Splitwise).
+- **Interactive Calculators**: Capacity Estimation (RPS, Storage, Bandwidth, Little's Law), Cache Hit Ratio, and High Availability Downtime calculator.
+- **System Simulators**: Layer 7 Load Balancer simulator with failover and Message Queue simulator with Dead-Letter Queue (DLQ).
+- **Architecture Diagram Playground**: Visual interactive canvas with drag-and-drop nodes, labeled arrow connectors, starter templates, and PNG/JSON export.
+- **Interview Question Bank & Practice Quizzes**: Categorized interview prompts with scratchpads, revealable solutions, and instant-feedback quizzes.
+
 ---
 
 ## 📁 Project Structure
