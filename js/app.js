@@ -39,6 +39,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (MLForge.sysdesign.app) MLForge.sysdesign.app.init();
   }
 
+  // 3e. Initialize SQL Module
+  if (MLForge.sql) {
+    if (MLForge.sql.router) MLForge.sql.router.init();
+    if (MLForge.sql.app) MLForge.sql.app.init();
+  }
+
+  // 3f. Initialize Cloud & DevOps Module
+  if (MLForge.devops) {
+    if (MLForge.devops.router) MLForge.devops.router.init();
+    if (MLForge.devops.app) MLForge.devops.app.init();
+  }
+
   // 4. Bind Global Top-Bar & Sidebar Event Listeners
   const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   if (sidebarCollapseBtn) {

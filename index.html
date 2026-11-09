@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="css/dsa.css">
   <link rel="stylesheet" href="css/git.css">
   <link rel="stylesheet" href="css/sysdesign.css">
+  <link rel="stylesheet" href="css/sql.css">
+  <link rel="stylesheet" href="css/devops.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -270,6 +272,145 @@
           </div>
         </div>
 
+        <!-- Group: SQL Mastery & Databases -->
+        <div class="nav-group sidebar-sql-section" id="sidebar-sql-group">
+          <div class="nav-group-title" style="color: var(--color-sql-primary); display: flex; align-items: center; justify-content: space-between;">
+            <span>SQL &amp; Databases</span>
+            <span class="badge" style="background: var(--color-sql-primary-light); color: var(--color-sql-primary); font-size: 0.6rem;">PRO</span>
+          </div>
+
+          <a href="#sql/dashboard" class="nav-item" id="nav-sql-dashboard">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span class="nav-item-text">SQL Dashboard</span>
+          </a>
+
+          <a href="#sql/playground" class="nav-item" id="nav-sql-playground">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span class="nav-item-text">SQL Playground</span>
+            <span class="nav-item-badge" style="background: var(--color-sql-primary-light); color: var(--color-sql-primary);">Sandbox</span>
+          </a>
+
+          <a href="#sql/practice" class="nav-item" id="nav-sql-practice">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span class="nav-item-text">Practice Problems</span>
+            <span class="nav-item-badge" id="sql-nav-prob-count" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">15+</span>
+          </a>
+
+          <a href="#sql/interview" class="nav-item" id="nav-sql-interview">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="nav-item-text">Interview Preparation</span>
+            <span class="nav-item-badge" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">35+</span>
+          </a>
+
+          <a href="#sql/projects" class="nav-item" id="nav-sql-projects">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span class="nav-item-text">Real-World Projects</span>
+            <span class="nav-item-badge">18</span>
+          </a>
+
+          <a href="#sql/quizzes" class="nav-item" id="nav-sql-quizzes">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span class="nav-item-text">Practice Quizzes</span>
+          </a>
+
+          <a href="#sql/cheatsheet" class="nav-item" id="nav-sql-cheatsheet">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="nav-item-text">SQL Cheatsheet</span>
+          </a>
+
+          <a href="#sql/glossary" class="nav-item" id="nav-sql-glossary">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span class="nav-item-text">Database Glossary</span>
+          </a>
+
+          <a href="#sql/progress" class="nav-item" id="nav-sql-progress">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="nav-item-text">My Progress</span>
+          </a>
+
+          <!-- Collapsible Syllabus Accordion -->
+          <div class="sidebar-collapsible" style="margin-top: 0.25rem;">
+            <button class="sidebar-accordion-trigger" id="sql-topics-accordion-btn" type="button">
+              <span style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>SQL Topics Syllabus</span>
+              </span>
+              <svg class="accordion-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="sidebar-accordion-content sidebar-sql-accordion-content" id="sql-topics-subnav">
+              <!-- Dynamically populated with all syllabus topics -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Group: Cloud Computing & DevOps -->
+        <div class="nav-group sidebar-devops-section" id="sidebar-devops-group">
+          <div class="nav-group-title" style="color: var(--color-devops-primary); display: flex; align-items: center; justify-content: space-between;">
+            <span>Cloud &amp; DevOps</span>
+            <span class="badge badge-devops" style="font-size: 0.6rem;">PRO</span>
+          </div>
+
+          <a href="#devops/dashboard" class="nav-item" id="nav-devops-dashboard">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span class="nav-item-text">Cloud Dashboard</span>
+          </a>
+
+          <a href="#devops/diagrams" class="nav-item" id="nav-devops-diagrams">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            <span class="nav-item-text">Architecture Diagrams</span>
+            <span class="nav-item-badge" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">15</span>
+          </a>
+
+          <a href="#devops/tutorials" class="nav-item" id="nav-devops-tutorials">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span class="nav-item-text">Deployment Tutorials</span>
+            <span class="nav-item-badge" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">12</span>
+          </a>
+
+          <a href="#devops/projects" class="nav-item" id="nav-devops-projects">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span class="nav-item-text">Practical Projects</span>
+            <span class="nav-item-badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">21</span>
+          </a>
+
+          <a href="#devops/calculators" class="nav-item" id="nav-devops-calculators">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/></svg>
+            <span class="nav-item-text">DevOps Calculators</span>
+            <span class="nav-item-badge" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">10</span>
+          </a>
+
+          <a href="#devops/interview" class="nav-item" id="nav-devops-interview">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="nav-item-text">Interview &amp; MCQs</span>
+            <span class="nav-item-badge" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e;">50+</span>
+          </a>
+
+          <a href="#devops/cheatsheets" class="nav-item" id="nav-devops-cheatsheets">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="nav-item-text">Command Cheat Sheets</span>
+            <span class="nav-item-badge" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9;">11</span>
+          </a>
+
+          <a href="#devops/progress" class="nav-item" id="nav-devops-progress">
+            <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="nav-item-text">My Progress</span>
+          </a>
+
+          <!-- Collapsible Syllabus Accordion -->
+          <div class="sidebar-collapsible" style="margin-top: 0.25rem;">
+            <button class="sidebar-accordion-trigger" id="devops-topics-accordion-btn" type="button">
+              <span style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>DevOps Syllabus</span>
+              </span>
+              <svg class="accordion-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="sidebar-accordion-content sidebar-devops-accordion-content" id="devops-topics-subnav">
+              <!-- Dynamically populated with all syllabus topics -->
+            </div>
+          </div>
+        </div>
+
         <!-- Group 2: Knowledge Curriculum -->
         <div class="nav-group">
           <div class="nav-group-title">Knowledge Curriculum</div>
@@ -452,6 +593,32 @@
   <script src="js/sysdesign/sysdesign-playground.js?v=1"></script>
   <script src="js/sysdesign/sysdesign-router.js?v=1"></script>
   <script src="js/sysdesign/sysdesign-app.js?v=1"></script>
+
+  <!-- SQL Mastery & Database Module -->
+  <script src="js/sql/sql-storage.js?v=1"></script>
+  <script src="js/sql/sql-engine.js?v=1"></script>
+  <script src="js/sql/sql-data-topics.js?v=1"></script>
+  <script src="js/sql/sql-data-practice.js?v=1"></script>
+  <script src="js/sql/sql-data-interview.js?v=1"></script>
+  <script src="js/sql/sql-data-projects.js?v=1"></script>
+  <script src="js/sql/sql-data-quizzes.js?v=1"></script>
+  <script src="js/sql/sql-data-cheatsheet.js?v=1"></script>
+  <script src="js/sql/sql-data-glossary.js?v=1"></script>
+  <script src="js/sql/sql-playground.js?v=1"></script>
+  <script src="js/sql/sql-router.js?v=1"></script>
+  <script src="js/sql/sql-app.js?v=1"></script>
+
+  <!-- Cloud Computing & DevOps Module -->
+  <script src="js/devops/devops-storage.js?v=1"></script>
+  <script src="js/devops/devops-data-topics.js?v=1"></script>
+  <script src="js/devops/devops-data-tutorials.js?v=1"></script>
+  <script src="js/devops/devops-data-projects.js?v=1"></script>
+  <script src="js/devops/devops-data-cheatsheets.js?v=1"></script>
+  <script src="js/devops/devops-data-interview.js?v=1"></script>
+  <script src="js/devops/devops-calculators.js?v=1"></script>
+  <script src="js/devops/devops-diagrams.js?v=1"></script>
+  <script src="js/devops/devops-router.js?v=1"></script>
+  <script src="js/devops/devops-app.js?v=1"></script>
 
   <script src="js/search.js?v=3"></script>
   <script src="js/router.js?v=3"></script>

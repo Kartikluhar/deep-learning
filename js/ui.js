@@ -140,6 +140,82 @@ MLForge.ui = (function () {
       const isDSA = (window.location.hash || '').startsWith('#dsa');
       const isGit = (window.location.hash || '').startsWith('#git');
       const isSysDesign = (window.location.hash || '').startsWith('#sysdesign');
+      const isSQL = (window.location.hash || '').startsWith('#sql');
+      const isDevOps = (window.location.hash || '').startsWith('#devops');
+
+      if (isDevOps) {
+        panel.innerHTML = `
+          <div class="context-panel-header">
+            <div class="context-panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              Cloud &amp; DevOps Companion
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-devops-primary, #6366f1); margin-bottom: 0.5rem;">DevOps Quick Tools</div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Omnisearch</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">Ctrl+K</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Diagrams (15)</span> <a href="#devops/diagrams" style="color: #6366f1;">View &rarr;</a></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Tutorials (12)</span> <a href="#devops/tutorials" style="color: #6366f1;">View &rarr;</a></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Projects (21)</span> <a href="#devops/projects" style="color: #6366f1;">View &rarr;</a></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Calculators (10)</span> <a href="#devops/calculators" style="color: #6366f1;">View &rarr;</a></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Cheat Sheets</span> <a href="#devops/cheatsheets" style="color: #6366f1;">View &rarr;</a></div>
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: #10b981; margin-bottom: 0.5rem;">Golden DevOps Principles</div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
+              <li>• <strong>Immutable Infrastructure:</strong> Don't patch live servers in production. Rebuild and redeploy container images.</li>
+              <li>• <strong>Automate Everything:</strong> If you perform a manual task more than twice, write a script or GitHub Actions workflow.</li>
+              <li>• <strong>Design for Failure:</strong> Assume every node, disk, and AZ will fail. Use Multi-AZ and health probes.</li>
+              <li>• <strong>Never Hardcode Secrets:</strong> Use AWS Secrets Manager, GitHub Secrets, or environment variables.</li>
+            </ul>
+          </div>
+        `;
+        return;
+      }
+
+      if (isSQL) {
+        panel.innerHTML = `
+          <div class="context-panel-header">
+            <div class="context-panel-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+              SQL Companion
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: var(--color-sql-primary, #0ea5e9); margin-bottom: 0.5rem;">Quick SQL Shortcuts</div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem;">
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Omnisearch</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">Ctrl+K</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Playground</span> <kbd style="background: var(--bg-badge); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.7rem;">Run: Ctrl+Enter</kbd></div>
+              <div style="display: flex; justify-content: space-between;"><span style="color: var(--text-secondary);">Cheatsheet</span> <a href="#sql/cheatsheet" style="color: #0ea5e9;">View &rarr;</a></div>
+            </div>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: #10b981; margin-bottom: 0.5rem;">Golden Rules of SQL</div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.4;">
+              <li>• <strong>NULL checks:</strong> Always use <code>IS NULL</code>; never <code>= NULL</code>.</li>
+              <li>• <strong>WHERE vs HAVING:</strong> WHERE filters raw rows; HAVING filters grouped aggregates.</li>
+              <li>• <strong>Safe Updates:</strong> Always specify a WHERE clause before executing UPDATE or DELETE.</li>
+              <li>• <strong>Parameterized Queries:</strong> Never concatenate user input directly into SQL strings.</li>
+            </ul>
+          </div>
+          <div class="card" style="padding: 1rem;">
+            <div style="font-size: 0.775rem; font-weight: 700; text-transform: uppercase; color: #38bdf8; margin-bottom: 0.5rem;">Sandbox Tables Loaded</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; font-size: 0.75rem; font-family: var(--font-mono);">
+              <span class="badge" style="background: var(--bg-badge);">employees</span>
+              <span class="badge" style="background: var(--bg-badge);">departments</span>
+              <span class="badge" style="background: var(--bg-badge);">orders</span>
+              <span class="badge" style="background: var(--bg-badge);">order_items</span>
+              <span class="badge" style="background: var(--bg-badge);">customers</span>
+              <span class="badge" style="background: var(--bg-badge);">products</span>
+              <span class="badge" style="background: var(--bg-badge);">students</span>
+              <span class="badge" style="background: var(--bg-badge);">courses</span>
+            </div>
+          </div>
+        `;
+        return;
+      }
 
       if (isSysDesign) {
         panel.innerHTML = `

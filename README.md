@@ -90,6 +90,24 @@ Complete curriculum and interactive developer workspace for distributed systems 
 
 ---
 
+### 5. Cloud Computing & DevOps Platform (Industry Edition)
+Complete, interactive, beginner-friendly learning platform covering cloud infrastructure, containerization, and automated CI/CD:
+- **Cloud Computing Fundamentals**: Virtualization, Type 1 vs 2 Hypervisors, Containers vs VMs, IaaS/PaaS/SaaS/FaaS, Public/Private/Hybrid/Multi-Cloud, High Availability, Elasticity, and Fault Tolerance.
+- **Amazon Web Services (AWS)**: Global Infrastructure (Regions, AZs, Edge Locations), EC2, Auto Scaling Groups, ALB, S3 Storage Classes, Lifecycle Rules, RDS & Aurora, DynamoDB, VPC, Subnets, NAT Gateways, Route 53, IAM Least Privilege, KMS, CloudWatch, and Bedrock.
+- **Docker & Containers**: Docker Engine architecture, complete CLI reference with expected outputs, production Dockerfiles for Python, Django, FastAPI, React, and Node.js, multi-stage builds, and Docker Compose orchestration.
+- **Kubernetes (K8s)**: Control Plane (API Server, etcd, Scheduler, Controller Manager), Worker Nodes (Kubelet, Kube-proxy), Pods, Deployments, Services (ClusterIP, NodePort, LoadBalancer), Ingress, HPA, Probes, and Helm.
+- **Linux & Shell Scripting**: Kernel & Shell, root directory hierarchy, permissions (`chmod 755` vs `600`), processes, systemd services, SSH keys, cron jobs, and production Bash backup scripts.
+- **CI/CD Pipelines**: Automated builds, unit testing, deployment strategies (Rolling, Blue-Green, Canary), Jenkins Declarative Pipelines, and GitHub Actions workflows with secrets management.
+- **Nginx Web Servers**: Reverse proxying, load balancing algorithms, Gzip compression, Let's Encrypt SSL/TLS certificates, rate limiting, and production Django/FastAPI reverse proxy configurations.
+- **12 Real-World Deployment Tutorials**: Step-by-step guides for Django on EC2, FastAPI on EC2, React on Vercel, Docker Compose, GitHub Actions, Jenkins, AWS ECS Fargate, and Kubernetes.
+- **21 Practical Projects**: 5 Beginner, 8 Intermediate, and 8 Advanced projects with complete architecture diagrams, folder structures, configuration files, commands, testing instructions, and resume descriptions.
+- **15 Visual Architecture Diagrams**: Interactive SVG diagrams illustrating VPC networking, Kubernetes nodes, Docker Engine, CI/CD stages, and Nginx reverse proxies.
+- **10 Interactive DevOps Calculators**: AWS Monthly Cost Estimator, Cloud Storage Tiers, EC2 Savings, Docker Host Resources, CIDR & Subnetting, High Availability SLA Downtime, and Uptime Percentage.
+- **50+ Interview Questions & MCQs**: Short answers, detailed explanations, candidate traps, real company troubleshooting scenarios, and interactive multiple-choice tests.
+- **11 Command Cheat Sheets**: Searchable reference tables for Linux, Docker, Docker Compose, Kubernetes, AWS CLI, GitHub Actions, Jenkins, Terraform, Nginx, SSH, and Networking with 1-click copy buttons.
+
+---
+
 ## 📁 Project Structure
 
 ```

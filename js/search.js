@@ -48,7 +48,20 @@ MLForge.search = (function () {
     'cache': ['caching', 'redis', 'cache aside', 'memcached', 'cdn', 'lru', 'hit ratio'],
     'kafka': ['message queue', 'event streaming', 'pub sub', 'dead letter queue', 'rabbitmq'],
     'sharding': ['database sharding', 'partitioning', 'horizontal scaling', 'consistent hashing'],
-    'loadbalancer': ['load balancing', 'reverse proxy', 'nginx', 'round robin', 'least connections']
+    'loadbalancer': ['load balancing', 'reverse proxy', 'nginx', 'round robin', 'least connections'],
+    'sql': ['structured query language', 'database', 'rdbms', 'queries', 'postgres', 'mysql', 'joins', 'indexing', 'transactions'],
+    'joins': ['sql joins', 'inner join', 'left join', 'outer join', 'self join'],
+    'rdbms': ['relational database', 'postgres', 'mysql', 'sqlite', 'database management'],
+    'postgres': ['postgresql', 'jsonb', 'mvcc', 'acid', 'database'],
+    'mysql': ['innodb', 'storage engine', 'myisam', 'database'],
+    'devops': ['cloud', 'aws', 'docker', 'kubernetes', 'k8s', 'cicd', 'jenkins', 'github actions', 'terraform', 'nginx', 'linux', 'devsecops'],
+    'aws': ['amazon web services', 'ec2', 's3', 'lambda', 'rds', 'vpc', 'iam', 'cloudfront', 'route53'],
+    'docker': ['containers', 'dockerfile', 'docker compose', 'images', 'volumes', 'containerization'],
+    'k8s': ['kubernetes', 'pods', 'deployments', 'services', 'ingress', 'helm', 'kubectl'],
+    'kubernetes': ['k8s', 'orchestration', 'pods', 'deployments', 'services', 'kubectl'],
+    'cicd': ['continuous integration', 'continuous delivery', 'pipelines', 'automation', 'jenkins', 'github actions'],
+    'terraform': ['iac', 'infrastructure as code', 'hcl', 'providers', 'modules', 'tfstate'],
+    'nginx': ['reverse proxy', 'web server', 'load balancer', 'ssl', 'proxy_pass']
   };
 
   function buildIndex() {
@@ -267,6 +280,126 @@ MLForge.search = (function () {
         { id: 'sd-tool-interview', title: 'System Design Interview Questions', desc: 'Practice question bank with step-by-step solutions', category: 'System Design Tools', link: '#sysdesign/interview' },
         { id: 'sd-tool-lld', title: 'Low-Level Design (LLD) & SOLID', desc: 'OOP design patterns and runnable case studies', category: 'System Design Tools', link: '#sysdesign/lld' },
         { id: 'sd-tool-roadmap', title: 'System Design Learning Roadmap', desc: '15-step structured curriculum from fundamentals to scale', category: 'System Design Tools', link: '#sysdesign/roadmap' }
+      );
+    }
+
+    // 10. SQL & Databases Platform: Topics, Problems, Interview, Cheatsheet, Tools
+    if (window.MLForge && window.MLForge.sql && window.MLForge.sql.data) {
+      if (MLForge.sql.data.topics) {
+        MLForge.sql.data.topics.forEach(t => {
+          searchIndex.push({
+            id: `sql-topic-${t.id}`,
+            title: `SQL: ${t.title}`,
+            desc: t.summary || t.title,
+            category: 'SQL Topics',
+            link: `#sql/topic/${t.id}`
+          });
+        });
+      }
+
+      if (MLForge.sql.data.problems) {
+        MLForge.sql.data.problems.forEach(p => {
+          searchIndex.push({
+            id: `sql-prob-${p.id}`,
+            title: `SQL: ${p.title} (${p.difficulty})`,
+            desc: p.statement.slice(0, 90),
+            category: 'SQL Practice',
+            link: `#sql/practice`
+          });
+        });
+      }
+
+      if (MLForge.sql.data.interview) {
+        MLForge.sql.data.interview.forEach(q => {
+          searchIndex.push({
+            id: `sql-faq-${q.id}`,
+            title: `Interview: ${q.question}`,
+            desc: q.shortAnswer,
+            category: 'SQL Interview Prep',
+            link: `#sql/interview`
+          });
+        });
+      }
+
+      if (MLForge.sql.data.cheatsheet) {
+        MLForge.sql.data.cheatsheet.forEach(c => {
+          searchIndex.push({
+            id: `sql-cs-${c.id}`,
+            title: `SQL Syntax: ${c.title}`,
+            desc: `${c.syntax} — ${c.description}`,
+            category: 'SQL Cheatsheet',
+            link: `#sql/cheatsheet`
+          });
+        });
+      }
+
+      if (MLForge.sql.data.glossary) {
+        MLForge.sql.data.glossary.forEach(g => {
+          searchIndex.push({
+            id: `sql-gloss-${g.term}`,
+            title: `SQL Term: ${g.term}`,
+            desc: g.definition.slice(0, 90),
+            category: 'SQL Glossary',
+            link: g.topicLink || `#sql/glossary`
+          });
+        });
+      }
+
+      searchIndex.push(
+        { id: 'sql-tool-dashboard', title: 'SQL Mastery Dashboard', desc: 'Curriculum roadmap, progress tracking, and database foundations', category: 'SQL Tools', link: '#sql/dashboard' },
+        { id: 'sql-tool-playground', title: 'Interactive SQL Playground', desc: 'Live in-memory relational SQL execution engine with sample schema inspector', category: 'SQL Tools', link: '#sql/playground' },
+        { id: 'sql-tool-practice', title: 'SQL Practice Problems', desc: 'Solve real-world query problems against the in-memory database with instant checks', category: 'SQL Tools', link: '#sql/practice' },
+        { id: 'sql-tool-projects', title: 'Real-World Database Projects', desc: '18 end-to-end database schemas, ER diagrams, and business queries', category: 'SQL Tools', link: '#sql/projects' },
+        { id: 'sql-tool-quizzes', title: 'Interactive SQL Quizzes', desc: 'Instant feedback quizzes covering joins, window functions, and indexing', category: 'SQL Tools', link: '#sql/quizzes' },
+        { id: 'sql-tool-progress', title: 'My SQL Progress', desc: 'Personal record of completed topics, solved problems, and bookmarks', category: 'SQL Tools', link: '#sql/progress' }
+      );
+    }
+
+    // 11. Cloud Computing & DevOps Platform
+    if (window.MLForge && window.MLForge.devops && window.MLForge.devops.data) {
+      if (MLForge.devops.data.topics) {
+        MLForge.devops.data.topics.forEach(t => {
+          searchIndex.push({
+            id: `devops-topic-${t.id}`,
+            title: `Cloud & DevOps: ${t.title}`,
+            desc: t.summary || t.title,
+            category: 'DevOps Curriculum',
+            link: `#devops/topic/${t.id}`
+          });
+        });
+      }
+
+      if (MLForge.devops.data.tutorials) {
+        MLForge.devops.data.tutorials.forEach(tut => {
+          searchIndex.push({
+            id: `devops-tut-${tut.id}`,
+            title: `Deployment: ${tut.title}`,
+            desc: tut.summary,
+            category: 'DevOps Tutorials',
+            link: `#devops/tutorials`
+          });
+        });
+      }
+
+      if (MLForge.devops.data.projects) {
+        MLForge.devops.data.projects.forEach(p => {
+          searchIndex.push({
+            id: `devops-proj-${p.id}`,
+            title: `Project: ${p.title} (${p.tier})`,
+            desc: p.description,
+            category: 'DevOps Projects',
+            link: `#devops/projects`
+          });
+        });
+      }
+
+      searchIndex.push(
+        { id: 'devops-tool-dashboard', title: 'Cloud & DevOps Dashboard', desc: 'Master Cloud Computing, AWS, Docker, Kubernetes, Linux, and CI/CD', category: 'DevOps Tools', link: '#devops/dashboard' },
+        { id: 'devops-tool-diagrams', title: 'Architecture Diagrams (15)', desc: 'Interactive visual architecture diagrams for Cloud, Docker, K8s, and AWS', category: 'DevOps Tools', link: '#devops/diagrams' },
+        { id: 'devops-tool-calculators', title: 'DevOps & Cloud Calculators (10)', desc: 'Forecast AWS costs, S3 storage tiers, Docker resources, and availability SLAs', category: 'DevOps Tools', link: '#devops/calculators' },
+        { id: 'devops-tool-interview', title: 'DevOps Interview Questions & MCQs', desc: 'Technical questions, scenarios, and multiple-choice practice tests', category: 'DevOps Tools', link: '#devops/interview' },
+        { id: 'devops-tool-cheatsheets', title: 'DevOps Command Cheat Sheets (11)', desc: 'Searchable cheat sheets for Linux, Docker, K8s, AWS CLI, Nginx, Terraform', category: 'DevOps Tools', link: '#devops/cheatsheets' },
+        { id: 'devops-tool-progress', title: 'My DevOps Progress', desc: 'Personal record of completed topics, built projects, and saved bookmarks', category: 'DevOps Tools', link: '#devops/progress' }
       );
     }
   }

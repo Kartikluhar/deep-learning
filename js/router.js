@@ -74,6 +74,18 @@ MLForge.router = (function () {
           return;
         }
         break;
+      case 'sql':
+        if (window.MLForge && window.MLForge.sql && window.MLForge.sql.router) {
+          window.MLForge.sql.router.handleRoute(parts.slice(1));
+          return;
+        }
+        break;
+      case 'devops':
+        if (window.MLForge && window.MLForge.devops && window.MLForge.devops.router) {
+          window.MLForge.devops.router.handleRoute(parts.slice(1));
+          return;
+        }
+        break;
       default:
         renderDashboard();
         break;
@@ -227,6 +239,26 @@ MLForge.router = (function () {
             </div>
           </div>
           <svg id="dash-mini-svg" viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 120px; background: var(--bg-app); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);"></svg>
+        </div>
+      </section>
+
+      <!-- Cloud Computing & DevOps Learning Track Highlight -->
+      <section style="margin-bottom: 2.5rem; background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(129, 140, 248, 0.08) 100%); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span class="badge badge-cyan" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">NEW MAJOR TRACK</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Production-Ready Curriculum</span>
+          </div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.35rem;">Cloud Computing & DevOps Platform</h2>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">Master AWS, Docker, Kubernetes, Linux, CI/CD, Nginx, Terraform, and Observability with 34+ visual topics, 12 production deployment guides, 21 practical projects, and 10 interactive cloud cost calculators.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a href="#devops/dashboard" class="btn btn-primary" style="background: linear-gradient(135deg, #0284c7 0%, #6366f1 100%); border: none;">
+            Explore Cloud & DevOps →
+          </a>
+          <a href="#devops/calculators" class="btn btn-secondary">
+            Cloud Calculators
+          </a>
         </div>
       </section>
 
