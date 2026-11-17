@@ -51,6 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (MLForge.devops.app) MLForge.devops.app.init();
   }
 
+  // 3g. Initialize Data Science & Data Engineering Module
+  if (MLForge.dsde) {
+    if (MLForge.dsde.router) MLForge.dsde.router.init();
+    if (MLForge.dsde.app) MLForge.dsde.app.init();
+  }
+
   // 4. Bind Global Top-Bar & Sidebar Event Listeners
   const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   if (sidebarCollapseBtn) {

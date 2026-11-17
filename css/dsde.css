@@ -1,0 +1,786 @@
+/* ==========================================================================
+   MLForge Data Science & Data Engineering Module Stylesheet
+   Follows MLForge Design System, Typography & Theme Variables
+   ========================================================================== */
+
+:root {
+  --color-dsde-primary: #0d9488;
+  --color-dsde-primary-hover: #0f766e;
+  --color-dsde-primary-light: rgba(13, 148, 136, 0.12);
+  --color-dsde-primary-glow: rgba(13, 148, 136, 0.35);
+
+  --color-dsde-cyan: #06b6d4;
+  --color-dsde-cyan-light: rgba(6, 182, 212, 0.12);
+  --color-dsde-teal: #14b8a6;
+  --color-dsde-teal-light: rgba(20, 184, 166, 0.12);
+  --color-dsde-orange: #f97316;
+  --color-dsde-orange-light: rgba(249, 115, 22, 0.12);
+  --color-dsde-amber: #f59e0b;
+  --color-dsde-amber-light: rgba(245, 158, 11, 0.12);
+  --color-dsde-purple: #8b5cf6;
+  --color-dsde-purple-light: rgba(139, 92, 246, 0.12);
+  --color-dsde-blue: #3b82f6;
+  --color-dsde-blue-light: rgba(59, 130, 246, 0.12);
+
+  --color-dsde-border: rgba(20, 184, 166, 0.25);
+  --color-dsde-border-de: rgba(249, 115, 22, 0.25);
+}
+
+[data-theme="light"] {
+  --color-dsde-primary: #0f766e;
+  --color-dsde-primary-hover: #115e59;
+  --color-dsde-primary-light: rgba(15, 118, 110, 0.1);
+  --color-dsde-primary-glow: rgba(15, 118, 110, 0.2);
+  --color-dsde-border: rgba(15, 118, 110, 0.25);
+  --color-dsde-border-de: rgba(234, 88, 12, 0.25);
+}
+
+/* ==========================================================================
+   1. HERO & LANDING BANNER
+   ========================================================================== */
+.dsde-hero {
+  padding: 2.5rem 2rem;
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.15) 0%, rgba(6, 182, 212, 0.08) 50%, rgba(249, 115, 22, 0.08) 100%);
+  border: 1px solid var(--color-dsde-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dsde-hero::after {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--color-dsde-primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.dsde-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: var(--color-dsde-primary-light);
+  color: var(--color-dsde-teal);
+  border: 1px solid var(--color-dsde-border);
+  border-radius: var(--radius-full);
+  font-size: 0.775rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.dsde-hero-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.dsde-hero-title span.grad-ds {
+  background: linear-gradient(135deg, #14b8a6 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dsde-hero-title span.grad-de {
+  background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dsde-hero-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 840px;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.dsde-hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   2. DUAL LEARNING PATHS CARDS
+   ========================================================================== */
+.dsde-paths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.dsde-path-card {
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+
+.dsde-path-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.dsde-path-card.path-ds {
+  border-color: var(--color-dsde-border);
+  background: linear-gradient(180deg, rgba(13, 148, 136, 0.05) 0%, var(--bg-card) 40%);
+}
+
+.dsde-path-card.path-ds:hover {
+  border-color: var(--color-dsde-teal);
+  box-shadow: 0 10px 25px -5px rgba(20, 184, 166, 0.2);
+}
+
+.dsde-path-card.path-de {
+  border-color: var(--color-dsde-border-de);
+  background: linear-gradient(180deg, rgba(249, 115, 22, 0.05) 0%, var(--bg-card) 40%);
+}
+
+.dsde-path-card.path-de:hover {
+  border-color: var(--color-dsde-orange);
+  box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.2);
+}
+
+.dsde-path-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.dsde-path-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dsde-path-icon.icon-ds {
+  background: var(--color-dsde-teal-light);
+  color: var(--color-dsde-teal);
+  border: 1px solid var(--color-dsde-border);
+}
+
+.dsde-path-icon.icon-de {
+  background: var(--color-dsde-orange-light);
+  color: var(--color-dsde-orange);
+  border: 1px solid var(--color-dsde-border-de);
+}
+
+.dsde-path-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.dsde-path-summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.dsde-path-modules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dsde-path-module-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+}
+
+.dsde-path-module-item svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   3. STATS GRID & METRICS
+   ========================================================================== */
+.dsde-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.dsde-stat-card {
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform var(--transition-fast);
+}
+
+.dsde-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-focus);
+}
+
+.dsde-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dsde-stat-icon.teal { background: var(--color-dsde-teal-light); color: var(--color-dsde-teal); }
+.dsde-stat-icon.orange { background: var(--color-dsde-orange-light); color: var(--color-dsde-orange); }
+.dsde-stat-icon.cyan { background: var(--color-dsde-cyan-light); color: var(--color-dsde-cyan); }
+.dsde-stat-icon.purple { background: var(--color-dsde-purple-light); color: var(--color-dsde-purple); }
+
+.dsde-stat-val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.dsde-stat-lbl {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   4. NAVIGATION TABS & FILTER BAR
+   ========================================================================== */
+.dsde-nav-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.dsde-nav-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dsde-nav-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-card-hover);
+}
+
+.dsde-nav-btn.active {
+  color: #fff;
+  background: var(--color-dsde-primary);
+  border-color: var(--color-dsde-primary);
+}
+
+/* ==========================================================================
+   5. TOPIC CARDS & SYLLABUS LISTING
+   ========================================================================== */
+.dsde-topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.dsde-topic-card {
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.dsde-topic-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-dsde-teal);
+  box-shadow: var(--shadow-md);
+}
+
+.dsde-topic-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.dsde-topic-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+
+.dsde-topic-card-summary {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 0.75rem;
+}
+
+.dsde-topic-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.6rem;
+}
+
+/* ==========================================================================
+   6. TOPIC DETAIL VIEW & CONTENT TYPOGRAPHY
+   ========================================================================== */
+.dsde-topic-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  color: var(--text-main);
+}
+
+.dsde-topic-content h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dsde-topic-content h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.dsde-topic-content p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.dsde-topic-content ul, .dsde-topic-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.dsde-topic-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Callout cards */
+.dsde-card-analogy {
+  padding: 1.2rem;
+  background: rgba(6, 182, 212, 0.08);
+  border-left: 4px solid var(--color-dsde-cyan);
+  border-radius: var(--radius-sm);
+  margin: 1.5rem 0;
+  font-size: 0.925rem;
+  color: var(--text-main);
+}
+
+.dsde-card-warning {
+  padding: 1.2rem;
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 4px solid var(--color-accent-amber);
+  border-radius: var(--radius-sm);
+  margin: 1.5rem 0;
+  font-size: 0.925rem;
+  color: var(--text-main);
+}
+
+.dsde-card-tip {
+  padding: 1.2rem;
+  background: rgba(16, 185, 129, 0.08);
+  border-left: 4px solid var(--color-accent-emerald);
+  border-radius: var(--radius-sm);
+  margin: 1.5rem 0;
+  font-size: 0.925rem;
+  color: var(--text-main);
+}
+
+/* Code & Pre */
+.dsde-code-pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  color: #38bdf8;
+  margin: 1rem 0;
+}
+
+.dsde-output-pre {
+  background: rgba(0, 0, 0, 0.4);
+  border-left: 3px solid #10b981;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  color: #a7f3d0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: 1.25rem;
+}
+
+/* Tables */
+.dsde-table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+}
+
+.dsde-concept-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.dsde-concept-table th {
+  background: var(--bg-table-header);
+  color: var(--text-main);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.dsde-concept-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.dsde-concept-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Interview Q&A Accordion inside topics */
+.dsde-qa-card {
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.dsde-qa-question {
+  padding: 0.9rem 1.25rem;
+  background: var(--bg-card-hover);
+  font-weight: 600;
+  font-size: 0.925rem;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.dsde-qa-answer {
+  padding: 1.1rem 1.25rem;
+  display: none;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+}
+
+.dsde-qa-card.open .dsde-qa-answer {
+  display: block;
+}
+
+/* ==========================================================================
+   7. CALCULATORS & INTERACTIVE TOOLS
+   ========================================================================== */
+.dsde-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.dsde-calc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.dsde-calc-header {
+  margin-bottom: 1.25rem;
+}
+
+.dsde-calc-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.dsde-calc-desc {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.dsde-calc-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.dsde-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dsde-form-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.dsde-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-card);
+  color: var(--text-main);
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: border-color var(--transition-fast);
+}
+
+.dsde-input:focus {
+  outline: none;
+  border-color: var(--color-dsde-teal);
+}
+
+.dsde-calc-result-box {
+  background: var(--bg-app);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.dsde-calc-steps {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.dsde-btn-calc {
+  background: var(--color-dsde-primary);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.dsde-btn-calc:hover {
+  background: var(--color-dsde-primary-hover);
+}
+
+.dsde-btn-reset {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-card);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dsde-btn-reset:hover {
+  color: var(--text-main);
+  background: var(--bg-card-hover);
+}
+
+/* ==========================================================================
+   8. DATA ENGINEERING INTERACTIVE TOOLS & SIMULATORS
+   ========================================================================== */
+.dsde-simulator-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.dsde-pipeline-stage {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-card);
+  background: var(--bg-app);
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.dsde-pipeline-stage.active {
+  border-color: var(--color-dsde-teal);
+  box-shadow: 0 0 15px rgba(20, 184, 166, 0.3);
+}
+
+.dsde-pipeline-stage.done {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.06);
+}
+
+/* ==========================================================================
+   9. SIDEBAR SPECIFIC STYLING
+   ========================================================================== */
+.sidebar-dsde-section .badge-dsde {
+  background: var(--color-dsde-teal-light);
+  color: var(--color-dsde-teal);
+}
+
+.sidebar-dsde-accordion-content {
+  display: none;
+  flex-direction: column;
+  padding-left: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.sidebar-dsde-accordion-content.expanded,
+.sidebar-dsde-accordion-content.open {
+  display: flex;
+}
+
+.sidebar-dsde-sub-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.775rem;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.sidebar-dsde-sub-item:hover {
+  color: var(--text-main);
+  background: var(--bg-card-hover);
+}
+
+.sidebar-dsde-sub-item.active {
+  color: var(--color-dsde-teal);
+  background: var(--color-dsde-primary-light);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   10. CAREER ROADMAP & PROJECTS
+   ========================================================================== */
+.dsde-roadmap-step {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.dsde-roadmap-marker {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-dsde-primary-light);
+  color: var(--color-dsde-teal);
+  border: 2px solid var(--color-dsde-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.dsde-roadmap-line {
+  position: absolute;
+  top: 36px;
+  left: 17px;
+  bottom: -24px;
+  width: 2px;
+  background: var(--border-card);
+}
+
+.dsde-roadmap-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}

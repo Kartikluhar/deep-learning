@@ -86,6 +86,14 @@ MLForge.router = (function () {
           return;
         }
         break;
+      case 'dsde':
+      case 'datascience':
+      case 'dataengineering':
+        if (window.MLForge && window.MLForge.dsde && window.MLForge.dsde.router) {
+          window.MLForge.dsde.router.handleRoute(parts.slice(1));
+          return;
+        }
+        break;
       default:
         renderDashboard();
         break;
@@ -239,6 +247,26 @@ MLForge.router = (function () {
             </div>
           </div>
           <svg id="dash-mini-svg" viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 120px; background: var(--bg-app); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);"></svg>
+        </div>
+      </section>
+
+      <!-- Data Science & Data Engineering Learning Track Highlight -->
+      <section style="margin-bottom: 2rem; background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(249, 115, 22, 0.08) 100%); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span class="badge" style="background: rgba(20, 184, 166, 0.2); color: #14b8a6; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">NEW MAJOR SECTION</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Dual Specialization Tracks</span>
+          </div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.35rem;">Data Science &amp; Data Engineering Platform</h2>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">Master the complete spectrum from exploratory analytics, statistics, Pandas, and ML modeling to production pipelines, Spark, Airflow, Kafka, and Cloud Lakehouses with 23 in-depth topics, 22 interactive tools, and 33 real-world projects.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a href="#dsde/dashboard" class="btn btn-primary" style="background: linear-gradient(135deg, #0d9488 0%, #f97316 100%); border: none;">
+            Explore DS &amp; DE Hub →
+          </a>
+          <a href="#dsde/calculators" class="btn btn-secondary" style="border-color: rgba(20, 184, 166, 0.4); color: #14b8a6;">
+            Interactive Tools (22)
+          </a>
         </div>
       </section>
 

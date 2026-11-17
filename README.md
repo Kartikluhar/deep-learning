@@ -108,6 +108,23 @@ Complete, interactive, beginner-friendly learning platform covering cloud infras
 
 ---
 
+### 6. Data Science & Data Engineering Platform (Complete Professional Hub)
+Dual specialization learning tracks taking students and developers from mathematical foundations to petabyte-scale production data architectures:
+- **Two Complete Learning Paths**: Dedicated Data Science Path (12 curriculum topics) and Data Engineering Path (11 curriculum topics).
+- **Comprehensive Knowledge Modules**:
+  - *Data Science*: Introduction & Lifecycle, Linear Algebra & Calculus, Descriptive & Inferential Statistics, Python for Data Science, NumPy & Pandas Masterclasses, Data Collection & Scraping, Cleaning & Outlier Preprocessing, Exploratory Data Analysis (EDA), Visualization (Matplotlib, Seaborn, Plotly, BI), SQL for Data Science, and Advanced Modeling (PCA, Time-Series, A/B Testing, Causal Inference).
+  - *Data Engineering*: Data Engineering Lifecycle, OLTP vs OLAP, Advanced SQL & B-Tree Indexing, ACID & Transactions, NoSQL Databases (MongoDB, Redis, Cassandra), Batch & Streaming ETL/ELT, Change Data Capture (CDC), Apache Airflow Orchestration, Distributed Big Data with Apache Spark & PySpark, Event Streaming with Apache Kafka, Dimensional Modeling (Star vs Snowflake, SCD Types 1-3), Cloud Architectures (AWS, GCP, Azure), Open Lakehouses (Apache Iceberg, Delta Lake, Medallion Architecture), Data Quality (Great Expectations), and DataOps.
+- **22 Interactive Calculators & Simulators**:
+  - *Data Science*: Mean, Median, Mode, Variance, Standard Deviation, Pearson Correlation (r), Covariance, Probability (Combinations & Permutations), Z-Score, Normal Distribution (CDF/PDF), Percentile, IQR Outlier Bounds, Confidence Interval, and A/B Testing Sample Size Planner.
+  - *Data Engineering*: ETL vs ELT Comparison Tool, Data Size & Transfer Duration Estimator (Bytes to PB), JSON Validator & Formatter, CSV Schema & Null Analyzer, End-to-End Data Pipeline Visualizer, and Star vs Snowflake Schema Visualizer.
+- **15 Data Science Tools Directory**: Jupyter, Google Colab, VS Code, NumPy, Pandas, Matplotlib, Seaborn, Plotly, SciPy, Statsmodels, Scikit-learn, BeautifulSoup, Requests, Streamlit, and Gradio with features, install commands, runnable snippets, and official doc links.
+- **33 Real-World Projects**: 18 Data Science projects and 15 Data Engineering projects across Beginner, Intermediate, and Advanced tiers with complete problem statements, objectives, architecture diagrams, folder structures, code snippets, testing, and cloud deployment guides.
+- **6 Structured Career Roadmaps**: Data Scientist, Data Analyst, Data Engineer, Analytics Engineer, Big Data Engineer, and Cloud Data Engineer with milestones, timelines, skills, salary benchmarks, and interview tips.
+- **Interview Question Bank & Practice Lab**: In-depth Q&A across 13 core categories and multi-tier interactive quiz challenges with instant verification.
+- **Zero Backend Dependencies**: 100% client-side HTML5, CSS3, and Vanilla JavaScript with browser LocalStorage persistence for bookmarks, progress, and completed projects.
+
+---
+
 ## 📁 Project Structure
 
 ```
